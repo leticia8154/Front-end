@@ -1,104 +1,67 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <cabeça>
-    <meta conjunto de caracteres="utf-8"/>
-    <meta nome="janela de visualização"contente="largura=largura-do-dispositivo, escala-inicial=1"/>
-    <título>Sistema de gue</título>
-    <link rel="folha de estilo"href="globals.css"/>
-    <link rel="folha de estilo"href="login.css"/>
-  </cabeça>
-  <corpo>
-    <principal aula="sistema-de"id do modelo de dados="1:5">
-      <seção aula="recipiente"aria-rótulo="Acesso ao sistema">
-        <cabeçalho aula="div">
-          <div aula="imagem-estacia"aria-oculto="verdadeiro"></div>
-          <div aula="cabeçalho">
-            <h1 aula="quebra-texto">Bem-vindo!</h1>
-          </div>
-          <div aula="parágrafo">
-            <p aula="p">Estacionamento inteligente ao seu alcance</p>
-          </div>
-        </cabeçalho>
-        <navegação aula="contêiner-2"aria-rótulo="Opções de acesso">
-          <botão aula="botão"tipo="botão"corrente de aria="página">
-            <imagem
-              aula="ícone"
-              src="https://c.animaapp.com/7Ow71Jko/img/icon.svg"
-              alt=""
-              aria-oculto="verdadeiro"
-            />
-            <extensão aula="text-wrapper-2">Entrar</extensão>
-          </botão>
-          <botão aula="botão-2"tipo="botão">
-            <imagem
-              aula="imagem"
-              src="https://c.animaapp.com/7Ow71Jko/img/icon-1.svg"
-              alt=""
-              aria-oculto="verdadeiro"
-            />
-            <extensão aula="text-wrapper-3">Cadastro</extensão>
-          </botão>
-        </navegação>
-        <forma aula="forma"Ação="#"método="publicar">
-          <div aula="contêiner-3">
-            <rótulo aula="rótulo"para="e-mail">
-              <imagem
-                aula="ícone-2"
-                src="https://c.animaapp.com/7Ow71Jko/img/icon-2.svg"
-                alt=""
-                aria-oculto="verdadeiro"
-              />
-              <extensão aula="text-wrapper-4">E-mail</extensão>
-            </rótulo>
-            <div aula="div-wrapper">
-              <entrada
-                aula="text-wrapper-5"
-                eu ia="e-mail"
-                nome="e-mail"
-                tipo="e-mail"
-                espaço reservado="seu@email.com"
-                preenchimento automático="e-mail"
-                modo de entrada="e-mail"
-                aria-rótulo="E-mail"
-              />
-            </div>
-          </div>
-          <div aula="contêiner-3">
-            <rótulo aula="rótulo"para="senha">
-              <imagem
-                aula="ícone-2"
-                src="https://c.animaapp.com/7Ow71Jko/img/icon-3.svg"
-                alt=""
-                aria-oculto="verdadeiro"
-              />
-              <extensão aula="text-wrapper-4">Senha</extensão>
-            </rótulo>
-            <div aula="div-wrapper">
-              <entrada
-                aula="text-wrapper-5"
-                eu ia="senha"
-                nome="senha"
-                tipo="senha"
-                espaço reservado="••••••••"
-                preenchimento automático="Senha atual"
-                aria-rótulo="Senha"
-              />
-            </div>
-          </div>
-          <div aula="revestimento de botão">
-            <botão aula="botão-3"tipo="botão">
-              <extensão aula="text-wrapper-6">Esqueceu a senha?</extensão>
-            </botão>
-          </div>
-          <botão aula="botão-4"tipo="enviar">
-            <extensão aula="text-wrapper-7">Entrar</extensão>
-          </botão>
-          <div aula="no-tem-conta-row">
-            <p aula="no-tem-uma-conta">Não tem uma conta?</p>
-            <um aula="text-wrapper-8"href="#">Cadastre-se</um>
-          </div>
-        </forma>
-      </seção>
-    </principal>
-  </corpo>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta charset="utf-8" />
+<title>Sistema de Estacionamento</title>
+<link rel="stylesheet" href="globals.css">
+<link rel="stylesheet" href="login.css">
+</head>
+<body>
+<main class="sistema-de" data-model-id="1:5">
+<section class="container" aria-labelledby="titulo-boas-vindas">
+<header class="div">
+<div class="image-estacia" aria-hidden="true"></div>
+<div class="heading">
+<h1 class="text-wrapper" id="titulo-boas-vindas">Bem-vindo!</h1>
+</div>
+<div class="paragraph">
+<p class="p">Estacionamento inteligente ao seu alcance</p>
+</div>
+</header>
+<nav class="container-2" aria-label="Ações de autenticação">
+<button class="button" type="button" aria-current="page">
+<img class="icon" src="https://c.animaapp.com/fHb26KMD/img/icon.svg" alt="" aria-hidden="true" />
+<span class="text-wrapper-2">Entrar</span>
+</button>
+<button class="button-2" type="button">
+<img class="img" src="https://c.animaapp.com/fHb26KMD/img/icon-1.svg" alt="" aria-hidden="true" />
+<span class="text-wrapper-3">Cadastrar</span>
+</button>
+</nav>
+<form class="form" action="#" method="post">
+<div class="container-3">
+<label class="label" for="email">
+<img class="icon-2" src="https://c.animaapp.com/fHb26KMD/img/icon-2.svg" alt="" aria-hidden="true" />
+<span class="text-wrapper-4">E-mail</span>
+</label>
+<div class="div-wrapper">
+<input class="text-wrapper-5" id="email" name="email" type="email" placeholder="seu@email.com" autocomplete="email" inputmode="email" aria-label="E-mail" />
+</div>
+</div>
+<div class="container-3">
+<label class="label" for="senha">
+<img class="icon-2" src="https://c.animaapp.com/fHb26KMD/img/icon-3.svg" alt="" aria-hidden="true" />
+<span class="text-wrapper-4">Senha</span>
+</label>
+<div class="div-wrapper">
+<input class="text-wrapper-5" id="senha" name="senha" type="password" placeholder="••••••••" autocomplete="current-password" aria-label="Senha" />
+</div>
+</div>
+<div class="button-wrapper">
+<button class="button-3" type="button">
+<span class="text-wrapper-6">Esqueceu a senha?</span>
+</button>
+</div>
+<button class="button-4" type="submit">
+<span class="text-wrapper-7">Entrar</span>
+</button>
+<p class="n-o-tem-uma-conta">Não tem uma conta?</p>
+</form>
+<div class="paragraph-2">
+<a class="text-wrapper-8" href="#" aria-label="Cadastre-se">Cadastre-se</a>
+</div>
+</section>
+</main>
+</body>
 </html>
