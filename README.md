@@ -1,6 +1,8 @@
 # Front-end
 
-# ​🚀​ EstacIA
+# 🚀 EstacIA
+
+> 🌐 **Acesse a aplicação rodando ao vivo:** [Clique aqui para abrir o EstacIA](https://leticia8154.github.io/Front-end/)
 
 O EstacIA é uma aplicação web voltada para o gerenciamento inteligente de estacionamentos em shoppings, utilizando tecnologia para otimizar o fluxo de veículos de ponta a ponta. Seu principal objetivo é facilitar a jornada do motorista, permitindo que ele encontre vagas disponíveis rapidamente por meio de navegação integrada e realize o check-in e o pagamento de forma ágil e simplificada.
 
@@ -8,7 +10,7 @@ Este repositório contém a camada de **Front-end** da aplicação, desenvolvida
 
 ---
 
-## ​⛓️​ Tecnologias Utilizadas
+## ⛓️ Tecnologias Utilizadas
 
 O projeto foi construído utilizando as seguintes tecnologias:
 
