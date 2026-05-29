@@ -1,7 +1,3 @@
-/* =======================================================
-   ADAPTAÇÃO DO DROPDOWN PARA COMPATIBILIDADE COM O ANIMA
-   ======================================================= */
-
 /* 1. Faz o container respeitar o fluxo do Anima sem quebrar o layout */
 .dropdown-wrapper {
   position: relative;
