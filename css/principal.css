@@ -1,26 +1,44 @@
-/* Container do Dropdown */
+/* =======================================================
+   ADAPTAÇÃO DO DROPDOWN PARA COMPATIBILIDADE COM O ANIMA
+   ======================================================= */
+
+/* 1. Faz o container respeitar o fluxo do Anima sem quebrar o layout */
 .dropdown-wrapper {
   position: relative;
   width: 100%;
+  display: block;
 }
 
-/* Caixa suspensa da lista (Escondida por padrão) */
+/* 2. Força o botão original do Anima a se comportar bem dentro do wrapper */
+.dropdown-wrapper .button-2 {
+  position: relative !important; 
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  cursor: pointer;
+}
+
+/* 3. A caixinha suspensa modificada para flutuar por cima de tudo */
 .dropdown-content {
   display: none;
   position: absolute;
-  top: 105%;
+  top: 100%;
   left: 0;
   width: 100%;
   background-color: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.12);
   border: 1px solid #e2e8f0;
-  z-index: 10;
+  
+  /* CRITICAL: O z-index alto joga a lista para FRENTE dos cards de Usos/Total/Gasto */
+  z-index: 9999 !important; 
+  
   overflow: hidden;
   padding: 6px 0;
+  margin-top: 4px;
 }
 
-/* Cada item da lista de Shoppings */
+/* 4. Cada item da lista de Shoppings */
 .dropdown-item {
   display: flex;
   align-items: center;
@@ -43,11 +61,11 @@
 /* Destaque azul para a opção selecionada/ativa */
 .dropdown-item.active {
   background-color: #eff6ff;
-  color: #155dfc;
+  color: #155dfc !important; /* Força o azul contra padrões do Anima */
   font-weight: 600;
 }
 
-/* Exibe a caixinha quando o usuário passa o mouse sobre o botão */
+/* Abre a lista suavemente quando passa o mouse no seletor */
 .dropdown-wrapper:hover .dropdown-content {
   display: block;
 }
