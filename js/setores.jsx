@@ -1,19 +1,54 @@
 import React, { useState } from 'react';
+import '../css/setores.css';
 
 export function TelaSetores() {
   const [sectorSelected, setSectorSelected] = useState('A');
 
   const sectors = [
-    { id: 'A', name: 'Setor A', floor: '1º Andar', vagas: 35, total: 50, badgeClass: 'badge-green', occupancy: '30% ocupado' },
-    { id: 'B', name: 'Setor B', floor: '1º Andar', vagas: 8, total: 50, badgeClass: 'badge-red', occupancy: '84% ocupado' },
-    { id: 'C', name: 'Setor C', floor: '2º Andar', vagas: 22, total: 50, badgeClass: 'badge-orange', occupancy: '56% ocupado' },
-    { id: 'D', name: 'Setor D', floor: '1º Andar', vagas: 5, total: 50, badgeClass: 'badge-red', occupancy: '90% ocupado' },
+    { 
+      id: 'A', 
+      name: 'Setor A', 
+      floor: '1º Andar', 
+      vagas: 35, 
+      total: 50, 
+      badgeClass: 'badge-green', 
+      occupancy: '30% ocupado' 
+    },
+    { 
+      id: 'B', 
+      name: 'Setor B', 
+      floor: '1º Andar', 
+      vagas: 8, 
+      total: 50, 
+      badgeClass: 'badge-red', 
+      occupancy: '84% ocupado' 
+    },
+    { 
+      id: 'C', 
+      name: 'Setor C', 
+      floor: '2º Andar', 
+      vagas: 22, 
+      total: 50, 
+      badgeClass: 'badge-orange', 
+      occupancy: '56% ocupado' 
+    },
+    { 
+      id: 'D', 
+      name: 'Setor D', 
+      floor: '1º Andar', 
+      vagas: 5, 
+      total: 50, 
+      badgeClass: 'badge-red', 
+      occupancy: '90% ocupado' 
+    },
   ];
 
   const currentSector = sectors.find(sec => sec.id === sectorSelected);
 
   return (
     <main className="container">
+      
+      {/* Cabeçalho */}
       <header className="header-nav">
         <a href="principal.html" className="btn-back" aria-label="Voltar">‹</a>
         <div className="header-titles">
@@ -22,6 +57,7 @@ export function TelaSetores() {
         </div>
       </header>
 
+      {/* Grid Superior */}
       <section className="sectors-map-card">
         <div className="sectors-grid">
           {sectors.map((sec) => (
@@ -41,14 +77,16 @@ export function TelaSetores() {
           ))}
         </div>
 
+        {/* Legenda Flutuante */}
         <div className="legend-floating-badge">
           <p className="legend-title">Disponibilidade</p>
           <div className="legend-item"><span className="dot dot-green"></span> Alta (&gt;70%)</div>
-          <div className="legend-item"><span class="dot dot-orange"></span> Média (30-70%)</div>
-          <div className="legend-item"><span class="dot dot-red"></span> Baixa (&lt;30%)</div>
+          <div className="legend-item"><span className="dot dot-orange"></span> Média (30-70%)</div>
+          <div className="legend-item"><span className="dot dot-red"></span> Baixa (&lt;30%)</div>
         </div>
       </section>
 
+      {/* Card de Detalhes Dinâmico */}
       {currentSector && (
         <section className="sector-details-card">
           <div className="details-header">
@@ -61,7 +99,11 @@ export function TelaSetores() {
               <p className="vagas-label">vagas livres</p>
             </div>
           </div>
-          <button className="btn-navigate" type="button" onClick={() => alert('Navegação iniciada!')}>
+          <button 
+            className="btn-navigate" 
+            type="button" 
+            onClick={() => alert('Navegação iniciada!')}
+          >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/>
             </svg>
@@ -70,6 +112,7 @@ export function TelaSetores() {
         </section>
       )}
 
+      {/* Lista Inferior */}
       <section className="all-sectors-section">
         <h2 className="all-sectors-title">Todos os Setores</h2>
         <div className="sectors-list">
@@ -96,6 +139,7 @@ export function TelaSetores() {
           ))}
         </div>
       </section>
+
     </main>
   );
 }
