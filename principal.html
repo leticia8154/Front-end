@@ -4,152 +4,346 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
     <title>Painel de Estacionamento - estacIA</title>
-    <link rel="stylesheet" href="css/globals.css">
-    <link rel="stylesheet" href="css/principal.css">
+    
+    <style>
+      /* --- RESET E ESTILOS GLOBAIS --- */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+
+      body {
+        background-color: #1b59f8; /* Fundo Azul */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 16px;
+      }
+
+      /* CONTAINER PRINCIPAL DO CELULAR */
+      .container {
+        background-color: #f6f3eb; /* Fundo Creme do Figma */
+        width: 100%;
+        max-width: 380px;
+        border-radius: 28px;
+        padding: 24px 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        position: relative;
+      }
+
+      /* BOTÃO SAIR */
+      .button {
+        align-self: flex-end;
+        display: inline-flex;
+        text-decoration: none;
+      }
+      .button img {
+        width: 28px;
+        height: 28px;
+      }
+
+      /* HEADER E SAUDAÇÃO */
+      .heading .text-wrapper {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #1c1c1e;
+      }
+      .paragraph .text-wrapper-2 {
+        font-size: 0.85rem;
+        color: #6e6e73;
+        margin-top: 2px;
+      }
+
+      /* SEÇÃO SHOPPING E DROPDOWN */
+      .div-3 {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .text-wrapper-3 {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #8e8e93;
+        text-transform: uppercase;
+      }
+      .dropdown-wrapper {
+        position: relative;
+        width: 100%;
+      }
+      .button-2 {
+        width: 100%;
+        background-color: #ffffff;
+        border: 1px solid #e5e5ea;
+        border-radius: 14px;
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+      }
+      .div-4 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .text-wrapper-4 {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: #1c1c1e;
+      }
+      
+      /* DROPDOWN OCULTO POR PADRÃO (Flutuante) */
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        top: 105%;
+        left: 0;
+        width: 100%;
+        background-color: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        border: 1px solid #e5e5ea;
+        z-index: 999;
+        overflow: hidden;
+        padding: 6px 0;
+      }
+      .dropdown-wrapper:hover .dropdown-content {
+        display: block; /* Abre no hover */
+      }
+      .dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 16px;
+        color: #4b5563;
+        text-decoration: none;
+        font-size: 0.85rem;
+      }
+      .dropdown-item:hover, .dropdown-item.active {
+        background-color: #eff6ff;
+        color: #1b59f8;
+        font-weight: 600;
+      }
+
+      /* CARDS DE RESUMO (USOS, TOTAL, GASTO) */
+      .div-5 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+      .div-6, .div-7, .div-8 {
+        background-color: #ffffff;
+        border-radius: 16px;
+        padding: 12px 6px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      }
+      .div-6 img, .div-7 img, .div-8 img {
+        width: 22px;
+        height: 22px;
+        margin-bottom: 4px;
+      }
+      .text-wrapper-5, .text-wrapper-7 {
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: #1c1c1e;
+      }
+      .text-wrapper-6 {
+        font-size: 0.7rem;
+        color: #8e8e93;
+      }
+
+      /* BOTÃO BUSCAR VAGA */
+      .button-3 {
+        width: 100%;
+        background-color: #1b59f8;
+        color: #ffffff;
+        border: none;
+        border-radius: 14px;
+        padding: 14px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(27, 89, 248, 0.3);
+      }
+
+      /* ESTACIONAMENTOS RECENTES */
+      .div-10 {
+        margin-top: 6px;
+      }
+      .text-wrapper-13 {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #1c1c1e;
+        margin-bottom: 10px;
+      }
+      .div-11 {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .div-12 {
+        background-color: #ffffff;
+        border-radius: 14px;
+        padding: 12px 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .div-13, .div-15 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .div-13 img, .div-15 img {
+        width: 24px;
+        height: 24px;
+      }
+      .p, .text-wrapper-16 {
+        font-weight: 600;
+        font-size: 0.85rem;
+        color: #1c1c1e;
+      }
+      .text-wrapper-14, .text-wrapper-17 {
+        font-size: 0.7rem;
+        color: #8e8e93;
+      }
+      .text-wrapper-15, .text-wrapper-18 {
+        font-weight: 700;
+        font-size: 0.85rem;
+        color: #1b59f8;
+      }
+    </style>
   </head>
   <body>
-    <main class="container" data-model-id="60:771">
+    <main class="container">
       
       <!-- Botão Sair -->
-      <a href="index.html" class="button" aria-label="Sair e voltar para o login">
+      <a href="index.html" class="button" aria-label="Sair">
         <img src="https://c.animaapp.com/YpraINo5/img/button.svg" alt="Sair" />
       </a>
 
       <!-- Saudação -->
-      <section class="div" aria-labelledby="saudacao-titulo">
+      <section class="div">
         <header class="container-wrapper">
           <div class="div-2">
             <div class="heading">
-              <h1 class="text-wrapper" id="saudacao-titulo">Olá, Letícia! 👋</h1>
+              <h1 class="text-wrapper">Olá, Letícia! 👋</h1>
             </div>
             <div class="paragraph">
               <p class="text-wrapper-2">silvaleticia0008@gmail.com</p>
             </div>
           </div>
         </header>
-
-        <!-- Dropdown Shopping Atual -->
-        <section class="div-3" aria-labelledby="shopping-atual-label">
-          <div class="label">
-            <p class="text-wrapper-3" id="shopping-atual-label">Shopping Atual</p>
-          </div>
-          
-          <div class="dropdown-wrapper">
-            <button class="button-2" type="button" aria-label="Selecionar shopping atual">
-              <div class="div-4">
-                <img class="icon" src="https://c.animaapp.com/YpraINo5/img/icon.svg" alt="" />
-                <div class="text">
-                  <span class="text-wrapper-4">Brasilia Shopping</span>
-                </div>
-              </div>
-              <img class="img" src="https://c.animaapp.com/YpraINo5/img/icon-1.svg" alt="" />
-            </button>
-
-            <div class="dropdown-content">
-              <a href="#" class="dropdown-item active">
-                <img class="icon" src="https://c.animaapp.com/YpraINo5/img/icon.svg" alt="" />
-                Shopping Center - Bloco A
-              </a>
-              <a href="#" class="dropdown-item">
-                <img class="icon" src="https://c.animaapp.com/YpraINo5/img/icon.svg" alt="" />
-                Shopping Center - Bloco B
-              </a>
-              <a href="#" class="dropdown-item">
-                <img class="icon" src="https://c.animaapp.com/YpraINo5/img/icon.svg" alt="" />
-                Shopping Norte
-              </a>
-              <a href="#" class="dropdown-item">
-                <img class="icon" src="https://c.animaapp.com/YpraINo5/img/icon.svg" alt="" />
-                Shopping Sul
-              </a>
-              <a href="#" class="dropdown-item">
-                <img class="icon" src="https://c.animaapp.com/YpraINo5/img/icon.svg" alt="" />
-                Mega Center
-              </a>
-            </div>
-          </div>
-        </section>
-
-        <!-- Cards de Métrica (Usos, Total, Gasto) -->
-        <section class="div-5" aria-label="Resumo de uso">
-          <article class="div-6" aria-label="Usos">
-            <img class="icon-2" src="https://c.animaapp.com/YpraINo5/img/icon-2.svg" alt="" />
-            <div class="div-wrapper">
-              <p class="text-wrapper-5">12</p>
-            </div>
-            <div class="paragraph-2">
-              <p class="text-wrapper-6">Usos</p>
-            </div>
-          </article>
-
-          <article class="div-7" aria-label="Tempo total">
-            <img class="icon-3" src="https://c.animaapp.com/YpraINo5/img/icon-3.svg" alt="" />
-            <div class="paragraph-3">
-              <p class="text-wrapper-7">24h</p>
-            </div>
-            <div class="paragraph-4">
-              <p class="text-wrapper-6">Total</p>
-            </div>
-          </article>
-
-          <article class="div-8" aria-label="Gasto total">
-            <img class="icon-4" src="https://c.animaapp.com/YpraINo5/img/icon-4.svg" alt="" />
-            <div class="paragraph-5">
-              <p class="text-wrapper-7">R$ 180</p>
-            </div>
-            <div class="paragraph-6">
-              <p class="text-wrapper-6">Gasto</p>
-            </div>
-          </article>
-        </section>
-
-        <!-- Botão Buscar Vaga -->
-        <button class="button-3" type="button" aria-label="Buscar vaga disponível">
-          <img class="icon-5" src="https://c.animaapp.com/YpraINo5/img/icon-5.svg" alt="" />
-          <span class="text-wrapper-8">Buscar Vaga Disponível</span>
-        </button>
       </section>
 
-      <!-- Estacionamentos Recentes -->
-      <section class="div-10" aria-labelledby="recentes-titulo">
-        <div class="heading-3">
-          <h2 class="text-wrapper-13" id="recentes-titulo">Estacionamentos Recentes</h2>
+      <!-- Dropdown Shopping Atual -->
+      <section class="div-3">
+        <span class="text-wrapper-3">Shopping Atual</span>
+        
+        <div class="dropdown-wrapper">
+          <button class="button-2" type="button">
+            <div class="div-4">
+              <img class="icon" src="https://c.animaapp.com/YpraINo5/img/icon.svg" alt="" />
+              <span class="text-wrapper-4">Brasilia Shopping</span>
+            </div>
+            <img class="img" src="https://c.animaapp.com/YpraINo5/img/icon-1.svg" alt="" />
+          </button>
+
+          <div class="dropdown-content">
+            <a href="#" class="dropdown-item active">Shopping Center - Bloco A</a>
+            <a href="#" class="dropdown-item">Shopping Center - Bloco B</a>
+            <a href="#" class="dropdown-item">Shopping Norte</a>
+            <a href="#" class="dropdown-item">Shopping Sul</a>
+            <a href="#" class="dropdown-item">Mega Center</a>
+          </div>
         </div>
+      </section>
+
+      <!-- Cards de Métricas -->
+      <section class="div-5">
+        <article class="div-6">
+          <img src="https://c.animaapp.com/YpraINo5/img/icon-2.svg" alt="" />
+          <span class="text-wrapper-5">12</span>
+          <span class="text-wrapper-6">Usos</span>
+        </article>
+
+        <article class="div-7">
+          <img src="https://c.animaapp.com/YpraINo5/img/icon-3.svg" alt="" />
+          <span class="text-wrapper-7">24h</span>
+          <span class="text-wrapper-6">Total</span>
+        </article>
+
+        <article class="div-8">
+          <img src="https://c.animaapp.com/YpraINo5/img/icon-4.svg" alt="" />
+          <span class="text-wrapper-7">R$ 180</span>
+          <span class="text-wrapper-6">Gasto</span>
+        </article>
+      </section>
+
+      <!-- Botão Buscar Vaga -->
+      <button class="button-3" type="button">
+        <img src="https://c.animaapp.com/YpraINo5/img/icon-5.svg" alt="" />
+        <span>Buscar Vaga Disponível</span>
+      </button>
+
+      <!-- Estacionamentos Recentes -->
+      <section class="div-10">
+        <h2 class="text-wrapper-13">Estacionamentos Recentes</h2>
 
         <div class="div-11">
-          <article class="div-12" aria-label="Estacionamento recente Setor A2 Vaga 145">
+          <article class="div-12">
             <div class="div-13">
-              <img class="img-2" src="https://c.animaapp.com/YpraINo5/img/container-2.svg" alt="" />
-              <div class="div-14">
-                <div class="paragraph-8">
-                  <p class="p">Setor A2 - Vaga 145</p>
-                </div>
+              <img src="https://c.animaapp.com/YpraINo5/img/container-2.svg" alt="" />
+              <div>
+                <p class="p">Setor A2 - Vaga 145</p>
                 <p class="text-wrapper-14">05/04/2026 • 3h 20min</p>
               </div>
             </div>
-            <div class="paragraph-10">
-              <p class="text-wrapper-15">R$ 18,00</p>
-            </div>
+            <span class="text-wrapper-15">R$ 18,00</span>
           </article>
 
-          <article class="div-12" aria-label="Estacionamento recente Setor B1 Vaga 089">
+          <article class="div-12">
             <div class="div-15">
-              <img class="img-2" src="https://c.animaapp.com/YpraINo5/img/container-2.svg" alt="" />
-              <div class="paragraph-wrapper">
-                <div class="paragraph-11">
-                  <p class="text-wrapper-16">Setor B1 - Vaga 089</p>
-                </div>
+              <img src="https://c.animaapp.com/YpraINo5/img/container-2.svg" alt="" />
+              <div>
+                <p class="text-wrapper-16">Setor B1 - Vaga 089</p>
                 <p class="text-wrapper-17">02/04/2026 • 1h 45min</p>
               </div>
             </div>
-            <p class="text-wrapper-18">R$ 12,00</p>
+            <span class="text-wrapper-18">R$ 12,00</span>
           </article>
         </div>
       </section>
 
     </main>
 
-    <!-- Script de interatividade (para React ou JS nativo) -->
-    <script src="js/principal.jsx"></script>
+    <!-- Script rápido de clique para Celular/Touch -->
+    <script>
+      const btn = document.querySelector('.button-2');
+      const menu = document.querySelector('.dropdown-content');
+
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+      });
+
+      document.addEventListener('click', () => {
+        menu.style.display = 'none';
+      });
+    </script>
   </body>
 </html>
