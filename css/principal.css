@@ -1,67 +1,39 @@
-/* 1. Faz o container respeitar o fluxo do Anima sem quebrar o layout */
-.dropdown-wrapper {
-  position: relative;
-  width: 100%;
-  display: block;
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #f6f3eb;
+  padding: 24px 20px;
+  border-radius: 28px;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
-/* 2. Força o botão original do Anima a se comportar bem dentro do wrapper */
-.dropdown-wrapper .button-2 {
-  position: relative !important; 
-  top: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
+/* Espaçamento ajustado do resumo e botão de buscar */
+.div-5 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.button-3 {
+  width: 100%;
+  margin-top: 16px;
+  padding: 14px;
+  background-color: #1b59f8;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   cursor: pointer;
 }
 
-/* 3. A caixinha suspensa modificada para flutuar por cima de tudo */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.12);
-  border: 1px solid #e2e8f0;
-  
-  /* CRITICAL: O z-index alto joga a lista para FRENTE dos cards de Usos/Total/Gasto */
-  z-index: 9999 !important; 
-  
-  overflow: hidden;
-  padding: 6px 0;
-  margin-top: 4px;
-}
-
-/* 4. Cada item da lista de Shoppings */
-.dropdown-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
-  color: #4b5563;
-  text-decoration: none;
-  font-family: "Inter", Helvetica, sans-serif;
-  font-size: 15px;
-  font-weight: 500;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-/* Efeito ao passar o mouse nas opções */
-.dropdown-item:hover {
-  background-color: #f1f5f9;
-  color: #1d293d;
-}
-
-/* Destaque azul para a opção selecionada/ativa */
-.dropdown-item.active {
-  background-color: #eff6ff;
-  color: #155dfc !important; /* Força o azul contra padrões do Anima */
-  font-weight: 600;
-}
-
-/* Abre a lista suavemente quando passa o mouse no seletor */
-.dropdown-wrapper:hover .dropdown-content {
-  display: block;
+/* Lista de Recentes diretamente abaixo do botão */
+.div-10 {
+  margin-top: 10px;
 }
