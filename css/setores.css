@@ -15,7 +15,7 @@ body {
   padding: 16px;
 }
 
-/* CONTAINER PRINCIPAL (Simula celular) */
+/* CONTAINER PRINCIPAL */
 .container {
   background-color: #eaf1fb;
   width: 100%;
@@ -29,7 +29,7 @@ body {
   position: relative;
 }
 
-/* HEADER SUPERIOR */
+/* HEADER */
 .header-nav {
   display: flex;
   align-items: center;
@@ -114,12 +114,12 @@ body {
   font-weight: 700;
 }
 
-/* CORES DOS BADGES */
+/* BADGES DE CORES */
 .badge-green { background-color: #e6f7ed; color: #10b981; }
 .badge-red { background-color: #fee2e2; color: #ef4444; }
 .badge-orange { background-color: #fef3c7; color: #f59e0b; }
 
-/* ESTADO SELECIONADO NO GRID (Fica escuro igual o mockup) */
+/* ESTADO SELECIONADO NO GRID (PRETO) */
 .sector-box.selected {
   background-color: #111827;
   border-color: #111827;
@@ -320,7 +320,7 @@ body {
   margin-top: 2px;
 }
 
-/* ESTADO SELECIONADO NA LISTA */
+/* SELEÇÃO NA LISTA INFERIOR */
 .list-item-sector.selected {
   border-color: #1b59f8;
   background-color: #f0f5ff;

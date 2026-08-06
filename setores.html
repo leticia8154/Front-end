@@ -10,7 +10,7 @@
 
     <main class="container">
       
-      <!-- Cabeçalho de Navegação -->
+      <!-- Cabeçalho -->
       <header class="header-nav">
         <a href="principal.html" class="btn-back" aria-label="Voltar">‹</a>
         <div class="header-titles">
@@ -19,55 +19,44 @@
         </div>
       </header>
 
-      <!-- Mapa de Mapeamento dos Setores (Grid de Cards) -->
+      <!-- Grid Superior -->
       <section class="sectors-map-card">
         <div class="sectors-grid">
-          
           <div class="sector-box selected" data-sector="A">
-            <div class="sector-box-header">
-              <span class="sector-box-title">Setor A</span>
-            </div>
+            <div class="sector-box-header"><span class="sector-box-title">Setor A</span></div>
             <span class="sector-box-floor">1º Andar</span>
             <span class="sector-box-badge badge-green">35/50</span>
           </div>
 
           <div class="sector-box" data-sector="B">
-            <div class="sector-box-header">
-              <span class="sector-box-title">Setor B</span>
-            </div>
+            <div class="sector-box-header"><span class="sector-box-title">Setor B</span></div>
             <span class="sector-box-floor">1º Andar</span>
             <span class="sector-box-badge badge-red">8/50</span>
           </div>
 
           <div class="sector-box" data-sector="C">
-            <div class="sector-box-header">
-              <span class="sector-box-title">Setor C</span>
-            </div>
+            <div class="sector-box-header"><span class="sector-box-title">Setor C</span></div>
             <span class="sector-box-floor">2º Andar</span>
             <span class="sector-box-badge badge-orange">22/50</span>
           </div>
 
           <div class="sector-box" data-sector="D">
-            <div class="sector-box-header">
-              <span class="sector-box-title">Setor D</span>
-            </div>
+            <div class="sector-box-header"><span class="sector-box-title">Setor D</span></div>
             <span class="sector-box-floor">1º Andar</span>
             <span class="sector-box-badge badge-red">5/50</span>
           </div>
-
         </div>
 
-        <!-- Legenda Flutuante -->
         <div class="legend-floating-badge">
           <p class="legend-title">Disponibilidade</p>
-          <div class="legend-item"><span class="dot dot-green"></span> Alta (>70%)</div>
+          <div class="legend-item"><span class="dot dot-green"></span> Alta (&gt;70%)</div>
           <div class="legend-item"><span class="dot dot-orange"></span> Média (30-70%)</div>
           <div class="legend-item"><span class="dot dot-red"></span> Baixa (&lt;30%)</div>
         </div>
       </section>
 
-      <!-- Card de Detalhes Dinâmico -->
-      <section class="sector-details-card" id="detailsCard">
+      <!-- Card Detalhes -->
+      <section class="sector-details-card">
         <div class="details-header">
           <div class="details-info">
             <h2 id="detailSectorTitle">Setor A</h2>
@@ -78,7 +67,7 @@
             <p class="vagas-label">vagas livres</p>
           </div>
         </div>
-        <button class="btn-navigate" type="button" id="btnNavigate">
+        <button class="btn-navigate" type="button" onclick="alert('Navegação iniciada!')">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/>
           </svg>
@@ -86,7 +75,7 @@
         </button>
       </section>
 
-      <!-- Lista Completa de Setores -->
+      <!-- Lista Inferior -->
       <section class="all-sectors-section">
         <h2 class="all-sectors-title">Todos os Setores</h2>
         <div class="sectors-list">
@@ -152,7 +141,7 @@
 
     </main>
 
-    <!-- Interatividade Vanilla JS para a versão HTML -->
+    <!-- Script de Interatividade -->
     <script>
       const sectorsData = {
         'A': { title: 'Setor A', floor: '1º Andar', vagas: 35 },
@@ -161,31 +150,28 @@
         'D': { title: 'Setor D', floor: '1º Andar', vagas: 5 }
       };
 
-      function updateSelection(sectorKey) {
-        document.querySelectorAll('.sector-box').forEach(el => {
-          el.classList.toggle('selected', el.dataset.sector === sectorKey);
-        });
-
-        document.querySelectorAll('.list-item-sector').forEach(el => {
-          el.classList.toggle('selected', el.dataset.sector === sectorKey);
-        });
-
-        const data = sectorsData[sectorKey];
-        if (data) {
-          document.getElementById('detailSectorTitle').innerText = data.title;
-          document.getElementById('detailSectorFloor').innerText = data.floor;
-          document.getElementById('detailVagasCount').innerText = data.vagas;
-        }
-      }
-
       document.querySelectorAll('[data-sector]').forEach(element => {
         element.addEventListener('click', () => {
-          updateSelection(element.dataset.sector);
-        });
-      });
+          const key = element.dataset.sector;
 
-      document.getElementById('btnNavigate').addEventListener('click', () => {
-        alert('Navegação iniciada via GPS interno!');
+          // Destaca no grid
+          document.querySelectorAll('.sector-box').forEach(el => {
+            el.classList.toggle('selected', el.dataset.sector === key);
+          });
+
+          // Destaca na lista
+          document.querySelectorAll('.list-item-sector').forEach(el => {
+            el.classList.toggle('selected', el.dataset.sector === key);
+          });
+
+          // Atualiza o painel de detalhes
+          const data = sectorsData[key];
+          if (data) {
+            document.getElementById('detailSectorTitle').innerText = data.title;
+            document.getElementById('detailSectorFloor').innerText = data.floor;
+            document.getElementById('detailVagasCount').innerText = data.vagas;
+          }
+        });
       });
     </script>
   </body>
