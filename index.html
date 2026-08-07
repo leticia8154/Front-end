@@ -1,241 +1,241 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta charset="utf-8" />
-    <title>Login - estacIA</title>
-    <style>
-      /* --- RESET E ESTILOS GLOBAIS --- */
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EstaciA - Entrar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
 
-      body {
-        background-color: #1b59f8; /* Fundo Azul */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        padding: 16px;
-      }
+    body {
+      background-color: #0d47a1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
 
-      /* CONTAINER BASE COM TAMANHO FIXO E PADRONIZADO (IGUAL NO CADASTRO E LOGIN) */
-      .card-container {
-        width: 100%;
-        max-width: 380px;
-        height: 640px; /* Altura fixa idêntica para eliminar qualquer diferença de tamanho */
-        background-color: #ffffff;
-        border-radius: 28px;
-        overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-        display: flex;
-        flex-direction: column;
-        position: relative;
-      }
+    /* Container do Card Principal */
+    .card-container {
+      background-color: #ffffff;
+      width: 100%;
+      max-width: 380px;
+      height: 640px;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+    }
 
-      /* SEÇÃO SUPERIOR CREME/HERO IDÊNTICA */
-      .hero-section {
-        background-color: #f6f3eb;
-        padding: 24px 20px 16px 20px;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 220px; /* Mesma altura de topo em ambas as telas */
-      }
+    /* Topo Bege Padronizado */
+    .hero-section {
+      background-color: #f5f0e6;
+      padding: 24px 20px 16px 20px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 210px; /* Altura rigorosamente idêntica */
+    }
 
-      .hero-logo {
-        max-height: 60px;
-        width: auto;
-        object-fit: contain;
-        background-color: transparent;
-        margin-bottom: 12px;
-      }
+    /* Logo Ajustada e Harmonizada */
+    .hero-logo {
+      height: 60px !important;
+      width: auto !important;
+      max-width: 200px !important;
+      object-fit: contain !important;
+      mix-blend-mode: multiply !important; /* Remove fundo esbranquiçado da imagem */
+      display: block;
+      margin: 0 auto 8px auto;
+    }
 
-      .hero-title {
-        font-size: 1.35rem;
-        font-weight: 700;
-        color: #1c1c1e;
-        margin-bottom: 4px;
-      }
+    .hero-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 6px;
+    }
 
-      .hero-subtitle {
-        font-size: 0.8rem;
-        color: #6e6e73;
-        line-height: 1.2;
-      }
+    .hero-subtitle {
+      font-size: 13px;
+      color: #555555;
+      line-height: 1.3;
+    }
 
-      /* TABS (ENTRAR / CADASTRAR) */
-      .nav-tabs {
-        display: flex;
-        width: 100%;
-        background-color: #f6f3eb;
-        border-bottom: 1px solid #e5e5ea;
-      }
+    /* Abas de Navegação */
+    .nav-tabs {
+      display: flex;
+      background-color: #f5f0e6;
+      border-bottom: 1px solid #e0e0e0;
+    }
 
-      .nav-tab {
-        flex: 1;
-        padding: 12px 0;
-        text-align: center;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 0.85rem;
-        color: #6e6e73;
-        background-color: #f6f3eb;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-        transition: all 0.2s ease;
-      }
+    .tab-item {
+      flex: 1;
+      padding: 14px 0;
+      text-align: center;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
 
-      .nav-tab.active {
-        background-color: #ffffff;
-        color: #1b59f8;
-        border-bottom: 2px solid #1b59f8;
-      }
+    .tab-item.active {
+      background-color: #eef4ff;
+      color: #1565c0;
+      border-bottom: 2px solid #1565c0;
+    }
 
-      /* FORMULÁRIO COM PREENCHIMENTO AJUSTADO E COMPACTO */
-      .form-section {
-        padding: 20px 24px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        flex: 1;
-        justify-content: center;
-      }
+    .tab-item.inactive {
+      background-color: #ffffff;
+      color: #666666;
+    }
 
-      .input-group {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-      }
+    /* Área do Formulário */
+    .form-section {
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
-      .input-group label {
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: #1c1c1e;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
+    .form-group-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
 
-      .input-field {
-        width: 100%;
-        padding: 11px 14px;
-        border: 1px solid #e5e5ea;
-        border-radius: 12px;
-        font-size: 0.88rem;
-        outline: none;
-        transition: border-color 0.2s ease;
-      }
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
 
-      .input-field:focus {
-        border-color: #1b59f8;
-      }
+    .input-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #333333;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
 
-      .forgot-password {
-        align-self: flex-end;
-        font-size: 0.75rem;
-        color: #1b59f8;
-        text-decoration: none;
-        font-weight: 600;
-        margin-top: -4px;
-      }
+    .input-field {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #dcdcdc;
+      border-radius: 12px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
 
-      .btn-primary {
-        width: 100%;
-        background-color: #1b59f8;
-        color: #ffffff;
-        border: none;
-        border-radius: 12px;
-        padding: 13px;
-        font-weight: 700;
-        font-size: 0.95rem;
-        cursor: pointer;
-        text-align: center;
-        text-decoration: none;
-        box-shadow: 0 4px 12px rgba(27, 89, 248, 0.3);
-        margin-top: 4px;
-        transition: transform 0.1s ease, background-color 0.2s ease;
-      }
+    .input-field:focus {
+      border-color: #1565c0;
+    }
 
-      .btn-primary:active {
-        transform: scale(0.98);
-      }
+    .forgot-password {
+      text-align: right;
+      font-size: 12px;
+      color: #1565c0;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: -4px;
+    }
 
-      .footer-text {
-        text-align: center;
-        font-size: 0.78rem;
-        color: #6e6e73;
-        margin-top: 6px;
-      }
+    /* Botão e Rodapé */
+    .btn-submit {
+      width: 100%;
+      background-color: #1565c0;
+      color: #ffffff;
+      border: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(21, 101, 192, 0.3);
+    }
 
-      .footer-text a {
-        color: #1b59f8;
-        font-weight: 700;
-        text-decoration: none;
-      }
+    .footer-text {
+      text-align: center;
+      font-size: 13px;
+      color: #666666;
+    }
 
-      /* MEDIA QUERIES PARA ADAPTAÇÃO EM LANDSCAPE OU TELAS CURTAS */
-      @media (max-height: 680px) or (orientation: landscape) {
-        body {
-          height: auto;
-          min-height: 100vh;
-          padding: 16px;
-        }
+    .footer-text a {
+      color: #1565c0;
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
 
-        .card-container {
-          margin: auto;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <main class="card-container">
-      
-      <!-- Topo Creme (Hero Section) -->
-      <section class="hero-section">
-        <img class="hero-logo" src="https://c.animaapp.com/YpraINo5/img/frame-2085660897.svg" alt="estacIA Logo" />
-        <h1 class="hero-title">Bem-vindo!</h1>
-        <p class="hero-subtitle">Estacionamento inteligente ao<br />seu alcance</p>
-      </section>
+  <div class="card-container">
+    <!-- Topo Bege -->
+    <div class="hero-section">
+      <img src="logo.png" alt="EstaciA" class="hero-logo" />
+      <h1 class="hero-title">Bem-vindo!</h1>
+      <p class="hero-subtitle">Estacionamento inteligente ao<br>seu alcance</p>
+    </div>
 
-      <!-- Navegação por Abas -->
-      <nav class="nav-tabs">
-        <a href="index.html" class="nav-tab active">
-          <span>➔]</span> Entrar
-        </a>
-        <a href="cadastro.html" class="nav-tab">
-          <span>👤+</span> Cadastrar
-        </a>
-      </nav>
+    <!-- Navegação de Abas -->
+    <div class="nav-tabs">
+      <a href="index.html" class="tab-item active">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        Entrar
+      </a>
+      <a href="cadastro.html" class="tab-item inactive">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+        Cadastrar
+      </a>
+    </div>
 
-      <!-- Form de Login -->
-      <form class="form-section" action="principal.html" method="GET">
+    <!-- Form Login -->
+    <form class="form-section">
+      <div class="form-group-list">
         <div class="input-group">
-          <label for="email">✉ E-mail</label>
-          <input type="email" id="email" class="input-field" placeholder="seu@email.com" required />
+          <label class="input-label">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            E-mail
+          </label>
+          <input type="email" class="input-field" placeholder="seu@email.com" required />
         </div>
 
         <div class="input-group">
-          <label for="senha">🔒 Senha</label>
-          <input type="password" id="senha" class="input-field" placeholder="••••••••" required />
+          <label class="input-label">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Senha
+          </label>
+          <input type="password" class="input-field" placeholder="••••••••" required />
         </div>
 
         <a href="#" class="forgot-password">Esqueceu a senha?</a>
+      </div>
 
-        <button type="submit" class="btn-primary">Entrar</button>
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <button type="submit" class="btn-submit">Entrar</button>
+        <p class="footer-text">Não tem uma conta? <a href="cadastro.html">Cadastre-se</a></p>
+      </div>
+    </form>
+  </div>
 
-        <p class="footer-text">
-          Não tem uma conta? <a href="cadastro.html">Cadastre-se</a>
-        </p>
-      </form>
-
-    </main>
-  </body>
+</body>
 </html>
