@@ -1,83 +1,235 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta charset="utf-8" />
-    <title>Cadastro - Estacia</title>
-    <link rel="stylesheet" href="css/globals.css">
-    <link rel="stylesheet" href="css/cadastro.css">
-</head>
-<body>
-    <main class="modelo-de-rascunho" data-model-id="102:1861">
-        <section class="container" aria-label="Cadastro de conta">
-            
-            <header class="container-3">
-                <div class="image-estacia" aria-hidden="true"></div>
-                <div class="heading">
-                    <h1 class="text-wrapper-7">Bem-vindo!</h1>
-                </div>
-                <div class="paragraph">
-                    <p class="p">Estacionamento inteligente ao seu alcance</p>
-                </div>
-            </header>
+    <title>Cadastro - estacIA</title>
+    <style>
+      /* --- RESET E ESTILOS GLOBAIS --- */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
 
-            <nav class="div" aria-label="Alternar entre entrar e cadastrar">
-                <a href="index.html" class="button" aria-label="Entrar">
-                    <img class="icon" src="https://c.animaapp.com/O17CjKvw/img/icon.svg" alt="" aria-hidden="true" />
-                    <span class="text-wrapper">Entrar</span>
-                </a>
-                <button class="button-2" type="button" aria-current="page" aria-label="Cadastrar">
-                    <img class="img" src="https://c.animaapp.com/O17CjKvw/img/icon-1.svg" alt="" aria-hidden="true" />
-                    <span class="text-wrapper-2">Cadastrar</span>
-                </button>
-            </nav>
+      body {
+        background-color: #1b59f8; /* Fundo Azul */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 16px;
+      }
 
-            <form class="form" action="#" method="post">
-                
-                <div class="container-2">
-                    <label class="label" for="nome-completo">
-                        <img class="icon-2" src="https://c.animaapp.com/O17CjKvw/img/icon-2.svg" alt="" aria-hidden="true" />
-                        <span class="text-wrapper-3">Nome completo</span>
-                    </label>
-                    <div class="div-wrapper">
-                        <input class="text-wrapper-4" id="nome-completo" name="nome-completo" type="text" placeholder="Digite seu nome" autocomplete="name" />
-                    </div>
-                </div>
+      /* CONTAINER BASE COM TAMANHO FIXO E PADRONIZADO (IGUAL NO CADASTRO E LOGIN) */
+      .card-container {
+        width: 100%;
+        max-width: 380px;
+        height: 640px; /* Altura fixa idêntica para eliminar qualquer diferença de tamanho */
+        background-color: #ffffff;
+        border-radius: 28px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
 
-                <div class="container-2">
-                    <label class="label" for="email">
-                        <img class="icon-2" src="https://c.animaapp.com/O17CjKvw/img/icon-3.svg" alt="" aria-hidden="true" />
-                        <span class="text-wrapper-3">E-mail</span>
-                    </label>
-                    <div class="div-wrapper">
-                        <input class="text-wrapper-4" id="email" name="email" type="email" placeholder="seu@email.com" autocomplete="email" inputmode="email" />
-                    </div>
-                </div>
+      /* SEÇÃO SUPERIOR CREME/HERO IDÊNTICA */
+      .hero-section {
+        background-color: #f6f3eb;
+        padding: 24px 20px 16px 20px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 220px; /* Mesma altura de topo em ambas as telas */
+      }
 
-                <div class="container-2">
-                    <label class="label" for="senha">
-                        <img class="icon-2" src="https://c.animaapp.com/O17CjKvw/img/icon-4.svg" alt="" aria-hidden="true" />
-                        <span class="text-wrapper-3">Senha</span>
-                    </label>
-                    <div class="div-wrapper">
-                        <input class="text-wrapper-4" id="senha" name="senha" type="password" placeholder="••••••••" autocomplete="new-password" />
-                    </div>
-                </div>
+      .hero-logo {
+        max-height: 60px;
+        width: auto;
+        object-fit: contain;
+        background-color: transparent;
+        margin-bottom: 12px;
+      }
 
-                <a href="principal.html" class="button-3">
-                    <span class="text-wrapper-5">Criar conta</span>
-                </a>
+      .hero-title {
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: #1c1c1e;
+        margin-bottom: 4px;
+      }
 
-                <div class="paragraph-2">
-                    <p class="j-tem-uma-conta">Já tem uma conta?</p>
-                    <a href="index.html" class="button-4">
-                        <span class="text-wrapper-6">Faça login</span>
-                    </a>
-                </div>
-                
-            </form>
+      .hero-subtitle {
+        font-size: 0.8rem;
+        color: #6e6e73;
+        line-height: 1.2;
+      }
 
-        </section>
+      /* TABS (ENTRAR / CADASTRAR) */
+      .nav-tabs {
+        display: flex;
+        width: 100%;
+        background-color: #f6f3eb;
+        border-bottom: 1px solid #e5e5ea;
+      }
+
+      .nav-tab {
+        flex: 1;
+        padding: 12px 0;
+        text-align: center;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.85rem;
+        color: #6e6e73;
+        background-color: #f6f3eb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        transition: all 0.2s ease;
+      }
+
+      .nav-tab.active {
+        background-color: #ffffff;
+        color: #1b59f8;
+        border-bottom: 2px solid #1b59f8;
+      }
+
+      /* FORMULÁRIO COM PREENCHIMENTO AJUSTADO E COMPACTO */
+      .form-section {
+        padding: 16px 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px; /* Ligeiramente mais compacto para acomodar 3 inputs perfeitamente */
+        flex: 1;
+        justify-content: center;
+      }
+
+      .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .input-group label {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #1c1c1e;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .input-field {
+        width: 100%;
+        padding: 10px 14px;
+        border: 1px solid #e5e5ea;
+        border-radius: 12px;
+        font-size: 0.88rem;
+        outline: none;
+        transition: border-color 0.2s ease;
+      }
+
+      .input-field:focus {
+        border-color: #1b59f8;
+      }
+
+      .btn-primary {
+        width: 100%;
+        background-color: #1b59f8;
+        color: #ffffff;
+        border: none;
+        border-radius: 12px;
+        padding: 13px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        box-shadow: 0 4px 12px rgba(27, 89, 248, 0.3);
+        margin-top: 6px;
+        transition: transform 0.1s ease, background-color 0.2s ease;
+      }
+
+      .btn-primary:active {
+        transform: scale(0.98);
+      }
+
+      .footer-text {
+        text-align: center;
+        font-size: 0.78rem;
+        color: #6e6e73;
+        margin-top: 4px;
+      }
+
+      .footer-text a {
+        color: #1b59f8;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      /* MEDIA QUERIES PARA ADAPTAÇÃO EM LANDSCAPE OU TELAS CURTAS */
+      @media (max-height: 680px) or (orientation: landscape) {
+        body {
+          height: auto;
+          min-height: 100vh;
+          padding: 16px;
+        }
+
+        .card-container {
+          margin: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card-container">
+      
+      <!-- Topo Creme (Hero Section) -->
+      <section class="hero-section">
+        <img class="hero-logo" src="https://c.animaapp.com/YpraINo5/img/frame-2085660897.svg" alt="estacIA Logo" />
+        <h1 class="hero-title">Bem-vindo!</h1>
+        <p class="hero-subtitle">Estacionamento inteligente ao<br />seu alcance</p>
+      </section>
+
+      <!-- Navegação por Abas -->
+      <nav class="nav-tabs">
+        <a href="index.html" class="nav-tab">
+          <span>➔]</span> Entrar
+        </a>
+        <a href="cadastro.html" class="nav-tab active">
+          <span>👤+</span> Cadastrar
+        </a>
+      </nav>
+
+      <!-- Form de Cadastro -->
+      <form class="form-section" action="principal.html" method="GET">
+        <div class="input-group">
+          <label for="nome">👤 Nome completo</label>
+          <input type="text" id="nome" class="input-field" placeholder="Digite seu nome" required />
+        </div>
+
+        <div class="input-group">
+          <label for="email">✉ E-mail</label>
+          <input type="email" id="email" class="input-field" placeholder="seu@email.com" required />
+        </div>
+
+        <div class="input-group">
+          <label for="senha">🔒 Senha</label>
+          <input type="password" id="senha" class="input-field" placeholder="••••••••" required />
+        </div>
+
+        <button type="submit" class="btn-primary">Criar conta</button>
+
+        <p class="footer-text">
+          Já tem uma conta? <a href="index.html">Entre aqui</a>
+        </p>
+      </form>
+
     </main>
-</body>
+  </body>
 </html>
