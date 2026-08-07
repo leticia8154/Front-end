@@ -1,6 +1,7 @@
 .sistema-de {
   display: flex;
-  height: 917px;
+  height: 100vh;
+  min-height: 917px;
   align-items: center;
   justify-content: center;
   padding: 0px 15.62px 0px 15.98px;
@@ -18,12 +19,12 @@
       rgba(255, 255, 255, 1) 100%
     );
   width: 100%;
-  min-width: 412px;
 }
 
 .sistema-de .container {
   position: relative;
   width: 344px;
+  max-width: 100%;
   height: 843px;
   background-color: #ffffff;
   border-radius: 24px;
@@ -353,7 +354,8 @@
   line-height: 24px;
   white-space: nowrap;
 }
-/* Original CSS should be injected above this comment. */
+
+/* Original CSS adjustments */
 
 .sistema-de .button {
   border: 0;
@@ -426,4 +428,35 @@
 
 .sistema-de .text-wrapper-8 {
   display: block;
+}
+
+/* Adaptabilidade para Telas Movéis / Tablets de Carro (Landscape) */
+
+@media (max-height: 850px) or (orientation: landscape) {
+  .sistema-de {
+    height: auto;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .sistema-de .container {
+    margin: auto;
+  }
+}
+
+@media (max-width: 360px) {
+  .sistema-de .container {
+    width: 100%;
+  }
+
+  .sistema-de .div,
+  .sistema-de .container-2,
+  .sistema-de .form {
+    width: 100%;
+  }
+
+  .sistema-de .button,
+  .sistema-de .button-2 {
+    width: 50%;
+  }
 }

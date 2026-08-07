@@ -1,6 +1,7 @@
 .modelo-de-rascunho {
   display: flex;
-  height: 917px;
+  height: 100vh;
+  min-height: 917px;
   align-items: center;
   justify-content: center;
   padding: 0px 15.27px 0px 15.99px;
@@ -18,12 +19,12 @@
       rgba(255, 255, 255, 1) 100%
     );
   width: 100%;
-  min-width: 412px;
 }
 
 .modelo-de-rascunho .container {
   position: relative;
   width: 355px;
+  max-width: 100%;
   height: 855px;
   background-color: #ffffff;
   border-radius: 24px;
@@ -317,7 +318,8 @@
   letter-spacing: 0;
   line-height: 20px;
 }
-/* Inject the original CSS code above this comment */
+
+/* Original adjustments */
 
 .modelo-de-rascunho .button {
   align-items: flex-start;
@@ -392,6 +394,20 @@
   display: block;
 }
 
+/* Adaptabilidade para Mídia Veicular / Orientação Landscape */
+
+@media (max-height: 860px) or (orientation: landscape) {
+  .modelo-de-rascunho {
+    height: auto;
+    min-height: 100vh;
+    padding: 20px 12px;
+  }
+
+  .modelo-de-rascunho .container {
+    margin: auto;
+  }
+}
+
 @media (max-width: 412px) {
   .modelo-de-rascunho {
     min-width: 100%;
@@ -405,7 +421,13 @@
   }
 
   .modelo-de-rascunho .div,
+  .modelo-de-rascunho .container-3,
   .modelo-de-rascunho .form {
     width: 100%;
+  }
+
+  .modelo-de-rascunho .button,
+  .modelo-de-rascunho .button-2 {
+    width: 50%;
   }
 }

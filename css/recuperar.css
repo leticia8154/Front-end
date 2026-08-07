@@ -18,12 +18,12 @@
       rgba(255, 255, 255, 1) 100%
     );
   width: 100%;
-  min-width: 412px;
 }
 
 .modelo-de-rascunho .container {
   position: relative;
   width: 380.43px;
+  max-width: 100%;
   height: 610.43px;
   margin-left: -0.21px;
   margin-right: -0.21px;
@@ -239,7 +239,8 @@
   line-height: 24px;
   white-space: nowrap;
 }
-/* Inject the original CSS code above */
+
+/* Original CSS adjustments */
 
 .modelo-de-rascunho {
   min-height: 917px;
@@ -314,4 +315,35 @@
   outline: 2px solid #4a90e2;
   outline-offset: 2px;
   border-radius: 14px;
+}
+
+/* Adaptabilidade para Dispositivos Móveis e Centrais Multimídia (Landscape) */
+
+@media (max-height: 650px) or (orientation: landscape) {
+  .modelo-de-rascunho {
+    height: auto;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .modelo-de-rascunho .container {
+    margin: auto;
+  }
+}
+
+@media (max-width: 412px) {
+  .modelo-de-rascunho {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .modelo-de-rascunho .container {
+    width: 100%;
+    max-width: 380px;
+  }
+
+  .modelo-de-rascunho .div,
+  .modelo-de-rascunho .form {
+    width: 100%;
+  }
 }

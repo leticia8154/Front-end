@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta charset="utf-8" />
     <title>Painel de Estacionamento - estacIA</title>
     
@@ -25,7 +25,7 @@
 
       /* CONTAINER PRINCIPAL DO CELULAR */
       .container {
-        background-color: #f6f3eb; /* Fundo Creme do Figma */
+        background-color: #f6f3eb; /* Fundo Creme */
         width: 100%;
         max-width: 380px;
         border-radius: 28px;
@@ -162,7 +162,7 @@
         color: #8e8e93;
       }
 
-      /* BOTÃO BUSCAR VAGA */
+      /* BOTÃO BUSCAR VAGA (AGORA COMO LINK 'A') */
       .button-3 {
         width: 100%;
         background-color: #1b59f8;
@@ -177,7 +177,13 @@
         justify-content: center;
         gap: 8px;
         cursor: pointer;
+        text-decoration: none;
         box-shadow: 0 4px 12px rgba(27, 89, 248, 0.3);
+        transition: transform 0.1s ease, background-color 0.2s ease;
+      }
+      
+      .button-3:active {
+        transform: scale(0.98);
       }
 
       /* ESTACIONAMENTOS RECENTES */
@@ -225,6 +231,19 @@
         font-weight: 700;
         font-size: 0.85rem;
         color: #1b59f8;
+      }
+
+      /* ADAPTABILIDADE RESPONSIVA E MODO PAISAGEM */
+      @media (max-height: 700px) or (orientation: landscape) {
+        body {
+          height: auto;
+          min-height: 100vh;
+          padding: 20px 16px;
+        }
+
+        .container {
+          margin: auto;
+        }
       }
     </style>
   </head>
@@ -294,11 +313,11 @@
         </article>
       </section>
 
-      <!-- Botão Buscar Vaga -->
-      <button class="button-3" type="button">
+      <!-- Botão Buscar Vaga (Navega diretamente para setores.html) -->
+      <a href="setores.html" class="button-3">
         <img src="https://c.animaapp.com/YpraINo5/img/icon-5.svg" alt="" />
         <span>Buscar Vaga Disponível</span>
-      </button>
+      </a>
 
       <!-- Estacionamentos Recentes -->
       <section class="div-10">

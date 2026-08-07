@@ -330,3 +330,44 @@ body {
   from { opacity: 0; transform: translateY(-6px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* --- ADAPTAÇÕES DE TELA PARA MOBILE E MODO PAISAGEM (LANDSCAPE) --- */
+
+/* Telas com pouca altura ou em orientação horizontal (Landscape) */
+@media (max-height: 720px) or (orientation: landscape) {
+  body {
+    height: auto;
+    min-height: 100vh;
+    padding: 12px;
+  }
+
+  .container {
+    margin: auto;
+  }
+}
+
+/* Smartphones com telas menores/mais estreitas (<= 360px) */
+@media (max-width: 360px) {
+  .container {
+    padding: 16px 14px;
+    gap: 10px;
+  }
+
+  .sectors-grid {
+    gap: 8px;
+  }
+
+  .sector-box {
+    padding: 10px 8px;
+  }
+
+  .legend-floating-badge {
+    padding: 6px 8px;
+    font-size: 0.6rem;
+  }
+
+  .btn-navigate {
+    padding: 10px;
+    font-size: 0.8rem;
+  }
+}
