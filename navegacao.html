@@ -3,235 +3,408 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>estacIA - Navegação Guiada</title>
+  <title>estacIA - Setores Shopping Cidade Jardim</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
-  <link rel="stylesheet" href="navegacao.css" />
 
-  <!-- Google Maps JavaScript API (Substitua SUA_CHAVE_API pela sua chave real) -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=SUA_CHAVE_API&callback=initMap&libraries=places" async defer></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: linear-gradient(180deg, #0d47a1 0%, #1565c0 50%, #0a2540 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px;
+    }
+
+    .card-container {
+      background-color: #f7f3ed;
+      width: 100%;
+      max-width: 420px;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      padding: 20px 16px;
+      gap: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .card-container {
+        max-width: 680px;
+        padding: 32px 28px;
+        gap: 20px;
+        border-radius: 32px;
+      }
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-back {
+      width: 36px;
+      height: 36px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #1565c0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      flex-shrink: 0;
+    }
+
+    .header-title-group {
+      flex: 1;
+    }
+
+    .header-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a1a1a;
+      line-height: 1.2;
+    }
+
+    .header-subtitle {
+      font-size: 11px;
+      color: #666666;
+    }
+
+    /* Legenda de Ocupação */
+    .legend-bar {
+      background-color: #ffffff;
+      border-radius: 20px;
+      padding: 8px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      font-weight: 600;
+      color: #444444;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .dot.red { background-color: #d32f2f; }
+    .dot.orange { background-color: #f57c00; }
+    .dot.green { background-color: #2e7d32; }
+
+    /* Setor Destaque */
+    .highlight-card {
+      background-color: #ffffff;
+      border: 2px solid #1565c0;
+      border-radius: 20px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 4px 12px rgba(21, 101, 192, 0.08);
+    }
+
+    .highlight-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .highlight-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+
+    .highlight-sub {
+      font-size: 11px;
+      color: #666666;
+      margin-top: 2px;
+    }
+
+    .highlight-vagas {
+      text-align: right;
+    }
+
+    .vagas-num {
+      font-size: 26px;
+      font-weight: 700;
+      color: #1565c0;
+      line-height: 1;
+    }
+
+    .vagas-lbl {
+      font-size: 9px;
+      color: #777777;
+    }
+
+    .btn-navigate {
+      width: 100%;
+      background-color: #1565c0;
+      color: #ffffff;
+      border: none;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(21, 101, 192, 0.25);
+      cursor: pointer;
+    }
+
+    /* Lista de Setores */
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #666666;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .sectors-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .sector-item {
+      background-color: #ffffff;
+      border-radius: 16px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      border: 1px solid transparent;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .sector-item.active {
+      border-color: #1565c0;
+    }
+
+    .sector-row-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .sector-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1a1a1a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sector-sub {
+      font-size: 10px;
+      color: #777777;
+      margin-top: 1px;
+    }
+
+    .badge-percent {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 10px;
+    }
+
+    .badge-percent.green { background-color: #e8f5e9; color: #2e7d32; }
+    .badge-percent.orange { background-color: #fff3e0; color: #ef6c00; }
+    .badge-percent.red { background-color: #ffebee; color: #c62828; }
+
+    /* Barra de Progresso de Ocupação */
+    .progress-bar-bg {
+      width: 100%;
+      height: 6px;
+      background-color: #eee;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+    }
+
+    .progress-bar-fill.green { background-color: #2e7d32; width: 15%; }
+    .progress-bar-fill.orange { background-color: #ef6c00; width: 42%; }
+    .progress-bar-fill.red-63 { background-color: #c62828; width: 63%; }
+    .progress-bar-fill.red-92 { background-color: #c62828; width: 92%; }
+
+    .sector-row-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      margin-top: 2px;
+    }
+
+    .vagas-avail {
+      font-weight: 700;
+      color: #1565c0;
+    }
+
+    .link-ver-vagas {
+      color: #1565c0;
+      font-weight: 600;
+      font-size: 10px;
+    }
+  </style>
 </head>
 <body>
 
-  <div class="app-container">
+  <div class="card-container">
     
-    <!-- Top Bar Azul -->
-    <header class="top-bar">
-      <a href="setores.html" class="btn-back">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    <!-- Top Bar -->
+    <header class="header">
+      <a href="index.html" class="btn-back">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
       </a>
-      <div class="top-title-group">
-        <h1 class="top-title">Shopping Center Cidade Jardim</h1>
-        <p class="top-subtitle">Navegando até a vaga mais próxima</p>
+      <div class="header-title-group">
+        <h1 class="header-title">Shopping Center Cidade Jardim</h1>
+        <p class="header-subtitle">Selecione um setor da planta</p>
       </div>
-      <div class="brand-badge">estac<span>IA</span></div>
     </header>
 
-    <!-- Área Principal do Mapa (Visão 3D/2D) -->
-    <div class="map-wrapper" id="mapView">
-      <div id="map"></div>
-
-      <!-- Tag Flutuante de Localização / Vista -->
-      <div class="view-tag">
-        <span class="status-dot"></span> Vista 3D • Cidade Jardim (Térreo)
-      </div>
-
-      <!-- Controles Flutuantes do Mapa -->
-      <div class="map-controls">
-        <button class="map-btn" id="btnLayer" title="Alternar Visão">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-        </button>
-        <button class="map-btn" id="btnZoomIn" title="Aumentar Zoom">+</button>
-        <button class="map-btn" id="btnZoomOut" title="Diminuir Zoom">−</button>
-        <button class="map-btn highlight" id="btnRecenter" title="Centralizar na Minha Posição">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
-        </button>
-      </div>
+    <!-- Legenda -->
+    <div class="legend-bar">
+      <div class="legend-item"><span class="dot red"></span> Ocupado (>50%)</div>
+      <div class="legend-item"><span class="dot orange"></span> Médio (20-50%)</div>
+      <div class="legend-item"><span class="dot green"></span> Livre (<20%)</div>
     </div>
 
-    <!-- Card de Navegação Passo a Passo (Sobreposto ao Mapa) -->
-    <main class="navigation-card" id="navCard">
+    <!-- Setor em Destaque -->
+    <div class="highlight-card">
+      <div class="highlight-header">
+        <div>
+          <h2 class="highlight-title">Setor A - Norte</h2>
+          <p class="highlight-sub">Próx. Lojas Americanas</p>
+        </div>
+        <div class="highlight-vagas">
+          <div class="vagas-num">51</div>
+          <div class="vagas-lbl">vagas livres</div>
+        </div>
+      </div>
+
+      <!-- BOTÃO DE NAVEGAÇÃO COM LINK PARA NAVEGACAO.HTML -->
+      <a href="navegacao.html" class="btn-navigate">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+        Navegar até o Setor
+      </a>
+    </div>
+
+    <!-- Lista dos Setores Térreo -->
+    <span class="section-label">Setores Disponíveis (Térreo)</span>
+
+    <div class="sectors-list">
       
-      <!-- Instrução Atual em Destaque -->
-      <div class="current-step-box">
-        <div class="step-icon-bg">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
-        </div>
-        <div class="step-details">
-          <span class="step-distance">Em 100 m</span>
-          <h2 class="step-instruction">Entre no estacionamento e siga no corredor principal</h2>
-          <span class="step-subtext">Siga as placas do Setor A (Próx. Lojas Americanas)</span>
-        </div>
-      </div>
-
-      <!-- Métricas da Vaga -->
-      <div class="vagas-info-box">
-        <div class="vagas-text">
-          <span>Vagas disponíveis no <strong>Setor A - Norte</strong></span>
-          <div class="vagas-count"><strong>51</strong> / 60 vagas</div>
-        </div>
-        <div class="vaga-destaque-badge">
-          Vaga reservada: <strong>A-70</strong>
-        </div>
-      </div>
-
-      <!-- Próximos Passos (Scannable List) -->
-      <div class="next-steps-container">
-        <div class="steps-header">
-          <h3>Próximos Passos</h3>
-          <button class="btn-see-all" id="btnToggleList">Ver Todos</button>
-        </div>
-
-        <ul class="steps-list-compact">
-          <li class="compact-step">
-            <div class="mini-icon">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
-            </div>
-            <div class="compact-info">
-              <p>Continue reto por 50m no corredor interno</p>
-              <span>50m</span>
-            </div>
-          </li>
-          <li class="compact-step">
-            <div class="mini-icon blue">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-            </div>
-            <div class="compact-info">
-              <p>Vire à direita na entrada do Setor A</p>
-              <span>30m</span>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Ações de Navegação -->
-      <div class="nav-actions">
-        <button class="btn-finish" onclick="alert('Navegação concluída! Seja bem-vindo ao Cidade Jardim.'); window.location.href='setores.html';">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
-          Finalizar Navegação
-        </button>
-      </div>
-
-    </main>
-
-    <!-- Painel Completo de Instruções Detalhadas (Aberto ao Clicar em "Ver Todos") -->
-    <section class="full-instructions-panel hidden" id="fullInstructionsPanel">
-      <div class="panel-header">
-        <h2>Instruções Detalhadas</h2>
-        <button class="btn-close-panel" id="btnClosePanel">✕</button>
-      </div>
-
-      <div class="steps-timeline">
-        
-        <div class="timeline-item">
-          <div class="timeline-number">1</div>
-          <div class="timeline-content">
-            <span class="timeline-dist">Em 100m</span>
-            <p>Entre no estacionamento principal do Shopping Cidade Jardim pela Entrada Norte.</p>
+      <!-- Setor A -->
+      <div class="sector-item active">
+        <div class="sector-row-top">
+          <div>
+            <div class="sector-name">🚗 Setor A - Norte</div>
+            <div class="sector-sub">Próx. Lojas Americanas</div>
           </div>
+          <span class="badge-percent green">15% ocupado</span>
         </div>
-
-        <div class="timeline-item">
-          <div class="timeline-number">2</div>
-          <div class="timeline-content">
-            <span class="timeline-dist">Em 50m</span>
-            <p>Continue reto no corredor principal e passe pelo guichê automático.</p>
-          </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill green"></div>
         </div>
-
-        <div class="timeline-item">
-          <div class="timeline-number">3</div>
-          <div class="timeline-content active">
-            <span class="timeline-dist">Em 30m</span>
-            <p>Vire à direita na entrada para o <strong>Setor A (Lojas Americanas)</strong>.</p>
-          </div>
+        <div class="sector-row-bottom">
+          <span class="vagas-avail">51 vagas disponíveis</span>
+          <a href="navegacao.html" class="link-ver-vagas">Ver vagas →</a>
         </div>
-
-        <div class="timeline-item">
-          <div class="timeline-number">4</div>
-          <div class="timeline-content">
-            <span class="timeline-dist">Em 10m</span>
-            <p>Siga pela alameda A-3 até a coluna identificadora verde.</p>
-          </div>
-        </div>
-
-        <div class="timeline-item destination">
-          <div class="timeline-number success">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
-          </div>
-          <div class="timeline-content">
-            <span class="timeline-dist green">Destino</span>
-            <p><strong>Sua vaga reservada A-70 está à esquerda!</strong></p>
-          </div>
-        </div>
-
       </div>
 
-      <div class="panel-footer">
-        <button class="btn-back-map" id="btnBackMap">Voltar ao Mapa</button>
+      <!-- Setor B -->
+      <div class="sector-item">
+        <div class="sector-row-top">
+          <div>
+            <div class="sector-name">🚗 Setor B - Sul</div>
+            <div class="sector-sub">Próx. C&A e Riachuelo</div>
+          </div>
+          <span class="badge-percent orange">42% ocupado</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill orange"></div>
+        </div>
+        <div class="sector-row-bottom">
+          <span class="vagas-avail">35 vagas disponíveis</span>
+          <a href="navegacao.html" class="link-ver-vagas">Ver vagas →</a>
+        </div>
       </div>
-    </section>
+
+      <!-- Setor C -->
+      <div class="sector-item">
+        <div class="sector-row-top">
+          <div>
+            <div class="sector-name">🚗 Setor C - Leste</div>
+            <div class="sector-sub">Praça de Alimentação</div>
+          </div>
+          <span class="badge-percent red">63% ocupado</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill red-63"></div>
+        </div>
+        <div class="sector-row-bottom">
+          <span class="vagas-avail">22 vagas disponíveis</span>
+          <a href="navegacao.html" class="link-ver-vagas">Ver vagas →</a>
+        </div>
+      </div>
+
+      <!-- Setor D -->
+      <div class="sector-item">
+        <div class="sector-row-top">
+          <div>
+            <div class="sector-name">🚗 Setor D - Oeste</div>
+            <div class="sector-sub">Área de Carga e Serviços</div>
+          </div>
+          <span class="badge-percent red">92% ocupado</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill red-92"></div>
+        </div>
+        <div class="sector-row-bottom">
+          <span class="vagas-avail">5 vagas disponíveis</span>
+          <a href="navegacao.html" class="link-ver-vagas">Ver vagas →</a>
+        </div>
+      </div>
+
+    </div>
 
   </div>
 
-  <script>
-    // Inicialização do Google Maps com perspectiva 3D
-    function initMap() {
-      // Coordenadas aproximadas do Shopping Center Cidade Jardim
-      const cidadeJardimCoords = { lat: -23.5992, lng: -46.6985 };
-
-      const map = new google.maps.Map(document.getElementById("map"), {
-        center: cidadeJardimCoords,
-        zoom: 18,
-        heading: 320,
-        tilt: 45, // Ângulo para simulação 3D
-        mapTypeId: 'vector',
-        disableDefaultUI: true,
-        styles: [
-          {
-            "featureType": "poi.business",
-            "elementType": "labels",
-            "stylers": [{ "visibility": "off" }]
-          }
-        ]
-      });
-
-      // Marcador do Veículo / Localização do Usuário
-      new google.maps.Marker({
-        position: cidadeJardimCoords,
-        map: map,
-        title: "Você está aqui",
-        icon: {
-          path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-          scale: 6,
-          fillColor: "#1565c0",
-          fillOpacity: 1,
-          strokeWeight: 2,
-          strokeColor: "#ffffff",
-        }
-      });
-    }
-
-    // Manipulação da Interface (Alternância de Modos e Painéis)
-    const btnToggleList = document.getElementById('btnToggleList');
-    const btnClosePanel = document.getElementById('btnClosePanel');
-    const btnBackMap = document.getElementById('btnBackMap');
-    const fullInstructionsPanel = document.getElementById('fullInstructionsPanel');
-
-    function showFullInstructions() {
-      fullInstructionsPanel.classList.remove('hidden');
-    }
-
-    function hideFullInstructions() {
-      fullInstructionsPanel.classList.add('hidden');
-    }
-
-    btnToggleList.addEventListener('click', showFullInstructions);
-    btnClosePanel.addEventListener('click', hideFullInstructions);
-    btnBackMap.addEventListener('click', hideFullInstructions);
-  </script>
 </body>
 </html>
