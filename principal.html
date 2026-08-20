@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EstaciA - Painel Principal</title>
+  <title>EstaciA - Início</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -17,7 +17,7 @@
     }
 
     body {
-      background-color: #1b59f8;
+      background: linear-gradient(180deg, #0d47a1 0%, #1565c0 50%, #0a2540 100%);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -26,425 +26,267 @@
     }
 
     .card-container {
-      background-color: #f6f3eb;
+      background-color: #f7f4ee;
       width: 100%;
       max-width: 380px;
-      min-height: 640px;
       border-radius: 28px;
-      padding: 24px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      padding: 24px 20px;
       display: flex;
       flex-direction: column;
-      position: relative;
+      gap: 20px;
     }
 
-    .header-top {
+    .header-user {
       display: flex;
-      justify-content: flex-end;
-      margin-bottom: 4px;
+      justify-content: space-between;
+      align-items: flex-start;
     }
 
-    .logout-btn {
-      color: #1b59f8;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
-
-    .user-greeting {
-      font-size: 1.5rem;
+    .user-info h2 {
+      font-size: 22px;
       font-weight: 700;
-      color: #1c1c1e;
+      color: #1a1a1a;
       display: flex;
       align-items: center;
       gap: 6px;
-      margin-bottom: 2px;
     }
 
-    .user-email {
-      font-size: 0.8rem;
-      color: #6e6e73;
-      margin-bottom: 16px;
+    .user-info p {
+      font-size: 12px;
+      color: #666666;
+      margin-top: 2px;
     }
 
-    /* LABELS */
-    .field-label {
-      font-size: 0.7rem;
+    .logout-btn {
+      background: none;
+      border: none;
+      color: #1565c0;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .select-section {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .select-label {
+      font-size: 11px;
       font-weight: 700;
-      color: #8e8e93;
-      text-transform: uppercase;
+      color: #888888;
       letter-spacing: 0.5px;
-      margin-bottom: 6px;
-      display: block;
     }
 
-    /* DROPDOWN CONTAINER */
-    .select-container {
-      position: relative;
-      width: 100%;
-      margin-bottom: 20px;
-    }
-
-    .select-btn {
+    .select-box {
       width: 100%;
       background-color: #ffffff;
-      border: 1px solid #e1e1e6;
-      border-radius: 18px;
-      padding: 12px 16px;
+      border: 1px solid #e0e0e0;
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a1a;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 0.9rem;
-      color: #1c1c1e;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-      transition: border-color 0.2s ease;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
     }
 
-    .select-btn:hover {
-      border-color: #1b59f8;
-    }
-
-    .select-btn-content {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      pointer-events: none; /* Evita interferência de clique no texto interno */
-    }
-
-    .chevron-icon {
-      transition: transform 0.2s ease;
-      pointer-events: none;
-    }
-
-    .chevron-icon.rotate {
-      transform: rotate(180deg);
-    }
-
-    /* MENU DROPDOWN SOBREPOSTO */
-    .dropdown-menu {
-      display: none;
-      position: absolute;
-      top: calc(100% + 6px);
-      left: 0;
-      width: 100%;
-      background-color: #ffffff;
-      border-radius: 18px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-      overflow: hidden;
-      z-index: 999;
-      border: 1px solid #e1e1e6;
-    }
-
-    .dropdown-menu.active {
-      display: block;
-    }
-
-    .dropdown-item {
-      padding: 12px 16px;
-      font-size: 0.85rem;
-      color: #1c1c1e;
-      cursor: pointer;
-      transition: background-color 0.15s ease;
-      font-weight: 500;
-    }
-
-    .dropdown-item:hover {
-      background-color: #f0f5ff;
-      color: #1b59f8;
-    }
-
-    .dropdown-item.selected {
-      background-color: #ecf2fe;
-      color: #1b59f8;
-      font-weight: 700;
-    }
-
-    /* ESTATÍSTICAS */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
-      margin-bottom: 20px;
     }
 
     .stat-card {
       background-color: #ffffff;
       border-radius: 16px;
-      padding: 12px 8px;
+      padding: 14px 8px;
       text-align: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
     }
 
-    .stat-icon {
-      width: 28px;
-      height: 28px;
-      background-color: #eaf2ff;
-      color: #1b59f8;
+    .icon-badge {
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
+      background-color: #eef4ff;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 6px auto;
-      font-size: 0.8rem;
+      margin-bottom: 8px;
+      color: #1565c0;
     }
 
     .stat-value {
-      font-size: 0.95rem;
+      font-size: 15px;
       font-weight: 700;
-      color: #1c1c1e;
+      color: #1a1a1a;
     }
 
     .stat-label {
-      font-size: 0.7rem;
-      color: #8e8e93;
+      font-size: 11px;
+      color: #777777;
+      margin-top: 2px;
     }
 
-    /* BOTÃO BUSCAR VAGA */
     .btn-search {
       width: 100%;
-      background-color: #1b59f8;
+      background-color: #1565c0;
       color: #ffffff;
       border: none;
-      border-radius: 16px;
       padding: 14px;
-      font-size: 0.95rem;
-      font-weight: 700;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      box-shadow: 0 4px 12px rgba(27, 89, 248, 0.3);
-      margin-bottom: 24px;
-      transition: background-color 0.2s ease, transform 0.1s ease;
+      box-shadow: 0 4px 12px rgba(21, 101, 192, 0.3);
     }
 
-    .btn-search:hover {
-      background-color: #1246c9;
-    }
-
-    .btn-search:active {
-      transform: scale(0.98);
-    }
-
-    .section-title {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #1c1c1e;
-      margin-bottom: 12px;
-    }
-
-    .vagas-list {
+    .recent-section {
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
 
-    .vaga-card {
+    .recent-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+
+    .history-card {
       background-color: #ffffff;
-      border-radius: 16px;
+      border-radius: 14px;
       padding: 12px 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
     }
 
-    .vaga-info {
+    .history-info {
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
-    .vaga-icon {
-      width: 32px;
-      height: 32px;
-      background-color: #eaf2ff;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #1b59f8;
+    .history-details strong {
+      display: block;
+      font-size: 13px;
+      color: #1a1a1a;
     }
 
-    .vaga-detalhes h4 {
-      font-size: 0.82rem;
+    .history-details span {
+      font-size: 11px;
+      color: #888888;
+    }
+
+    .history-price {
+      font-size: 13px;
       font-weight: 700;
-      color: #1c1c1e;
-    }
-
-    .vaga-detalhes p {
-      font-size: 0.7rem;
-      color: #8e8e93;
-    }
-
-    .vaga-preco {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #1b59f8;
+      color: #1565c0;
     }
   </style>
 </head>
 <body>
 
-  <main class="card-container">
-    
-    <!-- Botão de Sair -->
-    <div class="header-top">
+  <div class="card-container">
+    <div class="header-user">
+      <div class="user-info">
+        <h2>Olá, Letícia! 👋</h2>
+        <p>silvaleticia0008@gmail.com</p>
+      </div>
       <a href="index.html" class="logout-btn" title="Sair">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-          <polyline points="16 17 21 12 16 7"></polyline>
-          <line x1="21" y1="12" x2="9" y2="12"></line>
-        </svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
       </a>
     </div>
 
-    <!-- Saudação -->
-    <h1 class="user-greeting">Olá, Letícia! 👋</h1>
-    <p class="user-email">silvaleticia0008@gmail.com</p>
-
-    <!-- SELECT SHOPPING -->
-    <span class="field-label">Shopping Atual</span>
-    <div class="select-container">
-      <button type="button" class="select-btn" id="selectBtn">
-        <div class="select-btn-content">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1b59f8" stroke-width="2">
-            <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/>
-            <path d="M6 12h12"/>
-            <path d="M6 7h12"/>
-            <path d="M6 17h12"/>
-          </svg>
-          <span id="selectedShoppingName">Brasilia Shopping</span>
+    <div class="select-section">
+      <span class="select-label">SHOPPING ATUAL</span>
+      <div class="select-box">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1565c0" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="9" y1="6" x2="9" y2="6"/><line x1="15" y1="6" x2="15" y2="6"/><line x1="9" y1="10" x2="9" y2="10"/><line x1="15" y1="10" x2="15" y2="10"/><line x1="9" y1="14" x2="9" y2="14"/><line x1="15" y1="14" x2="15" y2="14"/><line x1="9" y1="18" x2="15" y2="18"/></svg>
+          Shopping Center - Bloco A
         </div>
-        
-        <svg class="chevron-icon" id="chevronIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1c1c1e" stroke-width="2">
-          <polyline points="6 9 12 15 18 9"/>
-        </svg>
-      </button>
-
-      <div class="dropdown-menu" id="dropdownMenu">
-        <div class="dropdown-item selected" data-value="Brasilia Shopping">Brasilia Shopping</div>
-        <div class="dropdown-item" data-value="Shopping Center - Bloco A">Shopping Center "Cidade Jardim"</div>
-        <div class="dropdown-item" data-value="Shopping Norte">Shopping Norte</div>
-        <div class="dropdown-item" data-value="Shopping Sul">Taguatinga Shopping</div>
-        <div class="dropdown-item" data-value="Mega Center">Mega Center</div>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
     </div>
 
-    <!-- Estatísticas -->
     <div class="stats-grid">
       <div class="stat-card">
-        <div class="stat-icon">🅿</div>
-        <div class="stat-value">11</div>
-        <div class="stat-label">Usos</div>
+        <div class="icon-badge">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg>
+        </div>
+        <span class="stat-value">11</span>
+        <span class="stat-label">Usos</span>
       </div>
+
       <div class="stat-card">
-        <div class="stat-icon">⏱</div>
-        <div class="stat-value">22h</div>
-        <div class="stat-label">Total</div>
+        <div class="icon-badge">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <span class="stat-value">22h</span>
+        <span class="stat-label">Total</span>
       </div>
+
       <div class="stat-card">
-        <div class="stat-icon">💳</div>
-        <div class="stat-value">R$ 220,00</div>
-        <div class="stat-label">Gasto</div>
+        <div class="icon-badge">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="3"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        </div>
+        <span class="stat-value">R$ 220,00</span>
+        <span class="stat-label">Gasto</span>
       </div>
     </div>
 
-    <!-- BOTÃO COM REDIRECIONAMENTO DIRETO -->
-    <button type="button" class="btn-search" onclick="window.location.href='setores.html'">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="11" cy="11" r="8"></circle>
-        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-      </svg>
+    <button class="btn-search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       Buscar Vaga Disponível
     </button>
 
-    <!-- Histórico Recente -->
-    <p class="section-title">Estacionamentos Recentes</p>
-    
-    <div class="vagas-list">
-      <div class="vaga-card">
-        <div class="vaga-info">
-          <div class="vaga-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/>
-              <circle cx="12" cy="10" r="3"/>
-            </svg>
+    <div class="recent-section">
+      <span class="recent-title">Estacionamentos Recentes</span>
+      
+      <div class="history-card">
+        <div class="history-info">
+          <div class="icon-badge" style="margin-bottom:0; width:34px; height:34px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           </div>
-          <div class="vaga-detalhes">
-            <h4>Setor A2 - Vaga 145</h4>
-            <p>05/04/2026 • 3h 20min</p>
+          <div class="history-details">
+            <strong>Setor A2 - Vaga 145</strong>
+            <span>05/04/2026 • 3h 20min</span>
           </div>
         </div>
-        <div class="vaga-preco">R$ 18,00</div>
+        <span class="history-price">R$ 18,00</span>
       </div>
 
-      <div class="vaga-card">
-        <div class="vaga-info">
-          <div class="vaga-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/>
-              <circle cx="12" cy="10" r="3"/>
-            </svg>
+      <div class="history-card">
+        <div class="history-info">
+          <div class="icon-badge" style="margin-bottom:0; width:34px; height:34px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           </div>
-          <div class="vaga-detalhes">
-            <h4>Setor B1 - Vaga 089</h4>
-            <p>02/04/2026 • 1h 45min</p>
+          <div class="history-details">
+            <strong>Setor B1 - Vaga 089</strong>
+            <span>02/04/2026 • 1h 45min</span>
           </div>
         </div>
-        <div class="vaga-preco">R$ 12,00</div>
+        <span class="history-price">R$ 12,00</span>
       </div>
     </div>
-
-  </main>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const selectBtn = document.getElementById('selectBtn');
-      const dropdownMenu = document.getElementById('dropdownMenu');
-      const chevronIcon = document.getElementById('chevronIcon');
-      const selectedShoppingName = document.getElementById('selectedShoppingName');
-      const dropdownItems = document.querySelectorAll('.dropdown-item');
-
-      // Alterna o dropdown
-      selectBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        dropdownMenu.classList.toggle('active');
-        chevronIcon.classList.toggle('rotate');
-      });
-
-      // Clique nos itens do shopping
-      dropdownItems.forEach(item => {
-        item.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const novoValor = item.getAttribute('data-value');
-          
-          // Atualiza o texto visual
-          selectedShoppingName.textContent = novoValor;
-
-          // Marca o item ativo
-          dropdownItems.forEach(i => i.classList.remove('selected'));
-          item.classList.add('selected');
-
-          // Fecha o menu
-          dropdownMenu.classList.remove('active');
-          chevronIcon.classList.remove('rotate');
-        });
-      });
-
-      // Fecha se clicar fora
-      document.addEventListener('click', () => {
-        dropdownMenu.classList.remove('active');
-        chevronIcon.classList.remove('rotate');
-      });
-    });
-  </script>
+  </div>
 
 </body>
 </html>
