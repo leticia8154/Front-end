@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>estaciA - Cadastrar</title>
+  <title>estacIA - Cadastrar</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
     }
 
     body {
-      background: linear-gradient(180deg, #1565c0 0%, #0d47a1 100%);
+      background: linear-gradient(180deg, #0d47a1 0%, #1565c0 50%, #0a2540 100%);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -32,7 +32,7 @@
       max-width: 360px;
       border-radius: 24px;
       overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
       display: flex;
       flex-direction: column;
       transition: all 0.3s ease;
@@ -91,9 +91,13 @@
     .brand-logo {
       font-size: 22px;
       font-weight: 700;
-      color: #1b4985;
+      color: #1565c0;
       margin-bottom: 12px;
       letter-spacing: -0.3px;
+    }
+
+    .brand-logo span {
+      color: #000000;
     }
 
     .header-title {
@@ -208,7 +212,7 @@
   <div class="card-container">
     
     <div class="header-bege">
-      <div class="brand-logo">estaci<strong>A</strong></div>
+      <div class="brand-logo">estac<span>IA</span></div>
       <h2 class="header-title">Crie sua Conta</h2>
       <p class="header-subtitle">Cadastre-se para aproveitar todos os recursos</p>
     </div>
