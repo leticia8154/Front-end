@@ -1,193 +1,129 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Seleção de Setores - estacIA</title>
-    <link rel="stylesheet" href="css/setores.css" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EstaciA - Seleção de Setor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="setores.css">
+</head>
+<body>
+
+  <main class="card-container">
     
-    <style>
-      /* Ajustes extras de responsividade e landscape */
-      @media (max-height: 700px) or (orientation: landscape) {
-        body {
-          height: auto !important;
-          min-height: 100vh !important;
-          padding: 20px 16px !important;
-        }
+    <div class="header-nav">
+      <a href="principal.html" class="btn-back" title="Voltar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </a>
+      <div class="header-titles">
+        <h1>Brasilia Shopping</h1>
+        <p>Selecione um setor da planta</p>
+      </div>
+    </div>
 
-        .container {
-          margin: auto !important;
-        }
-      }
-    </style>
-  </head>
-  <body>
+    <div class="map-container">
+      <div class="map-grid">
+        <a href="#" class="map-card">
+          <span class="map-card-icon">🚗</span>
+          <span class="map-card-title">Setor A</span>
+          <span class="map-card-sub">Entrada Norte</span>
+          <span class="badge badge-green">35/60 vagas</span>
+        </a>
 
-    <main class="container">
-      
-      <!-- Cabeçalho -->
-      <header class="header-nav">
-        <a href="principal.html" class="btn-back" aria-label="Voltar">‹</a>
-        <div class="header-titles">
-          <h1>Brasília Shopping</h1>
-          <p>Selecione um setor</p>
-        </div>
-      </header>
+        <a href="#" class="map-card">
+          <span class="map-card-icon">🚗</span>
+          <span class="map-card-title">Setor B</span>
+          <span class="map-card-sub">Entrada Sul</span>
+          <span class="badge badge-red">08/60 vagas</span>
+        </a>
 
-      <!-- Grid Superior -->
-      <section class="sectors-map-card">
-        <div class="sectors-grid">
-          <div class="sector-box selected" data-sector="A">
-            <div class="sector-box-header"><span class="sector-box-title">Setor A</span></div>
-            <span class="sector-box-floor">1º Andar</span>
-            <span class="sector-box-badge badge-green">35/50</span>
-          </div>
+        <a href="#" class="map-card">
+          <span class="map-card-icon">🚗</span>
+          <span class="map-card-title">Setor C</span>
+          <span class="map-card-sub">Praça Court</span>
+          <span class="badge badge-yellow">22/60 vagas</span>
+        </a>
 
-          <div class="sector-box" data-sector="B">
-            <div class="sector-box-header"><span class="sector-box-title">Setor B</span></div>
-            <span class="sector-box-floor">1º Andar</span>
-            <span class="sector-box-badge badge-red">8/50</span>
-          </div>
+        <a href="#" class="map-card">
+          <span class="map-card-icon">🚗</span>
+          <span class="map-card-title">Setor D</span>
+          <span class="map-card-sub">Área Serviços</span>
+          <span class="badge badge-red">05/60 vagas</span>
+        </a>
+      </div>
 
-          <div class="sector-box" data-sector="C">
-            <div class="sector-box-header"><span class="sector-box-title">Setor C</span></div>
-            <span class="sector-box-floor">2º Andar</span>
-            <span class="sector-box-badge badge-orange">22/50</span>
-          </div>
+      <div class="legend-box">
+        <div class="legend-item"><span class="dot dot-green"></span> Alta (>50%)</div>
+        <div class="legend-item"><span class="dot dot-yellow"></span> Média (20-50%)</div>
+        <div class="legend-item"><span class="dot dot-red"></span> Baixa (&lt;20%)</div>
+      </div>
+    </div>
 
-          <div class="sector-box" data-sector="D">
-            <div class="sector-box-header"><span class="sector-box-title">Setor D</span></div>
-            <span class="sector-box-floor">1º Andar</span>
-            <span class="sector-box-badge badge-red">5/50</span>
-          </div>
-        </div>
+    <p class="section-title">Todos os Setores (Térreo)</p>
 
-        <div class="legend-floating-badge">
-          <p class="legend-title">Disponibilidade</p>
-          <div class="legend-item"><span class="dot dot-green"></span> Alta (&gt;70%)</div>
-          <div class="legend-item"><span class="dot dot-orange"></span> Média (30-70%)</div>
-          <div class="legend-item"><span class="dot dot-red"></span> Baixa (&lt;30%)</div>
-        </div>
-      </section>
-
-      <!-- Card Detalhes -->
-      <section class="sector-details-card">
-        <div class="details-header">
-          <div class="details-info">
-            <h2 id="detailSectorTitle">Setor A</h2>
-            <p id="detailSectorFloor">1º Andar</p>
-          </div>
-          <div class="details-vagas-count">
-            <span class="vagas-number" id="detailVagasCount">35</span>
-            <p class="vagas-label">vagas livres</p>
+    <div class="setores-list">
+      <a href="#" class="setor-card">
+        <div class="setor-left">
+          <div class="setor-avatar">A</div>
+          <div class="setor-info">
+            <h4>Setor A - Norte</h4>
+            <p>Próx. Lojas Americanas</p>
           </div>
         </div>
-        <button class="btn-navigate" type="button" onclick="alert('Navegação iniciada!')">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/>
-          </svg>
-          <span>Navegar até o Setor</span>
-        </button>
-      </section>
-
-      <!-- Lista Inferior -->
-      <section class="all-sectors-section">
-        <h2 class="all-sectors-title">Todos os Setores</h2>
-        <div class="sectors-list">
-          
-          <div class="list-item-sector selected" data-sector="A">
-            <div class="list-item-left">
-              <div class="sector-letter-badge">A</div>
-              <div class="sector-item-text">
-                <h3>Setor A</h3>
-                <p>1º Andar</p>
-              </div>
-            </div>
-            <div class="list-item-right">
-              <span class="badge-circle-vagas badge-green">35</span>
-              <p class="occupancy-percentage">30% ocupado</p>
-            </div>
-          </div>
-
-          <div class="list-item-sector" data-sector="B">
-            <div class="list-item-left">
-              <div class="sector-letter-badge">B</div>
-              <div class="sector-item-text">
-                <h3>Setor B</h3>
-                <p>1º Andar</p>
-              </div>
-            </div>
-            <div class="list-item-right">
-              <span class="badge-circle-vagas badge-red">8</span>
-              <p class="occupancy-percentage">84% ocupado</p>
-            </div>
-          </div>
-
-          <div class="list-item-sector" data-sector="C">
-            <div class="list-item-left">
-              <div class="sector-letter-badge">C</div>
-              <div class="sector-item-text">
-                <h3>Setor C</h3>
-                <p>2º Andar</p>
-              </div>
-            </div>
-            <div class="list-item-right">
-              <span class="badge-circle-vagas badge-orange">22</span>
-              <p class="occupancy-percentage">56% ocupado</p>
-            </div>
-          </div>
-
-          <div class="list-item-sector" data-sector="D">
-            <div class="list-item-left">
-              <div class="sector-letter-badge">D</div>
-              <div class="sector-item-text">
-                <h3>Setor D</h3>
-                <p>1º Andar</p>
-              </div>
-            </div>
-            <div class="list-item-right">
-              <span class="badge-circle-vagas badge-red">5</span>
-              <p class="occupancy-percentage">90% ocupado</p>
-            </div>
-          </div>
-
+        <div class="setor-right">
+          <span class="badge badge-green">35 vagas</span>
+          <span class="occupancy-text">42% ocupado</span>
         </div>
-      </section>
+      </a>
 
-    </main>
+      <a href="#" class="setor-card">
+        <div class="setor-left">
+          <div class="setor-avatar">B</div>
+          <div class="setor-info">
+            <h4>Setor B - Sul</h4>
+            <p>Próx. C&A e Riachuelo</p>
+          </div>
+        </div>
+        <div class="setor-right">
+          <span class="badge badge-red">8 vagas</span>
+          <span class="occupancy-text">87% ocupado</span>
+        </div>
+      </a>
 
-    <!-- Script de Interatividade -->
-    <script>
-      const sectorsData = {
-        'A': { title: 'Setor A', floor: '1º Andar', vagas: 35 },
-        'B': { title: 'Setor B', floor: '1º Andar', vagas: 8 },
-        'C': { title: 'Setor C', floor: '2º Andar', vagas: 22 },
-        'D': { title: 'Setor D', floor: '1º Andar', vagas: 5 }
-      };
+      <a href="#" class="setor-card">
+        <div class="setor-left">
+          <div class="setor-avatar">C</div>
+          <div class="setor-info">
+            <h4>Setor C - Leste</h4>
+            <p>Praça de Alimentação</p>
+          </div>
+        </div>
+        <div class="setor-right">
+          <span class="badge badge-yellow">22 vagas</span>
+          <span class="occupancy-text">63% ocupado</span>
+        </div>
+      </a>
 
-      document.querySelectorAll('[data-sector]').forEach(element => {
-        element.addEventListener('click', () => {
-          const key = element.dataset.sector;
+      <a href="#" class="setor-card">
+        <div class="setor-left">
+          <div class="setor-avatar">D</div>
+          <div class="setor-info">
+            <h4>Setor D - Oeste</h4>
+            <p>Área de Carga e Serviços</p>
+          </div>
+        </div>
+        <div class="setor-right">
+          <span class="badge badge-red">5 vagas</span>
+          <span class="occupancy-text">92% ocupado</span>
+        </div>
+      </a>
+    </div>
 
-          // Destaca no grid
-          document.querySelectorAll('.sector-box').forEach(el => {
-            el.classList.toggle('selected', el.dataset.sector === key);
-          });
+  </main>
 
-          // Destaca na lista
-          document.querySelectorAll('.list-item-sector').forEach(el => {
-            el.classList.toggle('selected', el.dataset.sector === key);
-          });
-
-          // Atualiza o painel de detalhes
-          const data = sectorsData[key];
-          if (data) {
-            document.getElementById('detailSectorTitle').innerText = data.title;
-            document.getElementById('detailSectorFloor').innerText = data.floor;
-            document.getElementById('detailVagasCount').innerText = data.vagas;
-          }
-        });
-      });
-    </script>
-  </body>
+</body>
 </html>

@@ -1,145 +1,89 @@
-import React, { useState } from 'react';
-import '../css/setores.css';
+import React from 'react';
+import './setores.css'; // Certifique-se de ter o arquivo CSS no mesmo diretório ou importar o módulo CSS
 
-export function TelaSetores() {
-  const [sectorSelected, setSectorSelected] = useState('A');
-
-  const sectors = [
-    { 
-      id: 'A', 
-      name: 'Setor A', 
-      floor: '1º Andar', 
-      vagas: 35, 
-      total: 50, 
-      badgeClass: 'badge-green', 
-      occupancy: '30% ocupado' 
-    },
-    { 
-      id: 'B', 
-      name: 'Setor B', 
-      floor: '1º Andar', 
-      vagas: 8, 
-      total: 50, 
-      badgeClass: 'badge-red', 
-      occupancy: '84% ocupado' 
-    },
-    { 
-      id: 'C', 
-      name: 'Setor C', 
-      floor: '2º Andar', 
-      vagas: 22, 
-      total: 50, 
-      badgeClass: 'badge-orange', 
-      occupancy: '56% ocupado' 
-    },
-    { 
-      id: 'D', 
-      name: 'Setor D', 
-      floor: '1º Andar', 
-      vagas: 5, 
-      total: 50, 
-      badgeClass: 'badge-red', 
-      occupancy: '90% ocupado' 
-    },
+export default function Setores({ onBack, onSelectSetor }) {
+  const setoresData = [
+    { id: 'A', nome: 'Setor A - Norte', sub: 'Próx. Lojas Americanas', curto: 'Entrada Norte', vagas: '35/60', vagasNum: '35', ocupacao: '42%', status: 'green' },
+    { id: 'B', nome: 'Setor B - Sul', sub: 'Próx. C&A e Riachuelo', curto: 'Entrada Sul', vagas: '08/60', vagasNum: '8', ocupacao: '87%', status: 'red' },
+    { id: 'C', nome: 'Setor C - Leste', sub: 'Praça de Alimentação', curto: 'Praça Court', vagas: '22/60', vagasNum: '22', ocupacao: '63%', status: 'yellow' },
+    { id: 'D', nome: 'Setor D - Oeste', sub: 'Área de Carga e Serviços', curto: 'Área Serviços', vagas: '05/60', vagasNum: '5', ocupacao: '92%', status: 'red' },
   ];
 
-  const currentSector = sectors.find(sec => sec.id === sectorSelected);
+  const getBadgeClass = (status) => {
+    switch (status) {
+      case 'green': return 'badge-green';
+      case 'yellow': return 'badge-yellow';
+      case 'red': return 'badge-red';
+      default: return 'badge-green';
+    }
+  };
 
   return (
-    <main className="container">
-      
-      {/* Cabeçalho */}
-      <header className="header-nav">
-        <a href="principal.html" className="btn-back" aria-label="Voltar">‹</a>
+    <main className="card-container">
+      {/* Navegação e Cabeçalho */}
+      <div className="header-nav">
+        <button type="button" className="btn-back" title="Voltar" onClick={onBack}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
         <div className="header-titles">
-          <h1>Brasília Shopping</h1>
-          <p>Selecione um setor</p>
+          <h1>Brasilia Shopping</h1>
+          <p>Selecione um setor da planta</p>
         </div>
-      </header>
+      </div>
 
-      {/* Grid Superior */}
-      <section className="sectors-map-card">
-        <div className="sectors-grid">
-          {sectors.map((sec) => (
-            <div 
-              key={sec.id}
-              className={`sector-box ${sectorSelected === sec.id ? 'selected' : ''}`}
-              onClick={() => setSectorSelected(sec.id)}
+      {/* Mapa Visual */}
+      <div className="map-container">
+        <div className="map-grid">
+          {setoresData.map((setor) => (
+            <button
+              key={`map-${setor.id}`}
+              type="button"
+              className="map-card"
+              onClick={() => onSelectSetor && onSelectSetor(setor.id)}
             >
-              <div className="sector-box-header">
-                <span className="sector-box-title">{sec.name}</span>
-              </div>
-              <span className="sector-box-floor">{sec.floor}</span>
-              <span className={`sector-box-badge ${sec.badgeClass}`}>
-                {sec.vagas}/{sec.total}
-              </span>
-            </div>
+              <span className="map-card-icon">🚗</span>
+              <span className="map-card-title">Setor {setor.id}</span>
+              <span className="map-card-sub">{setor.curto}</span>
+              <span className={`badge ${getBadgeClass(setor.status)}`}>{setor.vagas} vagas</span>
+            </button>
           ))}
         </div>
 
-        {/* Legenda Flutuante */}
-        <div className="legend-floating-badge">
-          <p className="legend-title">Disponibilidade</p>
-          <div className="legend-item"><span className="dot dot-green"></span> Alta (&gt;70%)</div>
-          <div className="legend-item"><span className="dot dot-orange"></span> Média (30-70%)</div>
-          <div className="legend-item"><span className="dot dot-red"></span> Baixa (&lt;30%)</div>
+        {/* Legenda */}
+        <div className="legend-box">
+          <div className="legend-item"><span className="dot dot-green"></span> Alta (&gt;50%)</div>
+          <div className="legend-item"><span className="dot dot-yellow"></span> Média (20-50%)</div>
+          <div className="legend-item"><span className="dot dot-red"></span> Baixa (&lt;20%)</div>
         </div>
-      </section>
+      </div>
 
-      {/* Card de Detalhes Dinâmico */}
-      {currentSector && (
-        <section className="sector-details-card">
-          <div className="details-header">
-            <div className="details-info">
-              <h2>{currentSector.name}</h2>
-              <p>{currentSector.floor}</p>
-            </div>
-            <div className="details-vagas-count">
-              <span className="vagas-number">{currentSector.vagas}</span>
-              <p className="vagas-label">vagas livres</p>
-            </div>
-          </div>
-          <button 
-            className="btn-navigate" 
-            type="button" 
-            onClick={() => alert('Navegação iniciada!')}
+      {/* Lista detalhada */}
+      <p className="section-title">Todos os Setores (Térreo)</p>
+
+      <div className="setores-list">
+        {setoresData.map((setor) => (
+          <button
+            key={`list-${setor.id}`}
+            type="button"
+            className="setor-card"
+            onClick={() => onSelectSetor && onSelectSetor(setor.id)}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/>
-            </svg>
-            <span>Navegar até o Setor</span>
-          </button>
-        </section>
-      )}
-
-      {/* Lista Inferior */}
-      <section className="all-sectors-section">
-        <h2 className="all-sectors-title">Todos os Setores</h2>
-        <div className="sectors-list">
-          {sectors.map((sec) => (
-            <div 
-              key={sec.id}
-              className={`list-item-sector ${sectorSelected === sec.id ? 'selected' : ''}`}
-              onClick={() => setSectorSelected(sec.id)}
-            >
-              <div className="list-item-left">
-                <div className="sector-letter-badge">{sec.id}</div>
-                <div className="sector-item-text">
-                  <h3>{sec.name}</h3>
-                  <p>{sec.floor}</p>
-                </div>
-              </div>
-              <div className="list-item-right">
-                <span className={`badge-circle-vagas ${sec.badgeClass}`}>
-                  {sec.vagas}
-                </span>
-                <p className="occupancy-percentage">{sec.occupancy}</p>
+            <div className="setor-left">
+              <div className="setor-avatar">{setor.id}</div>
+              <div className="setor-info">
+                <h4>{setor.nome}</h4>
+                <p>{setor.sub}</p>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
-
+            <div className="setor-right">
+              <span className={`badge ${getBadgeClass(setor.status)}`}>{setor.vagasNum} vagas</span>
+              <span className="occupancy-text">{setor.ocupacao} ocupado</span>
+            </div>
+          </button>
+        ))}
+      </div>
     </main>
   );
 }
