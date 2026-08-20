@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EstaciA - Setores</title>
+  <title>EstaciA - Recuperar Senha</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -26,485 +26,146 @@
     }
 
     .card-container {
-      background-color: #eaf2ff;
+      background-color: #ffffff;
       width: 100%;
       max-width: 380px;
+      height: 640px;
       border-radius: 28px;
       overflow: hidden;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-      padding: 20px 16px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
     }
 
-    /* Cabeçalho */
-    .header-bar {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 0 4px;
-    }
-
-    .back-btn {
-      color: #333333;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-    }
-
-    .header-title h2 {
-      font-size: 18px;
-      font-weight: 700;
-      color: #1a1a1a;
-    }
-
-    .header-title p {
-      font-size: 12px;
-      color: #666666;
-    }
-
-    /* Área da Planta/Grid Superior */
-    .map-container {
-      background-color: #f3f5f8;
-      border-radius: 20px;
-      padding: 16px;
-      position: relative;
-      background-image: linear-gradient(#e5e9f0 1px, transparent 1px), linear-gradient(90deg, #e5e9f0 1px, transparent 1px);
-      background-size: 20px 20px;
-    }
-
-    .grid-sectors {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .grid-card {
-      background-color: #ffffff;
-      border-radius: 14px;
-      padding: 12px 10px;
+    .hero-section {
+      background-color: #f5f0e6;
+      padding: 24px 20px 16px 20px;
+      text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 4px;
-      cursor: pointer;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.04);
-      transition: all 0.2s ease;
-      border: 2px solid transparent;
+      height: 210px;
     }
 
-    .grid-card.selected {
-      background-color: #0f172a;
-      color: #ffffff;
+    .hero-logo {
+      height: 60px !important;
+      width: auto !important;
+      max-width: 200px !important;
+      object-fit: contain !important;
+      mix-blend-mode: multiply !important;
+      display: block;
+      margin: 0 auto 8px auto;
     }
 
-    .grid-card-title {
+    .hero-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 6px;
+    }
+
+    .hero-subtitle {
       font-size: 13px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 4px;
+      color: #555555;
+      line-height: 1.3;
     }
 
-    .grid-card-sub {
-      font-size: 10px;
-      color: #888888;
-    }
-
-    .grid-card.selected .grid-card-sub {
-      color: #94a3b8;
-    }
-
-    .grid-badge {
-      font-size: 11px;
-      font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 10px;
-      margin-top: 4px;
-    }
-
-    .badge-green { background-color: #dcfce7; color: #166534; }
-    .badge-red { background-color: #fee2e2; color: #991b1b; }
-    .badge-yellow { background-color: #fef3c7; color: #92400e; }
-
-    .grid-card.selected .grid-badge.badge-green {
-      background-color: #e2e8f0;
-      color: #0f172a;
-    }
-
-    /* Legenda de Disponibilidade */
-    .legend-box {
-      position: absolute;
-      bottom: -10px;
-      right: 12px;
-      background-color: #ffffff;
-      border-radius: 12px;
-      padding: 8px 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-      font-size: 10px;
+    .form-section {
+      padding: 32px 24px;
+      flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      justify-content: space-between;
     }
 
-    .legend-title {
-      font-weight: 700;
-      color: #333;
-      margin-bottom: 2px;
+    .form-group-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
-    .legend-item {
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .input-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #333333;
       display: flex;
       align-items: center;
       gap: 6px;
-      color: #666;
     }
 
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-    }
-    .dot-green { background-color: #22c55e; }
-    .dot-yellow { background-color: #eab308; }
-    .dot-red { background-color: #ef4444; }
-
-    /* Quadro de Navegação para o Setor */
-    .action-card {
-      background-color: #ffffff;
-      border-radius: 20px;
-      padding: 16px 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      transition: all 0.2s ease;
-    }
-
-    .action-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-
-    .action-info h3 {
-      font-size: 18px;
-      font-weight: 700;
-      color: #1a1a1a;
-    }
-
-    .action-info p {
-      font-size: 12px;
-      color: #666666;
-    }
-
-    .action-stats {
-      text-align: right;
-    }
-
-    .action-vagas {
-      font-size: 22px;
-      font-weight: 700;
-      color: #2563eb;
-    }
-
-    .action-vagas-label {
-      font-size: 10px;
-      color: #666666;
-    }
-
-    .btn-navigate {
+    .input-field {
       width: 100%;
-      background-color: #2563eb;
+      padding: 12px 14px;
+      border: 1px solid #dcdcdc;
+      border-radius: 12px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .input-field:focus {
+      border-color: #1565c0;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background-color: #1565c0;
       color: #ffffff;
       border: none;
-      padding: 12px;
+      padding: 14px;
       border-radius: 12px;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 600;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+      box-shadow: 0 4px 10px rgba(21, 101, 192, 0.3);
     }
 
-    /* Lista "Todos os Setores" */
-    .list-container {
-      background-color: #ffffff;
-      border-radius: 20px;
-      padding: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .list-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: #1a1a1a;
-      margin-bottom: 4px;
-    }
-
-    .list-item {
-      background-color: #f8fafc;
-      border-radius: 14px;
-      padding: 10px 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      border: 2px solid transparent;
-      transition: all 0.2s ease;
-    }
-
-    .list-item.selected {
-      border-color: #2563eb;
-      background-color: #f0f6ff;
-    }
-
-    .list-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .sector-badge-square {
-      width: 36px;
-      height: 36px;
-      background-color: #2563eb;
-      color: #ffffff;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 15px;
-    }
-
-    .list-details strong {
-      display: block;
+    .footer-text {
+      text-align: center;
       font-size: 13px;
-      color: #1a1a1a;
+      color: #666666;
     }
 
-    .list-details span {
-      font-size: 11px;
-      color: #64748b;
-    }
-
-    .list-right {
-      text-align: right;
-    }
-
-    .badge-circle {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 12px;
-    }
-
-    .occupancy-text {
-      display: block;
-      font-size: 10px;
-      color: #94a3b8;
-      margin-top: 2px;
+    .footer-text a {
+      color: #1565c0;
+      text-decoration: none;
+      font-weight: 600;
     }
   </style>
 </head>
 <body>
 
   <div class="card-container">
-    
-    <!-- CABEÇALHO -->
-    <div class="header-bar">
-      <a href="principal.html" class="back-btn" title="Voltar">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-      </a>
-      <div class="header-title">
-        <h2 id="shoppingTitle">Brasilia Shopping</h2>
-        <p>Selecione um setor</p>
-      </div>
+    <div class="hero-section">
+      <img src="logo.png" alt="EstaciA" class="hero-logo" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 60\'><text x=\'50%\' y=\'40\' font-family=\'sans-serif\' font-size=\'28\' font-weight=\'bold\' fill=\'%231565c0\' text-anchor=\'middle\'>estaci<tspan fill=\'%231a1a1a\'>A</tspan></text></svg>';" />
+      <h1 class="hero-title">Recuperar Senha</h1>
+      <p class="hero-subtitle">Informe seu e-mail cadastrado para<br>receber as instruções</p>
     </div>
 
-    <!-- ÁREA DO MAPA / PLANTA COM CARDS -->
-    <div class="map-container">
-      <div class="grid-sectors">
-        
-        <div class="grid-card selected" id="grid-A" onclick="selecionarSetor('A')">
-          <div class="grid-card-title">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
-            Setor A
-          </div>
-          <span class="grid-card-sub">1º Andar</span>
-          <span class="grid-badge badge-green">35/60</span>
-        </div>
-
-        <div class="grid-card" id="grid-B" onclick="selecionarSetor('B')">
-          <div class="grid-card-title">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
-            Setor B
-          </div>
-          <span class="grid-card-sub">1º Andar</span>
-          <span class="grid-badge badge-red">8/60</span>
-        </div>
-
-        <div class="grid-card" id="grid-C" onclick="selecionarSetor('C')">
-          <div class="grid-card-title">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
-            Setor C
-          </div>
-          <span class="grid-card-sub">2º Andar</span>
-          <span class="grid-badge badge-yellow">22/60</span>
-        </div>
-
-        <div class="grid-card" id="grid-D" onclick="selecionarSetor('D')">
-          <div class="grid-card-title">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
-            Setor D
-          </div>
-          <span class="grid-card-sub">2º Andar</span>
-          <span class="grid-badge badge-red">5/60</span>
-        </div>
-
-      </div>
-
-      <!-- LEGENDA SOBREPOSTA -->
-      <div class="legend-box">
-        <span class="legend-title">Disponibilidade</span>
-        <div class="legend-item"><span class="dot dot-green"></span> Alta (&gt;50%)</div>
-        <div class="legend-item"><span class="dot dot-yellow"></span> Média (20-50%)</div>
-        <div class="legend-item"><span class="dot dot-red"></span> Baixa (&lt;20%)</div>
-      </div>
-    </div>
-
-    <!-- QUADRO DE AÇÃO (EXIBE O SETOR SELECIONADO) -->
-    <div class="action-card">
-      <div class="action-header">
-        <div class="action-info">
-          <h3 id="selectedName">Setor A</h3>
-          <p id="selectedFloor">1º Andar</p>
-        </div>
-        <div class="action-stats">
-          <span class="action-vagas" id="selectedVagas">35</span>
-          <span class="action-vagas-label">vagas livres</span>
-        </div>
-      </div>
-      <button class="btn-navigate" onclick="navegar()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
-        Navegar até o Setor
-      </button>
-    </div>
-
-    <!-- LISTA TODOS OS SETORES -->
-    <div class="list-container">
-      <span class="list-title">Todos os Setores</span>
-
-      <div class="list-item selected" id="list-A" onclick="selecionarSetor('A')">
-        <div class="list-left">
-          <div class="sector-badge-square">A</div>
-          <div class="list-details">
-            <strong>Setor A</strong>
-            <span>1º Andar</span>
-          </div>
-        </div>
-        <div class="list-right">
-          <span class="badge-circle badge-green">35</span>
-          <span class="occupancy-text">42% ocupado</span>
+    <form class="form-section" onsubmit="event.preventDefault(); alert('Instruções enviadas para o seu e-mail!'); window.location.href='index.html';">
+      <div class="form-group-list">
+        <div class="input-group">
+          <label class="input-label">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            E-mail cadastrado
+          </label>
+          <input type="email" class="input-field" placeholder="seu@email.com" required />
         </div>
       </div>
 
-      <div class="list-item" id="list-B" onclick="selecionarSetor('B')">
-        <div class="list-left">
-          <div class="sector-badge-square">B</div>
-          <div class="list-details">
-            <strong>Setor B</strong>
-            <span>1º Andar</span>
-          </div>
-        </div>
-        <div class="list-right">
-          <span class="badge-circle badge-red">8</span>
-          <span class="occupancy-text">87% ocupado</span>
-        </div>
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <button type="submit" class="btn-submit">Enviar link de recuperação</button>
+        <p class="footer-text"><a href="index.html">← Voltar para o Login</a></p>
       </div>
-
-      <div class="list-item" id="list-C" onclick="selecionarSetor('C')">
-        <div class="list-left">
-          <div class="sector-badge-square">C</div>
-          <div class="list-details">
-            <strong>Setor C</strong>
-            <span>2º Andar</span>
-          </div>
-        </div>
-        <div class="list-right">
-          <span class="badge-circle badge-yellow">22</span>
-          <span class="occupancy-text">63% ocupado</span>
-        </div>
-      </div>
-
-      <div class="list-item" id="list-D" onclick="selecionarSetor('D')">
-        <div class="list-left">
-          <div class="sector-badge-square">D</div>
-          <div class="list-details">
-            <strong>Setor D</strong>
-            <span>2º Andar</span>
-          </div>
-        </div>
-        <div class="list-right">
-          <span class="badge-circle badge-red">5</span>
-          <span class="occupancy-text">92% ocupado</span>
-        </div>
-      </div>
-
-    </div>
-
+    </form>
   </div>
-
-  <script>
-    // Dados dos setores
-    const setoresData = {
-      'A': { nome: 'Setor A', andar: '1º Andar', vagas: 35 },
-      'B': { nome: 'Setor B', andar: '1º Andar', vagas: 8 },
-      'C': { nome: 'Setor C', andar: '2º Andar', vagas: 22 },
-      'D': { nome: 'Setor D', andar: '2º Andar', vagas: 5 }
-    };
-
-    let setorAtual = 'A';
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const shoppingSalvo = localStorage.getItem('shoppingSelecionado');
-      if (shoppingSalvo) {
-        document.getElementById('shoppingTitle').innerText = shoppingSalvo;
-      }
-    });
-
-    function selecionarSetor(id) {
-      setorAtual = id;
-
-      // Desmarca todos
-      document.querySelectorAll('.grid-card').forEach(el => el.classList.remove('selected'));
-      document.querySelectorAll('.list-item').forEach(el => el.classList.remove('selected'));
-
-      // Marca o selecionado no grid e na lista
-      document.getElementById(`grid-${id}`).classList.add('selected');
-      document.getElementById(`list-${id}`).classList.add('selected');
-
-      // Atualiza o quadro de ação
-      const data = setoresData[id];
-      document.getElementById('selectedName').innerText = data.nome;
-      document.getElementById('selectedFloor').innerText = data.andar;
-      document.getElementById('selectedVagas').innerText = data.vagas;
-    }
-
-    function navegar() {
-      alert(`Iniciando navegação para o ${setoresData[setorAtual].nome}...`);
-    }
-  </script>
 
 </body>
 </html>
