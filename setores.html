@@ -163,7 +163,7 @@
       color: #777777;
     }
 
-    /* Botão de Navegação com Link Direto */
+    /* Botão de Navegação */
     .btn-navigate {
       width: 100%;
       background-color: #1565c0;
@@ -180,6 +180,12 @@
       text-decoration: none;
       box-shadow: 0 2px 8px rgba(21, 101, 192, 0.25);
       cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .btn-navigate:active {
+      transform: scale(0.98);
+      background-color: #0d47a1;
     }
 
     /* Lista de Setores */
@@ -207,6 +213,11 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.04);
       border: 2px solid transparent;
       cursor: pointer;
+      transition: border-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .sector-item:hover {
+      transform: translateY(-1px);
     }
 
     .sector-item.active {
@@ -288,7 +299,6 @@
 
   <div class="card-container">
     
-    <!-- Voltar para tela principal -->
     <header class="header">
       <a href="principal.html" class="btn-back">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
@@ -299,28 +309,25 @@
       </div>
     </header>
 
-    <!-- Legenda -->
     <div class="legend-bar">
       <div class="legend-item"><span class="dot red"></span> Ocupado (>50%)</div>
       <div class="legend-item"><span class="dot orange"></span> Médio (20-50%)</div>
       <div class="legend-item"><span class="dot green"></span> Livre (<20%)</div>
     </div>
 
-    <!-- Destaque do Setor Selecionado -->
     <div class="highlight-card">
       <div class="highlight-header">
         <div>
-          <h2 class="highlight-title" id="activeSectorTitle">Setor B - Sul</h2>
-          <p class="highlight-sub" id="activeSectorSub">Próx. C&A e Riachuelo</p>
+          <h2 class="highlight-title" id="activeSectorTitle">Setor A - Norte</h2>
+          <p class="highlight-sub" id="activeSectorSub">Próx. Lojas Americanas</p>
         </div>
         <div class="highlight-vagas">
-          <div class="vagas-num" id="activeSectorVagas">35</div>
+          <div class="vagas-num" id="activeSectorVagas">51</div>
           <div class="vagas-lbl">vagas livres</div>
         </div>
       </div>
 
-      <!-- BOTÃO DE NAVEGAÇÃO DIRETA SEM ALERT -->
-      <a href="navegacao.html" class="btn-navigate">
+      <a href="navegacao.html" class="btn-navigate" id="btnNavigate">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
         Navegar até o Setor
       </a>
@@ -328,11 +335,9 @@
 
     <span class="section-label">Setores Disponíveis (Térreo)</span>
 
-    <!-- Lista Interativa de Setores -->
     <div class="sectors-list">
       
-      <!-- Setor A -->
-      <div class="sector-item" onclick="selectSector('Setor A - Norte', 'Próx. Lojas Americanas', '51', this)">
+      <div class="sector-item active" onclick="selectSector('Setor A - Norte', 'Próx. Lojas Americanas', '51', this)">
         <div class="sector-row-top">
           <div>
             <div class="sector-name">🚗 Setor A - Norte</div>
@@ -349,8 +354,7 @@
         </div>
       </div>
 
-      <!-- Setor B -->
-      <div class="sector-item active" onclick="selectSector('Setor B - Sul', 'Próx. C&A e Riachuelo', '35', this)">
+      <div class="sector-item" onclick="selectSector('Setor B - Sul', 'Próx. C&A e Riachuelo', '35', this)">
         <div class="sector-row-top">
           <div>
             <div class="sector-name">🚗 Setor B - Sul</div>
@@ -367,7 +371,6 @@
         </div>
       </div>
 
-      <!-- Setor C -->
       <div class="sector-item" onclick="selectSector('Setor C - Leste', 'Praça de Alimentação', '22', this)">
         <div class="sector-row-top">
           <div>
@@ -385,7 +388,6 @@
         </div>
       </div>
 
-      <!-- Setor D -->
       <div class="sector-item" onclick="selectSector('Setor D - Oeste', 'Área de Carga e Serviços', '5', this)">
         <div class="sector-row-top">
           <div>
