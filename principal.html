@@ -25,7 +25,6 @@
       padding: 20px;
     }
 
-    /* Container do Card Principal */
     .card-container {
       background-color: #f6f3eb;
       width: 100%;
@@ -39,7 +38,6 @@
       position: relative;
     }
 
-    /* Topo com Ícone de Sair */
     .header-top {
       display: flex;
       justify-content: flex-end;
@@ -56,7 +54,6 @@
       font-weight: 600;
     }
 
-    /* Saudação */
     .user-greeting {
       font-size: 1.5rem;
       font-weight: 700;
@@ -70,10 +67,21 @@
     .user-email {
       font-size: 0.8rem;
       color: #6e6e73;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
-    /* SELECT / DROPDOWN DO SHOPPING */
+    /* LABELS */
+    .field-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #8e8e93;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    /* DROPDOWN CONTAINER */
     .select-container {
       position: relative;
       width: 100%;
@@ -83,7 +91,7 @@
     .select-btn {
       width: 100%;
       background-color: #ffffff;
-      border: 1.5px solid #1c1c1e;
+      border: 1px solid #e1e1e6;
       border-radius: 18px;
       padding: 12px 16px;
       display: flex;
@@ -94,17 +102,23 @@
       font-size: 0.9rem;
       color: #1c1c1e;
       box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-      transition: all 0.2s ease;
+      transition: border-color 0.2s ease;
+    }
+
+    .select-btn:hover {
+      border-color: #1b59f8;
     }
 
     .select-btn-content {
       display: flex;
       align-items: center;
       gap: 10px;
+      pointer-events: none; /* Evita interferência de clique no texto interno */
     }
 
     .chevron-icon {
       transition: transform 0.2s ease;
+      pointer-events: none;
     }
 
     .chevron-icon.rotate {
@@ -122,7 +136,8 @@
       border-radius: 18px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
       overflow: hidden;
-      z-index: 100;
+      z-index: 999;
+      border: 1px solid #e1e1e6;
     }
 
     .dropdown-menu.active {
@@ -134,12 +149,13 @@
       font-size: 0.85rem;
       color: #1c1c1e;
       cursor: pointer;
-      transition: background-color 0.2s ease;
+      transition: background-color 0.15s ease;
       font-weight: 500;
     }
 
     .dropdown-item:hover {
       background-color: #f0f5ff;
+      color: #1b59f8;
     }
 
     .dropdown-item.selected {
@@ -148,7 +164,7 @@
       font-weight: 700;
     }
 
-    /* CARDS DE STATUS / ESTATÍSTICAS */
+    /* ESTATÍSTICAS */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -188,14 +204,7 @@
       color: #8e8e93;
     }
 
-    /* BOTÃO DE BUSCA DE VAGAS */
-    .btn-search-link {
-      text-decoration: none;
-      width: 100%;
-      margin-bottom: 24px;
-      display: block;
-    }
-
+    /* BOTÃO BUSCAR VAGA */
     .btn-search {
       width: 100%;
       background-color: #1b59f8;
@@ -211,6 +220,7 @@
       justify-content: center;
       gap: 8px;
       box-shadow: 0 4px 12px rgba(27, 89, 248, 0.3);
+      margin-bottom: 24px;
       transition: background-color 0.2s ease, transform 0.1s ease;
     }
 
@@ -229,7 +239,6 @@
       margin-bottom: 12px;
     }
 
-    /* LISTA DE ESTACIONAMENTOS RECENTES */
     .vagas-list {
       display: flex;
       flex-direction: column;
@@ -296,13 +305,14 @@
       </a>
     </div>
 
-    <!-- Saudação do Usuário -->
+    <!-- Saudação -->
     <h1 class="user-greeting">Olá, Letícia! 👋</h1>
     <p class="user-email">silvaleticia0008@gmail.com</p>
 
-    <!-- SELECT / DROPDOWN DE SHOPPING -->
+    <!-- SELECT SHOPPING -->
+    <span class="field-label">Shopping Atual</span>
     <div class="select-container">
-      <button type="button" class="select-btn" id="selectBtn" onclick="toggleDropdown(event)">
+      <button type="button" class="select-btn" id="selectBtn">
         <div class="select-btn-content">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1b59f8" stroke-width="2">
             <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/>
@@ -318,46 +328,42 @@
         </svg>
       </button>
 
-      <!-- Lista de Opções para trocar o Shopping Atual -->
       <div class="dropdown-menu" id="dropdownMenu">
-        <div class="dropdown-item selected" onclick="selectShopping('Brasilia Shopping')">Brasilia Shopping</div>
-        <div class="dropdown-item" onclick="selectShopping('Shopping Center - Bloco A')">Shopping Center - Bloco A</div>
-        <div class="dropdown-item" onclick="selectShopping('Shopping Center - Bloco B')">Shopping Center - Bloco B</div>
-        <div class="dropdown-item" onclick="selectShopping('Shopping Norte')">Shopping Norte</div>
-        <div class="dropdown-item" onclick="selectShopping('Shopping Sul')">Shopping Sul</div>
-        <div class="dropdown-item" onclick="selectShopping('Mega Center')">Mega Center</div>
+        <div class="dropdown-item selected" data-value="Brasilia Shopping">Brasilia Shopping</div>
+        <div class="dropdown-item" data-value="Shopping Center - Bloco A">Shopping Center "Cidade Jardim"</div>
+        <div class="dropdown-item" data-value="Shopping Norte">Shopping Norte</div>
+        <div class="dropdown-item" data-value="Shopping Sul">Taguatinga Shopping</div>
+        <div class="dropdown-item" data-value="Mega Center">Mega Center</div>
       </div>
     </div>
 
-    <!-- Estatísticas / Vagas -->
+    <!-- Estatísticas -->
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-icon">🅿</div>
-        <div class="stat-value">12</div>
+        <div class="stat-value">11</div>
         <div class="stat-label">Usos</div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">⏱</div>
-        <div class="stat-value">24h</div>
+        <div class="stat-value">22h</div>
         <div class="stat-label">Total</div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">💳</div>
-        <div class="stat-value">R$ 180</div>
+        <div class="stat-value">R$ 220,00</div>
         <div class="stat-label">Gasto</div>
       </div>
     </div>
 
-    <!-- LINK PARA A TELA DE SETORES -->
-    <a href="setores.html" class="btn-search-link">
-      <button type="button" class="btn-search">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-        Buscar Vaga Disponível
-      </button>
-    </a>
+    <!-- BOTÃO COM REDIRECIONAMENTO DIRETO -->
+    <button type="button" class="btn-search" onclick="window.location.href='setores.html'">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      Buscar Vaga Disponível
+    </button>
 
     <!-- Histórico Recente -->
     <p class="section-title">Estacionamentos Recentes</p>
@@ -399,47 +405,44 @@
   </main>
 
   <script>
-    // Alterna visibilidade do menu dropdown
-    function toggleDropdown(event) {
-      if (event) event.stopPropagation();
-      const menu = document.getElementById('dropdownMenu');
-      const chevron = document.getElementById('chevronIcon');
-      
-      menu.classList.toggle('active');
-      chevron.classList.toggle('rotate');
-    }
+    document.addEventListener('DOMContentLoaded', () => {
+      const selectBtn = document.getElementById('selectBtn');
+      const dropdownMenu = document.getElementById('dropdownMenu');
+      const chevronIcon = document.getElementById('chevronIcon');
+      const selectedShoppingName = document.getElementById('selectedShoppingName');
+      const dropdownItems = document.querySelectorAll('.dropdown-item');
 
-    // Seleciona e atualiza o Shopping selecionado
-    function selectShopping(nomeShopping) {
-      document.getElementById('selectedShoppingName').innerText = nomeShopping;
-
-      const menu = document.getElementById('dropdownMenu');
-      const chevron = document.getElementById('chevronIcon');
-      
-      menu.classList.remove('active');
-      chevron.classList.remove('rotate');
-
-      // Destaca o item selecionado
-      const items = document.querySelectorAll('.dropdown-item');
-      items.forEach(item => {
-        if (item.innerText === nomeShopping) {
-          item.classList.add('selected');
-        } else {
-          item.classList.remove('selected');
-        }
+      // Alterna o dropdown
+      selectBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdownMenu.classList.toggle('active');
+        chevronIcon.classList.toggle('rotate');
       });
-    }
 
-    // Fecha o menu ao clicar fora dele
-    document.addEventListener('click', function(event) {
-      const container = document.querySelector('.select-container');
-      const menu = document.getElementById('dropdownMenu');
-      const chevron = document.getElementById('chevronIcon');
+      // Clique nos itens do shopping
+      dropdownItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const novoValor = item.getAttribute('data-value');
+          
+          // Atualiza o texto visual
+          selectedShoppingName.textContent = novoValor;
 
-      if (container && !container.contains(event.target)) {
-        menu.classList.remove('active');
-        chevron.classList.remove('rotate');
-      }
+          // Marca o item ativo
+          dropdownItems.forEach(i => i.classList.remove('selected'));
+          item.classList.add('selected');
+
+          // Fecha o menu
+          dropdownMenu.classList.remove('active');
+          chevronIcon.classList.remove('rotate');
+        });
+      });
+
+      // Fecha se clicar fora
+      document.addEventListener('click', () => {
+        dropdownMenu.classList.remove('active');
+        chevronIcon.classList.remove('rotate');
+      });
     });
   </script>
 
