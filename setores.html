@@ -3,127 +3,295 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EstaciA - Seleção de Setor</title>
+  <title>EstaciA - Setores</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="setores.css">
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(180deg, #0d47a1 0%, #1565c0 50%, #0a2540 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .card-container {
+      background-color: #f7f4ee;
+      width: 100%;
+      max-width: 380px;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .header-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1565c0;
+      text-decoration: none;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .header-title h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+
+    .header-title p {
+      font-size: 12px;
+      color: #666666;
+    }
+
+    /* Legenda de ocupação */
+    .legend-container {
+      background-color: #ffffff;
+      border-radius: 14px;
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-around;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #555;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .dot-low { background-color: #2e7d32; }   /* Baixa (<20%) */
+    .dot-med { background-color: #f57c00; }   /* Média (20-50%) */
+    .dot-high { background-color: #d32f2f; }  /* Alta (>50%) */
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #888888;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+    }
+
+    /* Cards de Setores */
+    .sector-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .sector-card {
+      background-color: #ffffff;
+      border-radius: 16px;
+      padding: 14px 16px;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      border: 1px solid #eaeaea;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .sector-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .sector-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .sector-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a1a1a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge-status {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 12px;
+    }
+
+    .status-high { background-color: #ffebee; color: #c62828; }
+    .status-med { background-color: #fff3e0; color: #ef6c00; }
+    .status-low { background-color: #e8f5e9; color: #2e7d32; }
+
+    .sector-location {
+      font-size: 12px;
+      color: #666666;
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 6px;
+      background-color: #f0f0f0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+    }
+
+    .sector-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: #1565c0;
+    }
+  </style>
 </head>
 <body>
 
-  <main class="card-container">
-    
-    <div class="header-nav">
-      <a href="principal.html" class="btn-back" title="Voltar">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <polyline points="15 18 9 12 15 6"></polyline>
-        </svg>
+  <div class="card-container">
+    <div class="header-bar">
+      <a href="principal.html" class="back-btn" title="Voltar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
       </a>
-      <div class="header-titles">
-        <h1>Brasilia Shopping</h1>
+      <div class="header-title">
+        <h2 id="shoppingTitle">Brasilia Shopping</h2>
         <p>Selecione um setor da planta</p>
       </div>
     </div>
 
-    <div class="map-container">
-      <div class="map-grid">
-        <a href="#" class="map-card">
-          <span class="map-card-icon">🚗</span>
-          <span class="map-card-title">Setor A</span>
-          <span class="map-card-sub">Entrada Norte</span>
-          <span class="badge badge-green">35/60 vagas</span>
-        </a>
-
-        <a href="#" class="map-card">
-          <span class="map-card-icon">🚗</span>
-          <span class="map-card-title">Setor B</span>
-          <span class="map-card-sub">Entrada Sul</span>
-          <span class="badge badge-red">08/60 vagas</span>
-        </a>
-
-        <a href="#" class="map-card">
-          <span class="map-card-icon">🚗</span>
-          <span class="map-card-title">Setor C</span>
-          <span class="map-card-sub">Praça Court</span>
-          <span class="badge badge-yellow">22/60 vagas</span>
-        </a>
-
-        <a href="#" class="map-card">
-          <span class="map-card-icon">🚗</span>
-          <span class="map-card-title">Setor D</span>
-          <span class="map-card-sub">Área Serviços</span>
-          <span class="badge badge-red">05/60 vagas</span>
-        </a>
-      </div>
-
-      <div class="legend-box">
-        <div class="legend-item"><span class="dot dot-green"></span> Alta (>50%)</div>
-        <div class="legend-item"><span class="dot dot-yellow"></span> Média (20-50%)</div>
-        <div class="legend-item"><span class="dot dot-red"></span> Baixa (&lt;20%)</div>
-      </div>
+    <!-- LEGENDA -->
+    <div class="legend-container">
+      <div class="legend-item"><span class="dot dot-high"></span> Ocupado (&gt;50%)</div>
+      <div class="legend-item"><span class="dot dot-med"></span> Médio (20-50%)</div>
+      <div class="legend-item"><span class="dot dot-low"></span> Livre (&lt;20%)</div>
     </div>
 
-    <p class="section-title">Todos os Setores (Térreo)</p>
+    <span class="section-label">SETORES DISPONÍVEIS (TÉRREO)</span>
 
-    <div class="setores-list">
-      <a href="#" class="setor-card">
-        <div class="setor-left">
-          <div class="setor-avatar">A</div>
-          <div class="setor-info">
-            <h4>Setor A - Norte</h4>
-            <p>Próx. Lojas Americanas</p>
+    <div class="sector-list">
+      
+      <!-- SETOR A -->
+      <a href="#" class="sector-card">
+        <div class="sector-header">
+          <div class="sector-name">
+            🚗 Setor A - Norte
           </div>
+          <span class="badge-status status-med">42% ocupado</span>
         </div>
-        <div class="setor-right">
-          <span class="badge badge-green">35 vagas</span>
-          <span class="occupancy-text">42% ocupado</span>
+        <div class="sector-location">Próx. Lojas Americanas</div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" style="width: 42%; background-color: #f57c00;"></div>
+        </div>
+        <div class="sector-footer">
+          <span>35 vagas disponíveis</span>
+          <span>Ver vagas →</span>
         </div>
       </a>
 
-      <a href="#" class="setor-card">
-        <div class="setor-left">
-          <div class="setor-avatar">B</div>
-          <div class="setor-info">
-            <h4>Setor B - Sul</h4>
-            <p>Próx. C&A e Riachuelo</p>
+      <!-- SETOR B -->
+      <a href="#" class="sector-card">
+        <div class="sector-header">
+          <div class="sector-name">
+            🚗 Setor B - Sul
           </div>
+          <span class="badge-status status-high">87% ocupado</span>
         </div>
-        <div class="setor-right">
-          <span class="badge badge-red">8 vagas</span>
-          <span class="occupancy-text">87% ocupado</span>
+        <div class="sector-location">Próx. C&A e Riachuelo</div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" style="width: 87%; background-color: #d32f2f;"></div>
+        </div>
+        <div class="sector-footer">
+          <span>8 vagas disponíveis</span>
+          <span>Ver vagas →</span>
         </div>
       </a>
 
-      <a href="#" class="setor-card">
-        <div class="setor-left">
-          <div class="setor-avatar">C</div>
-          <div class="setor-info">
-            <h4>Setor C - Leste</h4>
-            <p>Praça de Alimentação</p>
+      <!-- SETOR C -->
+      <a href="#" class="sector-card">
+        <div class="sector-header">
+          <div class="sector-name">
+            🚗 Setor C - Leste
           </div>
+          <span class="badge-status status-high">63% ocupado</span>
         </div>
-        <div class="setor-right">
-          <span class="badge badge-yellow">22 vagas</span>
-          <span class="occupancy-text">63% ocupado</span>
+        <div class="sector-location">Praça de Alimentação</div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" style="width: 63%; background-color: #d32f2f;"></div>
+        </div>
+        <div class="sector-footer">
+          <span>22 vagas disponíveis</span>
+          <span>Ver vagas →</span>
         </div>
       </a>
 
-      <a href="#" class="setor-card">
-        <div class="setor-left">
-          <div class="setor-avatar">D</div>
-          <div class="setor-info">
-            <h4>Setor D - Oeste</h4>
-            <p>Área de Carga e Serviços</p>
+      <!-- SETOR D -->
+      <a href="#" class="sector-card">
+        <div class="sector-header">
+          <div class="sector-name">
+            🚗 Setor D - Oeste
           </div>
+          <span class="badge-status status-high">92% ocupado</span>
         </div>
-        <div class="setor-right">
-          <span class="badge badge-red">5 vagas</span>
-          <span class="occupancy-text">92% ocupado</span>
+        <div class="sector-location">Área de Carga e Serviços</div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" style="width: 92%; background-color: #d32f2f;"></div>
+        </div>
+        <div class="sector-footer">
+          <span>5 vagas disponíveis</span>
+          <span>Ver vagas →</span>
         </div>
       </a>
+
     </div>
+  </div>
 
-  </main>
+  <script>
+    // Recupera o shopping selecionado no localStorage para exibir o título dinâmico
+    window.addEventListener('DOMContentLoaded', () => {
+      const shoppingSalvo = localStorage.getItem('shoppingSelecionado');
+      if (shoppingSalvo) {
+        document.getElementById('shoppingTitle').innerText = shoppingSalvo;
+      }
+    });
+  </script>
 
 </body>
 </html>
