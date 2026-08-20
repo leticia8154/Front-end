@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>EstaciA - Entrar</title>
+  <title>estaciA - Entrar</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
     }
 
     body {
-      background: linear-gradient(180deg, #0d47a1 0%, #1565c0 50%, #0a2540 100%);
+      background: linear-gradient(180deg, #1565c0 0%, #0d47a1 100%);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -26,157 +26,193 @@
       padding: 16px;
     }
 
+    /* Container Principal */
     .card-container {
-      background-color: #f7f4ee;
+      background-color: #ffffff;
       width: 100%;
-      max-width: 420px;
-      border-radius: 28px;
+      max-width: 360px;
+      border-radius: 24px;
       overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-      padding: 32px 24px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      transition: max-width 0.3s ease;
+      transition: all 0.3s ease;
     }
 
-    /* ADAPTAÇÃO PARA TABLETS E CENTRAIS VEICULARES */
+    /* ADAPTAÇÃO PARA TABLETS E CENTRAIS MULTIMÍDIA */
     @media (min-width: 768px) {
       .card-container {
-        max-width: 680px;
-        padding: 40px 36px;
-        gap: 24px;
+        max-width: 580px;
+        border-radius: 28px;
       }
-
-      .logo-title {
-        font-size: 32px !important;
+      .header-bege {
+        padding: 40px 32px 28px 32px !important;
       }
-
-      .logo-subtitle {
+      .brand-logo {
+        font-size: 30px !important;
+      }
+      .header-title {
+        font-size: 22px !important;
+      }
+      .header-subtitle {
+        font-size: 14px !important;
+        max-width: 100% !important;
+      }
+      .tab-btn {
+        padding: 16px 0 !important;
         font-size: 15px !important;
       }
-
-      .input-field {
+      .form-body {
+        padding: 32px !important;
+        gap: 20px !important;
+      }
+      .input-label {
+        font-size: 14px !important;
+      }
+      .input-box {
+        padding: 14px 16px !important;
+        font-size: 15px !important;
+        border-radius: 12px !important;
+      }
+      .forgot-link {
+        font-size: 13px !important;
+      }
+      .btn-submit {
+        padding: 16px !important;
         font-size: 16px !important;
-        padding: 16px 14px !important;
+        border-radius: 12px !important;
       }
-
-      .btn-primary {
-        padding: 18px !important;
-        font-size: 17px !important;
+      .footer-text {
+        font-size: 13px !important;
       }
     }
 
-    /* Header e Logo com o ícone P */
-    .brand-header {
+    /* Cabeçalho Bege Original */
+    .header-bege {
+      background-color: #f7f3ed;
+      padding: 32px 24px 20px 24px;
       text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
     }
 
-    .logo-badge {
-      width: 56px;
-      height: 56px;
-      background-color: #1565c0;
-      border-radius: 16px;
+    .brand-logo {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1b4985;
+      margin-bottom: 12px;
+      letter-spacing: -0.3px;
+    }
+
+    .header-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+    }
+
+    .header-subtitle {
+      font-size: 11px;
+      color: #757575;
+      line-height: 1.3;
+      max-width: 200px;
+      margin: 0 auto;
+    }
+
+    /* Abas de Navegação Original */
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #e0e0e0;
+      background-color: #ffffff;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 12px 0;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: #757575;
+      text-decoration: none;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #ffffff;
-      box-shadow: 0 4px 12px rgba(21, 101, 192, 0.3);
+      gap: 6px;
+      background: #fdfdfd;
+      border-bottom: 2px solid transparent;
     }
 
-    .logo-title {
-      font-size: 26px;
-      font-weight: 800;
-      color: #1a1a1a;
-      letter-spacing: -0.5px;
+    .tab-btn.active {
+      color: #1565c0;
+      background: #ffffff;
+      border-bottom: 2px solid #1565c0;
     }
 
-    .logo-subtitle {
-      font-size: 13px;
-      color: #666666;
-    }
-
-    /* Formulário */
-    .form-group {
+    /* Corpo do Formulário */
+    .form-body {
+      padding: 20px 24px 24px 24px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 16px;
     }
 
-    .input-wrapper {
-      position: relative;
-      background-color: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 14px;
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .input-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #424242;
       display: flex;
       align-items: center;
-      padding: 0 14px;
-      transition: all 0.2s ease;
+      gap: 6px;
     }
 
-    .input-wrapper:focus-within {
-      border-color: #1565c0;
-      box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.12);
-    }
-
-    .input-icon {
-      color: #1565c0;
-      display: flex;
-      align-items: center;
-      margin-right: 10px;
-      flex-shrink: 0;
-    }
-
-    .input-field {
+    .input-box {
       width: 100%;
-      border: none;
-      background: transparent;
-      padding: 14px 0;
-      font-size: 14px;
-      font-weight: 500;
-      color: #2d3748;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 13px;
+      color: #333333;
       outline: none;
+      background-color: #ffffff;
     }
 
-    .form-options {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
+    .input-box:focus {
+      border-color: #1565c0;
+    }
+
+    .forgot-wrapper {
+      text-align: right;
+      margin-top: -6px;
     }
 
     .forgot-link {
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 11px;
+      font-weight: 700;
       color: #1565c0;
       text-decoration: none;
     }
 
-    .btn-primary {
+    .btn-submit {
       width: 100%;
       background-color: #1565c0;
       color: #ffffff;
       border: none;
-      padding: 16px;
-      border-radius: 14px;
-      font-size: 15px;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 13px;
       font-weight: 600;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      box-shadow: 0 4px 12px rgba(21, 101, 192, 0.3);
-      text-decoration: none;
-      margin-top: 6px;
+      margin-top: 4px;
+      box-shadow: 0 2px 6px rgba(21, 101, 192, 0.2);
     }
 
     .footer-text {
       text-align: center;
-      font-size: 13px;
+      font-size: 11px;
       color: #666666;
     }
 
@@ -191,47 +227,52 @@
 
   <div class="card-container">
     
-    <!-- MARCA E LOGO -->
-    <div class="brand-header">
-      <div class="logo-badge">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg>
-      </div>
-      <h1 class="logo-title">EstaciA</h1>
-      <p class="logo-subtitle">Encontre sua vaga de forma rápida e prática</p>
+    <div class="header-bege">
+      <div class="brand-logo">estaci<strong>A</strong></div>
+      <h2 class="header-title">Bem-vindo!</h2>
+      <p class="header-subtitle">Estacionamento inteligente ao seu alcance</p>
     </div>
 
-    <!-- FORMULÁRIO DE LOGIN -->
-    <form class="form-group" onsubmit="event.preventDefault(); window.location.href='principal.html';">
+    <div class="tabs">
+      <a href="index.html" class="tab-btn active">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        Entrar
+      </a>
+      <a href="cadastro.html" class="tab-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+        Cadastrar
+      </a>
+    </div>
+
+    <form class="form-body" onsubmit="event.preventDefault(); window.location.href='principal.html';">
       
-      <div class="input-wrapper">
-        <div class="input-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        </div>
-        <input type="email" class="input-field" placeholder="E-mail" required />
+      <div class="input-group">
+        <label class="input-label">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          E-mail
+        </label>
+        <input type="email" class="input-box" placeholder="seu@email.com" required />
       </div>
 
-      <div class="input-wrapper">
-        <div class="input-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        </div>
-        <input type="password" class="input-field" placeholder="Senha" required />
+      <div class="input-group">
+        <label class="input-label">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Senha
+        </label>
+        <input type="password" class="input-box" placeholder="••••••••" required />
       </div>
 
-      <div class="form-options">
+      <div class="forgot-wrapper">
         <a href="recuperar.html" class="forgot-link">Esqueceu a senha?</a>
       </div>
 
-      <button type="submit" class="btn-primary">
-        Entrar
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </button>
+      <button type="submit" class="btn-submit">Entrar</button>
+
+      <div class="footer-text">
+        Não tem uma conta? <a href="cadastro.html">Cadastre-se</a>
+      </div>
 
     </form>
-
-    <!-- CRIAÇÃO DE CONTA -->
-    <div class="footer-text">
-      Não tem uma conta? <a href="cadastro.html">Cadastre-se</a>
-    </div>
 
   </div>
 
