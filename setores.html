@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>EstaciA - Setores</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,6 +14,7 @@
       margin: 0;
       padding: 0;
       font-family: 'Inter', sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
@@ -22,13 +23,14 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 20px;
+      padding: 16px;
     }
 
+    /* Container base ajustável */
     .card-container {
       background-color: #f7f4ee;
       width: 100%;
-      max-width: 380px;
+      max-width: 420px;
       border-radius: 28px;
       overflow: hidden;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
@@ -36,6 +38,33 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
+      transition: max-width 0.3s ease;
+    }
+
+    /* ADAPTAÇÃO PARA TABLETS / CENTRAL MULTIMÍDIA DO CARRO (TELAS MAIORES OU HORIZONTAIS) */
+    @media (min-width: 768px) {
+      .card-container {
+        max-width: 680px;
+        padding: 32px 28px;
+        gap: 20px;
+      }
+
+      .header-title h2 {
+        font-size: 22px !important;
+      }
+
+      .nav-title h3 {
+        font-size: 20px !important;
+      }
+
+      .nav-vagas-count {
+        font-size: 32px !important;
+      }
+
+      .btn-navigate {
+        padding: 16px !important;
+        font-size: 16px !important;
+      }
     }
 
     /* Cabeçalho */
@@ -46,8 +75,8 @@
     }
 
     .back-btn {
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       background-color: #ffffff;
       display: flex;
@@ -56,6 +85,7 @@
       color: #1565c0;
       text-decoration: none;
       box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      flex-shrink: 0;
     }
 
     .header-title h2 {
@@ -73,7 +103,7 @@
     .legend-container {
       background-color: #ffffff;
       border-radius: 14px;
-      padding: 10px 12px;
+      padding: 10px 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -83,8 +113,8 @@
     .legend-item {
       display: flex;
       align-items: center;
-      gap: 5px;
-      font-size: 10px;
+      gap: 6px;
+      font-size: 11px;
       font-weight: 600;
       color: #555;
     }
@@ -147,7 +177,7 @@
       background-color: #1565c0;
       color: #ffffff;
       border: none;
-      padding: 12px;
+      padding: 14px;
       border-radius: 12px;
       font-size: 14px;
       font-weight: 600;
@@ -176,7 +206,7 @@
     .sector-card {
       background-color: #ffffff;
       border-radius: 16px;
-      padding: 12px 14px;
+      padding: 14px 16px;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -199,7 +229,7 @@
     }
 
     .sector-name {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 700;
       color: #1a1a1a;
       display: flex;
@@ -219,13 +249,13 @@
     .status-low { background-color: #e8f5e9; color: #2e7d32; }
 
     .sector-location {
-      font-size: 11px;
+      font-size: 12px;
       color: #666666;
     }
 
     .progress-bar-bg {
       width: 100%;
-      height: 5px;
+      height: 6px;
       background-color: #eeeeee;
       border-radius: 4px;
       overflow: hidden;
@@ -253,7 +283,7 @@
     <!-- CABEÇALHO DA PÁGINA -->
     <div class="header-bar">
       <a href="principal.html" class="back-btn" title="Voltar">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
       </a>
       <div class="header-title">
         <h2>Shopping Center Cidade Jardim</h2>
@@ -281,7 +311,7 @@
         </div>
       </div>
       <button class="btn-navigate" onclick="iniciarNavegacao()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
         Navegar até o Setor
       </button>
     </div>
@@ -359,7 +389,6 @@
   </div>
 
   <script>
-    // Base de dados baseada na Planta Baixa do Shopping Center Cidade Jardim
     const setoresData = {
       'A': { nome: 'Setor A - Norte', local: 'Próx. Lojas Americanas', vagas: 51 },
       'B': { nome: 'Setor B - Sul', local: 'Próx. C&A e Riachuelo', vagas: 35 },
@@ -372,18 +401,15 @@
     function selecionarSetor(id) {
       setorSelecionado = id;
 
-      // Remove a classe de seleção de todos os cards
       document.querySelectorAll('.sector-card').forEach(card => {
         card.classList.remove('selected');
       });
 
-      // Adiciona destaque ao card clicado
       const cardAtivo = document.getElementById(`card-${id}`);
       if (cardAtivo) {
         cardAtivo.classList.add('selected');
       }
 
-      // Atualiza as informações do quadro de navegação superior
       const data = setoresData[id];
       document.getElementById('navSectorName').innerText = data.nome;
       document.getElementById('navSectorLocation').innerText = data.local;
@@ -392,7 +418,7 @@
 
     function iniciarNavegacao() {
       const data = setoresData[setorSelecionado];
-      alert(`Navegação iniciada para o ${data.nome} (${data.vagas} vagas livres disponíveis).`);
+      alert(`Navegação iniciada para o ${data.nome} (${data.vagas} vagas livres).`);
     }
   </script>
 
