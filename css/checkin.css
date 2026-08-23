@@ -1,4 +1,10 @@
-/* Animação da Linha Laser do QR Code */
+/* Fundo azul degradê padrão para fallback */
+body {
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+  min-height: 100vh;
+}
+
+/* Animação do Scanner QR Code */
 @keyframes scan-line {
   0% {
     top: 8%;
