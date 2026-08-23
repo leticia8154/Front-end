@@ -1,0 +1,18 @@
+/* Animação da linha de scanner de QR Code */
+@keyframes scan-line {
+  0% {
+    top: 5%;
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    top: 90%;
+    opacity: 0.8;
+  }
+}
+
+.animate-scan-line {
+  animation: scan-line 2.2s ease-in-out infinite alternate;
+}
