@@ -3,408 +3,276 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>estacIA - Setores Shopping Cidade Jardim</title>
-  
+  <title>estacIA - Navegação GPS</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    body {
-      background: linear-gradient(180deg, #0d47a1 0%, #1565c0 50%, #0a2540 100%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 16px;
-    }
-
-    .card-container {
-      background-color: #f7f3ed;
-      width: 100%;
-      max-width: 420px;
-      border-radius: 28px;
-      overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-      display: flex;
-      flex-direction: column;
-      padding: 20px 16px;
-      gap: 16px;
-    }
-
-    @media (min-width: 768px) {
-      .card-container {
-        max-width: 680px;
-        padding: 32px 28px;
-        gap: 20px;
-        border-radius: 32px;
-      }
-    }
-
-    /* Header */
-    .header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .btn-back {
-      width: 36px;
-      height: 36px;
-      background-color: #ffffff;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      color: #1565c0;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-      flex-shrink: 0;
-    }
-
-    .header-title-group {
-      flex: 1;
-    }
-
-    .header-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: #1a1a1a;
-      line-height: 1.2;
-    }
-
-    .header-subtitle {
-      font-size: 11px;
-      color: #666666;
-    }
-
-    /* Legenda de Ocupação */
-    .legend-bar {
-      background-color: #ffffff;
-      border-radius: 20px;
-      padding: 8px 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 10px;
-      font-weight: 600;
-      color: #444444;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    }
-
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-    }
-
-    .dot.red { background-color: #d32f2f; }
-    .dot.orange { background-color: #f57c00; }
-    .dot.green { background-color: #2e7d32; }
-
-    /* Setor Destaque */
-    .highlight-card {
-      background-color: #ffffff;
-      border: 2px solid #1565c0;
-      border-radius: 20px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      box-shadow: 0 4px 12px rgba(21, 101, 192, 0.08);
-    }
-
-    .highlight-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-
-    .highlight-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: #1a1a1a;
-    }
-
-    .highlight-sub {
-      font-size: 11px;
-      color: #666666;
-      margin-top: 2px;
-    }
-
-    .highlight-vagas {
-      text-align: right;
-    }
-
-    .vagas-num {
-      font-size: 26px;
-      font-weight: 700;
-      color: #1565c0;
-      line-height: 1;
-    }
-
-    .vagas-lbl {
-      font-size: 9px;
-      color: #777777;
-    }
-
-    .btn-navigate {
-      width: 100%;
-      background-color: #1565c0;
-      color: #ffffff;
-      border: none;
-      padding: 12px;
-      border-radius: 12px;
-      font-size: 13px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      text-decoration: none;
-      box-shadow: 0 2px 8px rgba(21, 101, 192, 0.25);
-      cursor: pointer;
-    }
-
-    /* Lista de Setores */
-    .section-label {
-      font-size: 11px;
-      font-weight: 700;
-      color: #666666;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .sectors-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .sector-item {
-      background-color: #ffffff;
-      border-radius: 16px;
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-      border: 1px solid transparent;
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .sector-item.active {
-      border-color: #1565c0;
-    }
-
-    .sector-row-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .sector-name {
-      font-size: 13px;
-      font-weight: 700;
-      color: #1a1a1a;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .sector-sub {
-      font-size: 10px;
-      color: #777777;
-      margin-top: 1px;
-    }
-
-    .badge-percent {
-      font-size: 10px;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 10px;
-    }
-
-    .badge-percent.green { background-color: #e8f5e9; color: #2e7d32; }
-    .badge-percent.orange { background-color: #fff3e0; color: #ef6c00; }
-    .badge-percent.red { background-color: #ffebee; color: #c62828; }
-
-    /* Barra de Progresso de Ocupação */
-    .progress-bar-bg {
-      width: 100%;
-      height: 6px;
-      background-color: #eee;
-      border-radius: 3px;
-      overflow: hidden;
-    }
-
-    .progress-bar-fill {
-      height: 100%;
-      border-radius: 3px;
-    }
-
-    .progress-bar-fill.green { background-color: #2e7d32; width: 15%; }
-    .progress-bar-fill.orange { background-color: #ef6c00; width: 42%; }
-    .progress-bar-fill.red-63 { background-color: #c62828; width: 63%; }
-    .progress-bar-fill.red-92 { background-color: #c62828; width: 92%; }
-
-    .sector-row-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 11px;
-      margin-top: 2px;
-    }
-
-    .vagas-avail {
-      font-weight: 700;
-      color: #1565c0;
-    }
-
-    .link-ver-vagas {
-      color: #1565c0;
-      font-weight: 600;
-      font-size: 10px;
-    }
-  </style>
+  <link rel="stylesheet" href="navegacao.css" />
 </head>
 <body>
 
   <div class="card-container">
     
-    <!-- Top Bar -->
+    <!-- Header -->
     <header class="header">
-      <a href="index.html" class="btn-back">
+      <button class="btn-back" onclick="window.location.href='setores.html'">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-      </a>
+      </button>
       <div class="header-title-group">
         <h1 class="header-title">Shopping Center Cidade Jardim</h1>
-        <p class="header-subtitle">Selecione um setor da planta</p>
+        <p class="header-subtitle" id="routeSub">Rota até a vaga A-145 · Setor A - Norte</p>
       </div>
     </header>
 
-    <!-- Legenda -->
-    <div class="legend-bar">
-      <div class="legend-item"><span class="dot red"></span> Ocupado (>50%)</div>
-      <div class="legend-item"><span class="dot orange"></span> Médio (20-50%)</div>
-      <div class="legend-item"><span class="dot green"></span> Livre (<20%)</div>
-    </div>
-
-    <!-- Setor em Destaque -->
-    <div class="highlight-card">
-      <div class="highlight-header">
-        <div>
-          <h2 class="highlight-title">Setor A - Norte</h2>
-          <p class="highlight-sub">Próx. Lojas Americanas</p>
-        </div>
-        <div class="highlight-vagas">
-          <div class="vagas-num">51</div>
-          <div class="vagas-lbl">vagas livres</div>
-        </div>
-      </div>
-
-      <!-- BOTÃO DE NAVEGAÇÃO COM LINK PARA NAVEGACAO.HTML -->
-      <a href="navegacao.html" class="btn-navigate">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
-        Navegar até o Setor
-      </a>
-    </div>
-
-    <!-- Lista dos Setores Térreo -->
-    <span class="section-label">Setores Disponíveis (Térreo)</span>
-
-    <div class="sectors-list">
+    <!-- Mapa 3D SVG simulado -->
+    <div class="map-container">
+      <div class="map-tag-3d"><span class="dot-green"></span> Vista 3D - Cidade Jardim</div>
       
-      <!-- Setor A -->
-      <div class="sector-item active">
-        <div class="sector-row-top">
-          <div>
-            <div class="sector-name">🚗 Setor A - Norte</div>
-            <div class="sector-sub">Próx. Lojas Americanas</div>
-          </div>
-          <span class="badge-percent green">15% ocupado</span>
-        </div>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill green"></div>
-        </div>
-        <div class="sector-row-bottom">
-          <span class="vagas-avail">51 vagas disponíveis</span>
-          <a href="navegacao.html" class="link-ver-vagas">Ver vagas →</a>
-        </div>
+      <div class="map-controls">
+        <button class="map-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </button>
+        <button class="map-btn">+</button>
+        <button class="map-btn">-</button>
+        <button class="map-btn">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+        </button>
       </div>
 
-      <!-- Setor B -->
-      <div class="sector-item">
-        <div class="sector-row-top">
-          <div>
-            <div class="sector-name">🚗 Setor B - Sul</div>
-            <div class="sector-sub">Próx. C&A e Riachuelo</div>
-          </div>
-          <span class="badge-percent orange">42% ocupado</span>
-        </div>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill orange"></div>
-        </div>
-        <div class="sector-row-bottom">
-          <span class="vagas-avail">35 vagas disponíveis</span>
-          <a href="navegacao.html" class="link-ver-vagas">Ver vagas →</a>
+      <!-- SVG da Planta Isométrica -->
+      <svg class="map-svg" viewBox="0 0 400 220" preserveAspectRatio="xMidYMid meet">
+        <g transform="translate(0, 10)">
+          <!-- Praça Central -->
+          <polygon points="60,180 200,60 340,180 200,210" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2" />
+          <polygon points="120,135 200,80 280,135 200,165" fill="#dcfce7" stroke="#86efac" stroke-width="1.5" />
+          <text x="200" y="128" font-size="9" font-weight="600" fill="#15803d" text-anchor="middle">Praça Central</text>
+
+          <!-- Setor A (Norte) -->
+          <rect x="120" y="42" width="24" height="14" rx="4" fill="#059669" />
+          <text x="132" y="52" font-size="8" font-weight="700" fill="#fff" text-anchor="middle">A 51</text>
+
+          <!-- Setor B (Sul) -->
+          <rect x="256" y="52" width="24" height="14" rx="4" fill="#d97706" />
+          <text x="268" y="62" font-size="8" font-weight="700" fill="#fff" text-anchor="middle">B 35</text>
+
+          <!-- Setor C (Leste) -->
+          <rect x="248" y="142" width="24" height="14" rx="4" fill="#dc2626" />
+          <text x="260" y="152" font-size="8" font-weight="700" fill="#fff" text-anchor="middle">C 22</text>
+
+          <!-- Setor D (Oeste) -->
+          <rect x="128" y="142" width="24" height="14" rx="4" fill="#dc2626" />
+          <text x="140" y="152" font-size="8" font-weight="700" fill="#fff" text-anchor="middle">D 5</text>
+
+          <!-- Portaria -->
+          <rect x="180" y="185" width="40" height="10" rx="3" fill="#1e3a8a" />
+          <text x="200" y="193" font-size="7" font-weight="700" fill="#fff" text-anchor="middle">PORTARIA</text>
+
+          <!-- Linha de Rota Ativa -->
+          <path id="routePath" d="M 190,185 L 105,175 L 98,62 L 120,50" fill="none" stroke="#2563eb" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+
+          <!-- Ponto do Usuário (Navegação dinâmica) -->
+          <circle id="userMarker" cx="190" cy="185" r="6" fill="#1d4ed8" stroke="#ffffff" stroke-width="2" />
+        </g>
+      </svg>
+
+      <div class="map-footer-bar">
+        <span class="user-tag">Você está aqui</span>
+        <span class="scale-tag">— 500m</span>
+      </div>
+    </div>
+
+    <!-- Info Card Setor -->
+    <div class="info-card">
+      <div class="info-left">
+        <h2 class="title" id="cardTitle">Setor A - Norte</h2>
+        <p class="sub" id="cardAddress">SCN · Asa Norte, Brasília - DF</p>
+        <div class="info-tags">
+          <span>📐 <span id="cardStepsCount">5 passos</span></span>
+          <span id="cardVagaNum">Vaga A-145</span>
+          <span id="cardLandmark">Próx. Lojas Americanas</span>
         </div>
       </div>
+      <div class="info-right">
+        <div class="dist" id="cardDist">600m</div>
+        <div class="dist-lbl">até a vaga</div>
+      </div>
+    </div>
 
-      <!-- Setor C -->
-      <div class="sector-item">
-        <div class="sector-row-top">
-          <div>
-            <div class="sector-name">🚗 Setor C - Leste</div>
-            <div class="sector-sub">Praça de Alimentação</div>
-          </div>
-          <span class="badge-percent red">63% ocupado</span>
+    <!-- Instrução do Passo Atual -->
+    <div class="instruction-card">
+      <div class="inst-icon" id="instIcon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+      </div>
+      <div>
+        <div class="inst-dist" id="instDist">Em 100m</div>
+        <div class="inst-text" id="instTitle">Passe a portaria sul e siga pela alameda de circulação</div>
+        <div class="inst-sub" id="instSub">560m até o Setor A</div>
+      </div>
+    </div>
+
+    <!-- Vagas & Preço -->
+    <div class="pricing-card">
+      <div class="pricing-left">
+        Vagas disponíveis no <span id="pricingSector">Setor A - Norte</span><br>
+        <strong id="pricingAvail">51</strong> / 60 vagas
+      </div>
+      <div class="pricing-right">
+        <div class="price">R$ 8,50</div>
+        <div class="price-sub">por hora</div>
+      </div>
+    </div>
+
+    <!-- Próximos Passos -->
+    <div class="steps-label">
+      PRÓXIMOS PASSOS
+      <span>Ver Todos</span>
+    </div>
+
+    <div class="steps-list" id="stepsList">
+      <div class="step-item" id="step1">
+        <div class="step-icon">➔</div>
+        <div class="step-content">
+          <div class="step-dist">Em 90m</div>
+          <div class="step-title">Vire à direita na alameda oeste</div>
         </div>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill red-63"></div>
-        </div>
-        <div class="sector-row-bottom">
-          <span class="vagas-avail">22 vagas disponíveis</span>
-          <a href="navegacao.html" class="link-ver-vagas">Ver vagas →</a>
-        </div>
+        <span class="step-arrow">›</span>
       </div>
 
-      <!-- Setor D -->
-      <div class="sector-item">
-        <div class="sector-row-top">
-          <div>
-            <div class="sector-name">🚗 Setor D - Oeste</div>
-            <div class="sector-sub">Área de Carga e Serviços</div>
-          </div>
-          <span class="badge-percent red">92% ocupado</span>
+      <div class="step-item" id="step2">
+        <div class="step-icon">↑</div>
+        <div class="step-content">
+          <div class="step-dist">Em 30m</div>
+          <div class="step-title">Contorne o bloco das Lojas Americanas pela lateral oeste</div>
         </div>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill red-92"></div>
-        </div>
-        <div class="sector-row-bottom">
-          <span class="vagas-avail">5 vagas disponíveis</span>
-          <a href="navegacao.html" class="link-ver-vagas">Ver vagas →</a>
-        </div>
+        <span class="step-arrow">›</span>
       </div>
 
+      <div class="step-item" id="step3">
+        <div class="step-icon">➔</div>
+        <div class="step-content">
+          <div class="step-dist">Em 60m</div>
+          <div class="step-title">Vire à direita no apron norte, corredor A</div>
+        </div>
+        <span class="step-arrow">›</span>
+      </div>
+
+      <div class="step-item" id="step4">
+        <div class="step-icon green">📍</div>
+        <div class="step-content">
+          <div class="step-dist" style="color:#2e7d32">Chegada</div>
+          <div class="step-title">Sua vaga está à esquerda (Vaga A-145)</div>
+        </div>
+        <span class="step-arrow">›</span>
+      </div>
+    </div>
+
+    <!-- Banner de Chegada -->
+    <div class="banner-arrival" id="bannerArrival">
+      🎉 Você chegou na vaga A-145!
+    </div>
+
+    <!-- Botões Inferiores -->
+    <div class="actions-row">
+      <button class="btn-secondary" onclick="window.location.href='setores.html'">Voltar ao Mapa</button>
+      <button class="btn-primary-action" id="btnNextStep" onclick="nextStep()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+        <span id="btnText">Próximo Passo</span>
+      </button>
     </div>
 
   </div>
 
+  <script>
+    const savedSector = JSON.parse(localStorage.getItem('selectedSector')) || { title: 'Setor A - Norte', sub: 'Próx. Lojas Americanas', vagas: '51' };
+
+    document.getElementById('pricingSector').innerText = savedSector.title;
+    document.getElementById('pricingAvail').innerText = savedSector.vagas;
+    document.getElementById('cardTitle').innerText = savedSector.title;
+    document.getElementById('cardLandmark').innerText = savedSector.sub;
+
+    const routeSteps = [
+      {
+        userPos: { cx: 190, cy: 185 },
+        dist: '600m',
+        instDist: 'Em 100m',
+        instTitle: 'Passe a portaria sul e siga pela alameda de circulação',
+        instSub: '560m até o ' + savedSector.title,
+        activeStepId: null
+      },
+      {
+        userPos: { cx: 105, cy: 175 },
+        dist: '350m',
+        instDist: 'Em 90m',
+        instTitle: 'Vire à direita na alameda oeste',
+        instSub: 'Aproximando do bloco do ' + savedSector.title,
+        activeStepId: 'step1'
+      },
+      {
+        userPos: { cx: 98, cy: 110 },
+        dist: '120m',
+        instDist: 'Em 30m',
+        instTitle: 'Contorne o bloco pela lateral oeste',
+        instSub: '90m até o corredor principal',
+        activeStepId: 'step2'
+      },
+      {
+        userPos: { cx: 105, cy: 62 },
+        dist: '30m',
+        instDist: 'Em 10m',
+        instTitle: 'Vire à direita no apron norte, corredor A',
+        instSub: 'Vaga A-145 à vista',
+        activeStepId: 'step3'
+      },
+      {
+        userPos: { cx: 120, cy: 50 },
+        dist: '0m',
+        instDist: 'Chegada',
+        instTitle: 'Sua vaga está à esquerda (Vaga A-145)',
+        instSub: 'Você chegou ao seu destino!',
+        activeStepId: 'step4'
+      }
+    ];
+
+    let currentStepIndex = 0;
+
+    function nextStep() {
+      if (currentStepIndex < routeSteps.length - 1) {
+        currentStepIndex++;
+        updateGPSUI();
+      } else {
+        window.location.href = 'principal.html';
+      }
+    }
+
+    function updateGPSUI() {
+      const stepData = routeSteps[currentStepIndex];
+
+      const marker = document.getElementById('userMarker');
+      marker.setAttribute('cx', stepData.userPos.cx);
+      marker.setAttribute('cy', stepData.userPos.cy);
+
+      document.getElementById('cardDist').innerText = stepData.dist;
+      document.getElementById('instDist').innerText = stepData.instDist;
+      document.getElementById('instTitle').innerText = stepData.instTitle;
+      document.getElementById('instSub').innerText = stepData.instSub;
+
+      document.querySelectorAll('.step-item').forEach(el => el.classList.remove('active-next'));
+      if (stepData.activeStepId) {
+        const activeElem = document.getElementById(stepData.activeStepId);
+        if (activeElem) activeElem.classList.add('active-next');
+      }
+
+      if (currentStepIndex === routeSteps.length - 1) {
+        document.getElementById('instIcon').classList.add('success');
+        document.getElementById('instIcon').innerHTML = '✓';
+        document.getElementById('bannerArrival').style.display = 'block';
+
+        const btnNext = document.getElementById('btnNextStep');
+        btnNext.classList.add('finish');
+        document.getElementById('btnText').innerText = 'Finalizar Navegação';
+      }
+    }
+  </script>
 </body>
 </html>
