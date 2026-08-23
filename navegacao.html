@@ -8,7 +8,7 @@
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Seus arquivos CSS existentes -->
+  <!-- CSSs Globais -->
   <link rel="stylesheet" href="css/globals.css" />
   <link rel="stylesheet" href="css/navegacao.css" />
 
@@ -16,16 +16,13 @@
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-  <!-- Lucide Icons (Para os ícones da tela) -->
-  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-slate-100 min-h-screen flex items-center justify-center p-2 sm:p-4">
+<body class="bg-slate-900 min-h-screen flex items-center justify-center p-3 sm:p-6">
 
-  <!-- Elemento onde o React vai renderizar a tela -->
-  <div id="root"></div>
+  <!-- Elemento Raiz onde o App é desenhado -->
+  <div id="root" class="w-full flex justify-center"></div>
 
-  <!-- Seu script JSX carregado via Babel -->
+  <!-- Carrega o JS da Navegação -->
   <script type="text/babel" src="js/navegacao.jsx"></script>
 
 </body>
