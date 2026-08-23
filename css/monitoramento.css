@@ -1,3 +1,9 @@
+/* Gradiente azul vibrante padronizado */
+body {
+  background: linear-gradient(180deg, #0a52be 0%, #0d2a6b 50%, #091533 100%);
+  min-height: 100vh;
+}
+
 /* Container do App com o tom azul suave do protótipo */
 .app-card {
   background-color: #eaf2ff;
@@ -21,8 +27,14 @@
 
 /* Animação do ícone */
 @keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.15); }
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.15);
+  }
 }
 
 .animate-pulse-dot {
