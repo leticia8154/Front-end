@@ -5,7 +5,7 @@ export default function Navegacao({ sectorData, onBack, onFinish }) {
 
   const routeSteps = [
     {
-      userPos: { cx: 190, cy: 185 },
+      userPos: { cx: 200, cy: 185 },
       dist: '600m',
       instDist: 'Em 100m',
       instTitle: 'Passe a portaria sul e siga pela alameda de circulação',
@@ -13,7 +13,7 @@ export default function Navegacao({ sectorData, onBack, onFinish }) {
       activeStepId: null
     },
     {
-      userPos: { cx: 105, cy: 175 },
+      userPos: { cx: 105, cy: 165 },
       dist: '350m',
       instDist: 'Em 90m',
       instTitle: 'Vire à direita na alameda oeste',
@@ -65,13 +65,14 @@ export default function Navegacao({ sectorData, onBack, onFinish }) {
       maxWidth: '420px',
       borderRadius: '28px',
       overflow: 'hidden',
-      boxShadow: '0 10px 25px rgba(0, 0, 0, 0.3)',
+      boxShadow: '0 10px 25px rgba(0, 0, 0, 0.15)',
       display: 'flex',
       flexDirection: 'column',
       padding: '20px 16px',
       gap: '14px',
-      fontFamily: "'Inter', sans-serif",
-      margin: '0 auto'
+      fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+      margin: '0 auto',
+      boxSizing: 'border-box'
     }}>
       {/* Header */}
       <header style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -90,7 +91,7 @@ export default function Navegacao({ sectorData, onBack, onFinish }) {
         </div>
       </header>
 
-      {/* Mapa 3D SVG */}
+      {/* Mapa 3D SVG Container */}
       <div style={{
         position: 'relative', backgroundColor: '#e2e8f0', borderRadius: '20px', height: '230px',
         overflow: 'hidden', border: '1px solid #d1d5db', boxShadow: 'inset 0 2px 6px rgba(0,0,0,0.05)'
@@ -111,27 +112,38 @@ export default function Navegacao({ sectorData, onBack, onFinish }) {
           <button style={{ width: '30px', height: '30px', background: '#ffffff', borderRadius: '50%', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#1565c0', fontWeight: 700, boxShadow: '0 2px 6px rgba(0,0,0,0.12)', cursor: 'pointer', fontSize: '14px' }}>-</button>
         </div>
 
+        {/* SVG ajustado e contido */}
         <svg style={{ width: '100%', height: '100%', display: 'block' }} viewBox="0 0 400 220" preserveAspectRatio="xMidYMid meet">
-          <g transform="translate(0, 10)">
+          <g transform="translate(0, 5)">
+            {/* Terreno principal */}
             <polygon points="60,180 200,60 340,180 200,210" fill="#e2e8f0" stroke="#cbd5e1" strokeWidth="2" />
+            
+            {/* Praça Central */}
             <polygon points="120,135 200,80 280,135 200,165" fill="#dcfce7" stroke="#86efac" strokeWidth="1.5" />
-            <text x="200" y="128" fontSize="9" fontWeight="600" fill="#15803d" textAnchor="middle">Praça Central</text>
+            <text x="200" y="128" fontSize="11" fontWeight="700" fill="#15803d" textAnchor="middle">Praça Central</text>
 
-            <rect x="120" y="42" width="24" height="14" rx="4" fill="#059669" />
-            <text x="132" y="52" fontSize="8" fontWeight="700" fill="#fff" textAnchor="middle">A 51</text>
-            <rect x="256" y="52" width="24" height="14" rx="4" fill="#d97706" />
-            <text x="268" y="62" fontSize="8" fontWeight="700" fill="#fff" textAnchor="middle">B 35</text>
-            <rect x="248" y="142" width="24" height="14" rx="4" fill="#dc2626" />
-            <text x="260" y="152" fontSize="8" fontWeight="700" fill="#fff" textAnchor="middle">C 22</text>
-            <rect x="128" y="142" width="24" height="14" rx="4" fill="#dc2626" />
-            <text x="140" y="152" fontSize="8" fontWeight="700" fill="#fff" textAnchor="middle">D 5</text>
+            {/* Marcadores de Setores */}
+            <rect x="120" y="42" width="28" height="16" rx="4" fill="#059669" />
+            <text x="134" y="53" fontSize="9" fontWeight="700" fill="#fff" textAnchor="middle">A 51</text>
+            
+            <rect x="252" y="52" width="28" height="16" rx="4" fill="#d97706" />
+            <text x="266" y="63" fontSize="9" fontWeight="700" fill="#fff" textAnchor="middle">B 35</text>
+            
+            <rect x="248" y="142" width="28" height="16" rx="4" fill="#dc2626" />
+            <text x="262" y="153" fontSize="9" fontWeight="700" fill="#fff" textAnchor="middle">C 22</text>
+            
+            <rect x="124" y="142" width="28" height="16" rx="4" fill="#dc2626" />
+            <text x="138" y="153" fontSize="9" fontWeight="700" fill="#fff" textAnchor="middle">D 5</text>
 
-            <rect x="180" y="185" width="40" height="10" rx="3" fill="#1e3a8a" />
-            <text x="200" y="193" fontSize="7" fontWeight="700" fill="#fff" textAnchor="middle">PORTARIA</text>
+            {/* Portaria */}
+            <rect x="170" y="180" width="60" height="14" rx="4" fill="#1e3a8a" />
+            <text x="200" y="190" fontSize="8" fontWeight="700" fill="#fff" textAnchor="middle">PORTARIA</text>
 
-            <path d="M 190,185 L 105,175 L 98,62 L 120,50" fill="none" stroke="#2563eb" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+            {/* Caminho da rota ajustado */}
+            <path d="M 200,180 L 105,165 L 98,62 L 120,50" fill="none" stroke="#2563eb" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
 
-            <circle cx={activeStep.userPos.cx} cy={activeStep.userPos.cy} r="6" fill="#1d4ed8" stroke="#ffffff" strokeWidth="2" />
+            {/* Ponto do Usuário */}
+            <circle cx={activeStep.userPos.cx} cy={activeStep.userPos.cy} r="7" fill="#1d4ed8" stroke="#ffffff" strokeWidth="2.5" />
           </g>
         </svg>
 
