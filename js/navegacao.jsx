@@ -1,264 +1,336 @@
-import React, { useState } from 'react';
+const { useState } = React;
 
-export default function Navegacao({ sectorData, onBack, onFinish }) {
-  const currentSector = sectorData || { title: 'Setor A - Norte', sub: 'Próx. Lojas Americanas', vagas: '51' };
+// 1. Dados e Estruturas do Estacionamento
+const SECTORS = [
+  {
+    id: "A",
+    title: "Setor A - Norte",
+    sub: "Próx. Lojas Americanas",
+    free: 51,
+    total: 60,
+    pricePerHour: 8.5,
+    entry: { x: 30, y: 15 },
+    spot: { x: 30, y: 12 },
+    route: [
+      { x: 50, y: 93 },
+      { x: 28, y: 88 },
+      { x: 24, y: 28 },
+      { x: 24, y: 15 },
+      { x: 30, y: 12 },
+    ],
+  },
+  {
+    id: "B",
+    title: "Setor B - Leste",
+    sub: "Próx. Praça de Alimentação",
+    free: 35,
+    total: 60,
+    pricePerHour: 8.5,
+    entry: { x: 68, y: 15 },
+    spot: { x: 72, y: 12 },
+    route: [
+      { x: 50, y: 93 },
+      { x: 72, y: 88 },
+      { x: 76, y: 28 },
+      { x: 72, y: 12 },
+    ],
+  },
+  {
+    id: "C",
+    title: "Setor C - Sul",
+    sub: "Próx. Cinema",
+    free: 22,
+    total: 60,
+    pricePerHour: 8.5,
+    entry: { x: 68, y: 81 },
+    spot: { x: 72, y: 84 },
+    route: [
+      { x: 50, y: 93 },
+      { x: 72, y: 88 },
+      { x: 72, y: 84 },
+    ],
+  },
+  {
+    id: "D",
+    title: "Setor D - Sudoeste",
+    sub: "Próx. Supermercado",
+    free: 5,
+    total: 60,
+    pricePerHour: 8.5,
+    entry: { x: 30, y: 81 },
+    spot: { x: 25, y: 84 },
+    route: [
+      { x: 50, y: 93 },
+      { x: 28, y: 88 },
+      { x: 25, y: 84 },
+    ],
+  },
+];
 
-  const routeSteps = [
-    {
-      userPos: { cx: 200, cy: 185 },
-      dist: '600m',
-      instDist: 'Em 100m',
-      instTitle: 'Passe a portaria sul e siga pela alameda de circulação',
-      instSub: `560m até o ${currentSector.title}`,
-      activeStepId: null
-    },
-    {
-      userPos: { cx: 105, cy: 165 },
-      dist: '350m',
-      instDist: 'Em 90m',
-      instTitle: 'Vire à direita na alameda oeste',
-      instSub: `Aproximando do bloco do ${currentSector.title}`,
-      activeStepId: 1
-    },
-    {
-      userPos: { cx: 98, cy: 110 },
-      dist: '120m',
-      instDist: 'Em 30m',
-      instTitle: 'Contorne o bloco pela lateral oeste',
-      instSub: '90m até o corredor principal',
-      activeStepId: 2
-    },
-    {
-      userPos: { cx: 105, cy: 62 },
-      dist: '30m',
-      instDist: 'Em 10m',
-      instTitle: 'Vire à direita no apron norte, corredor A',
-      instSub: 'Vaga A-145 à vista',
-      activeStepId: 3
-    },
-    {
-      userPos: { cx: 120, cy: 50 },
-      dist: '0m',
-      instDist: 'Chegada',
-      instTitle: 'Sua vaga está à esquerda (Vaga A-145)',
-      instSub: 'Você chegou ao seu destino!',
-      activeStepId: 4
-    }
-  ];
+const NAVIGATION_STEPS = [
+  { id: 1, text: "Vire à direita na alameda oeste", dist: "Em 90m", sub: "90m", type: "turn" },
+  { id: 2, text: "Contorne o bloco das Lojas Americanas", dist: "Em 30m", sub: "260m", type: "straight" },
+  { id: 3, text: "Vire à direita no apron norte, corredor A", dist: "Em 60m", sub: "60m", type: "turn" },
+  { id: 4, text: "Sua vaga está à esquerda", dist: "Chegada", sub: "Vaga A-145", type: "pin", isGreen: true },
+];
 
-  const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  const activeStep = routeSteps[currentStepIndex];
-  const isLastStep = currentStepIndex === routeSteps.length - 1;
+function occupancy(sector) {
+  return Math.round(((sector.total - sector.free) / sector.total) * 100);
+}
+
+function occupancyLevel(pct) {
+  if (pct < 50) return "free";
+  if (pct < 85) return "medium";
+  return "busy";
+}
+
+const levelColor = {
+  free: "#22c55e",
+  medium: "#eab308",
+  busy: "#ef4444",
+};
+
+// 2. Componente do Mapa SVG (FloorPlanMap)
+function FloorPlanMap({ sector, progress, view }) {
+  const pts = sector.route;
+  const clampedIndex = Math.min(Math.max(0, progress), pts.length - 1);
+  const puck = pts[clampedIndex] || { x: 50, y: 50 };
+
+  const path = pts.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ");
+  const done = pts
+    .slice(0, clampedIndex + 1)
+    .map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`)
+    .join(" ");
+
+  const gridLines = Array.from({ length: 18 }, (_, i) => i);
+
+  return (
+    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-gray-200 bg-slate-100 shadow-inner">
+      <div className={`h-full w-full transition-transform duration-500 ${view === "3d" ? "scale-105 rotate-x-12" : ""}`}>
+        <svg viewBox="0 0 100 100" className="h-full w-full block">
+          {/* Terreno */}
+          <rect width="100" height="100" fill="#e2e8f0" />
+          <rect x="4" y="4" width="92" height="92" rx="3" fill="#dcfce7" />
+
+          {/* Vagas e Alamedas */}
+          <rect x="6" y="6" width="88" height="20" rx="2" fill="#cbd5e1" />
+          <rect x="6" y="74" width="88" height="20" rx="2" fill="#cbd5e1" />
+
+          {gridLines.map((i) => (
+            <g key={i} stroke="#f8fafc" strokeWidth="0.4">
+              <line x1={8 + i * 4.8} y1="8" x2={8 + i * 4.8} y2="24" />
+              <line x1={8 + i * 4.8} y1="76" x2={8 + i * 4.8} y2="92" />
+            </g>
+          ))}
+
+          {/* Anéis de Circulação */}
+          <g fill="#94a3b8">
+            <rect x="5.5" y="27" width="7" height="46" />
+            <rect x="87.5" y="27" width="7" height="46" />
+            <rect x="5.5" y="88" width="89" height="6" />
+            <rect x="46.5" y="93" width="7" height="7" />
+          </g>
+
+          {/* Portaria */}
+          <g>
+            <rect x="44" y="95.5" width="12" height="3" rx="1" fill="#2563eb" />
+            <text x="50" y="97.9" textAnchor="middle" fontSize="2.2" fill="#ffffff" fontWeight="700">
+              PORTARIA
+            </text>
+          </g>
+
+          {/* Prédio Shopping */}
+          <rect x="14" y="30" width="72" height="40" rx="2" fill="#f8fafc" stroke="#cbd5e1" strokeWidth="0.5" />
+          <text x="50" y="52" textAnchor="middle" fontSize="3" fill="#64748b" fontWeight="600">
+            Praça Central
+          </text>
+
+          {/* Badges de Setores */}
+          {SECTORS.map((s) => {
+            const pct = occupancy(s);
+            const color = levelColor[occupancyLevel(pct)];
+            const active = s.id === sector.id;
+
+            return (
+              <g key={s.id} opacity={active ? 1 : 0.75}>
+                <rect
+                  x={s.entry.x - 4.5}
+                  y={s.entry.y - 4}
+                  width="9"
+                  height="8"
+                  rx="2"
+                  fill={color}
+                  stroke={active ? "#2563eb" : "transparent"}
+                  strokeWidth="0.8"
+                />
+                <text x={s.entry.x} y={s.entry.y - 0.8} textAnchor="middle" fontSize="3" fill="#ffffff" fontWeight="700">
+                  {s.id}
+                </text>
+                <text x={s.entry.x} y={s.entry.y + 2.8} textAnchor="middle" fontSize="2.6" fill="#ffffff">
+                  {s.free}
+                </text>
+              </g>
+            );
+          })}
+
+          {/* Rota */}
+          <path d={path} fill="none" stroke="#94a3b8" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
+          <path d={done} fill="none" stroke="#2563eb" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+
+          {/* Marcador Vaga */}
+          <g transform={`translate(${sector.spot.x}, ${sector.spot.y})`}>
+            <circle cx="0" cy="0" r="3" fill="#22c55e" opacity="0.4" />
+            <circle cx="0" cy="0" r="2" fill="#22c55e" stroke="#ffffff" strokeWidth="0.6" />
+          </g>
+
+          {/* Marcador Posição Atual */}
+          <g transform={`translate(${puck.x}, ${puck.y})`}>
+            <circle cx="0" cy="0" r="3.6" fill="#2563eb" opacity="0.3" />
+            <circle cx="0" cy="0" r="2.4" fill="#2563eb" stroke="#ffffff" strokeWidth="0.7" />
+          </g>
+        </svg>
+      </div>
+
+      {/* Badges Flutuantes */}
+      <div className="pointer-events-none absolute left-3 top-3 flex items-center gap-1.5 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-semibold text-slate-800 shadow-sm backdrop-blur-xs">
+        <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
+        Vista {view.toUpperCase()} · Cidade Jardim
+      </div>
+    </div>
+  );
+}
+
+// 3. Tela de Navegação Principal
+function NavegacaoApp() {
+  const [view, setView] = useState("3d");
+  const [stepIndex, setStepIndex] = useState(0);
+
+  const currentSector = SECTORS[0];
+  const totalSteps = currentSector.route.length;
+  const isLastStep = stepIndex >= totalSteps - 1;
 
   const handleNextStep = () => {
     if (!isLastStep) {
-      setCurrentStepIndex(prev => prev + 1);
-    } else if (onFinish) {
-      onFinish();
+      setStepIndex((prev) => prev + 1);
+    } else {
+      window.location.href = "index.html"; // Redireciona para a página inicial
     }
   };
 
+  const handleBack = () => {
+    window.location.href = "index.html";
+  };
+
   return (
-    <div style={{
-      backgroundColor: '#f7f3ed',
-      width: '100%',
-      maxWidth: '420px',
-      borderRadius: '28px',
-      overflow: 'hidden',
-      boxShadow: '0 10px 25px rgba(0, 0, 0, 0.15)',
-      display: 'flex',
-      flexDirection: 'column',
-      padding: '20px 16px',
-      gap: '14px',
-      fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-      margin: '0 auto',
-      boxSizing: 'border-box'
-    }}>
+    <div className="w-full max-w-md bg-white rounded-3xl border border-gray-200 shadow-xl p-4 flex flex-col gap-3 text-slate-800 font-sans">
+      
       {/* Header */}
-      <header style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-        <button onClick={onBack} style={{
-          width: '36px', height: '36px', backgroundColor: '#ffffff', borderRadius: '50%',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#1565c0',
-          boxShadow: '0 2px 6px rgba(0,0,0,0.08)', cursor: 'pointer', border: 'none'
-        }}>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
+      <header className="flex items-center gap-3">
+        <button
+          onClick={handleBack}
+          className="w-9 h-9 bg-slate-100 rounded-full flex items-center justify-center text-slate-700 hover:bg-slate-200"
+        >
+          ←
         </button>
-        <div style={{ flex: 1 }}>
-          <h1 style={{ fontSize: '15px', fontWeight: 700, color: '#1a1a1a', margin: 0, lineHeight: 1.2 }}>Shopping Center Cidade Jardim</h1>
-          <p style={{ fontSize: '11px', color: '#666666', margin: 0 }}>Rota até a vaga A-145 · {currentSector.title}</p>
+        <div className="flex-1 min-w-0">
+          <h1 className="text-sm font-bold truncate">Shopping Center Cidade Jardim</h1>
+          <p className="text-[11px] text-slate-500 truncate">
+            Rota até a vaga A-145 · {currentSector.title}
+          </p>
         </div>
       </header>
 
-      {/* Mapa 3D SVG Container */}
-      <div style={{
-        position: 'relative', backgroundColor: '#e2e8f0', borderRadius: '20px', height: '230px',
-        overflow: 'hidden', border: '1px solid #d1d5db', boxShadow: 'inset 0 2px 6px rgba(0,0,0,0.05)'
-      }}>
-        <div style={{
-          position: 'absolute', top: '10px', left: '10px', background: 'rgba(255,255,255,0.9)',
-          padding: '4px 10px', borderRadius: '12px', fontSize: '10px', fontWeight: 600, color: '#333',
-          display: 'flex', alignItems: 'center', gap: '6px', zIndex: 10, boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-        }}>
-          <span style={{ width: '6px', height: '6px', backgroundColor: '#2e7d32', borderRadius: '50%' }} /> Vista 3D - Cidade Jardim
-        </div>
-
-        <div style={{ position: 'absolute', top: '10px', right: '10px', display: 'flex', flexDirection: 'column', gap: '6px', zIndex: 10 }}>
-          <button style={{ width: '30px', height: '30px', background: '#ffffff', borderRadius: '50%', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#1565c0', fontWeight: 700, boxShadow: '0 2px 6px rgba(0,0,0,0.12)', cursor: 'pointer', fontSize: '14px' }}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" /></svg>
+      {/* Mapa */}
+      <div className="relative">
+        <FloorPlanMap sector={currentSector} progress={stepIndex} view={view} />
+        
+        {/* Botão de Alternar Câmera */}
+        <div className="absolute top-2.5 right-2.5 z-10">
+          <button
+            onClick={() => setView((prev) => (prev === "3d" ? "2d" : "3d"))}
+            className="px-2 py-1 text-[10px] bg-white/90 rounded-full font-bold shadow-md hover:bg-white text-slate-700"
+          >
+            Modo {view === "3d" ? "2D" : "3D"}
           </button>
-          <button style={{ width: '30px', height: '30px', background: '#ffffff', borderRadius: '50%', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#1565c0', fontWeight: 700, boxShadow: '0 2px 6px rgba(0,0,0,0.12)', cursor: 'pointer', fontSize: '14px' }}>+</button>
-          <button style={{ width: '30px', height: '30px', background: '#ffffff', borderRadius: '50%', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#1565c0', fontWeight: 700, boxShadow: '0 2px 6px rgba(0,0,0,0.12)', cursor: 'pointer', fontSize: '14px' }}>-</button>
-        </div>
-
-        {/* SVG ajustado e contido */}
-        <svg style={{ width: '100%', height: '100%', display: 'block' }} viewBox="0 0 400 220" preserveAspectRatio="xMidYMid meet">
-          <g transform="translate(0, 5)">
-            {/* Terreno principal */}
-            <polygon points="60,180 200,60 340,180 200,210" fill="#e2e8f0" stroke="#cbd5e1" strokeWidth="2" />
-            
-            {/* Praça Central */}
-            <polygon points="120,135 200,80 280,135 200,165" fill="#dcfce7" stroke="#86efac" strokeWidth="1.5" />
-            <text x="200" y="128" fontSize="11" fontWeight="700" fill="#15803d" textAnchor="middle">Praça Central</text>
-
-            {/* Marcadores de Setores */}
-            <rect x="120" y="42" width="28" height="16" rx="4" fill="#059669" />
-            <text x="134" y="53" fontSize="9" fontWeight="700" fill="#fff" textAnchor="middle">A 51</text>
-            
-            <rect x="252" y="52" width="28" height="16" rx="4" fill="#d97706" />
-            <text x="266" y="63" fontSize="9" fontWeight="700" fill="#fff" textAnchor="middle">B 35</text>
-            
-            <rect x="248" y="142" width="28" height="16" rx="4" fill="#dc2626" />
-            <text x="262" y="153" fontSize="9" fontWeight="700" fill="#fff" textAnchor="middle">C 22</text>
-            
-            <rect x="124" y="142" width="28" height="16" rx="4" fill="#dc2626" />
-            <text x="138" y="153" fontSize="9" fontWeight="700" fill="#fff" textAnchor="middle">D 5</text>
-
-            {/* Portaria */}
-            <rect x="170" y="180" width="60" height="14" rx="4" fill="#1e3a8a" />
-            <text x="200" y="190" fontSize="8" fontWeight="700" fill="#fff" textAnchor="middle">PORTARIA</text>
-
-            {/* Caminho da rota ajustado */}
-            <path d="M 200,180 L 105,165 L 98,62 L 120,50" fill="none" stroke="#2563eb" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
-
-            {/* Ponto do Usuário */}
-            <circle cx={activeStep.userPos.cx} cy={activeStep.userPos.cy} r="7" fill="#1d4ed8" stroke="#ffffff" strokeWidth="2.5" />
-          </g>
-        </svg>
-
-        <div style={{ position: 'absolute', bottom: '10px', left: '10px', right: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', zIndex: 10 }}>
-          <span style={{ background: '#1565c0', color: '#fff', padding: '4px 10px', borderRadius: '12px', fontSize: '10px', fontWeight: 700 }}>Você está aqui</span>
-          <span style={{ background: 'rgba(255,255,255,0.9)', color: '#555', padding: '2px 8px', borderRadius: '8px', fontSize: '9px', fontWeight: 600 }}>— 500m</span>
         </div>
       </div>
 
-      {/* Info Card Setor */}
-      <div style={{ background: '#ffffff', border: '1.5px solid #1565c0', borderRadius: '16px', padding: '12px 14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      {/* Card Setor Selecionado */}
+      <div className="border-2 border-blue-600 rounded-2xl p-3 flex justify-between items-start bg-blue-50/50">
         <div>
-          <div style={{ fontSize: '15px', fontWeight: 700, color: '#1a1a1a' }}>{currentSector.title}</div>
-          <div style={{ fontSize: '10px', color: '#666', marginBottom: '6px' }}>SCN · Asa Norte, Brasília - DF</div>
-          <div style={{ display: 'flex', gap: '8px', fontSize: '10px', color: '#1565c0', fontWeight: 600 }}>
-            <span>📐 5 passos</span>
-            <span>Vaga A-145</span>
-            <span>{currentSector.sub}</span>
+          <div className="text-base font-extrabold text-slate-900">{currentSector.title}</div>
+          <div className="text-[10px] text-slate-500 my-0.5">SCN · Asa Norte, Brasília - DF</div>
+          <div className="text-[10px] text-blue-600 font-bold mt-1.5">
+            {totalSteps} passos · Vaga A-145 · {currentSector.sub}
           </div>
         </div>
-        <div style={{ textAlign: 'right' }}>
-          <div style={{ fontSize: '22px', fontWeight: 700, color: '#1565c0', lineHeight: 1 }}>{activeStep.dist}</div>
-          <div style={{ fontSize: '9px', color: '#666' }}>até a vaga</div>
+        <div className="text-right">
+          <div className="text-2xl font-black text-blue-600">
+            {isLastStep ? "0m" : `${(totalSteps - stepIndex) * 120}m`}
+          </div>
+          <div className="text-[9px] text-slate-500">até a vaga</div>
         </div>
       </div>
 
-      {/* Instrução do Passo Atual */}
-      <div style={{ background: '#ffffff', borderRadius: '16px', padding: '12px 14px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-        <div style={{
-          width: '36px', height: '36px',
-          backgroundColor: isLastStep ? '#e8f5e9' : '#e3f2fd',
-          color: isLastStep ? '#2e7d32' : '#1565c0',
-          borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontWeight: 700
-        }}>
-          {isLastStep ? '✓' : '↑'}
-        </div>
-        <div>
-          <div style={{ fontSize: '10px', fontWeight: 700, color: '#1565c0' }}>{activeStep.instDist}</div>
-          <div style={{ fontSize: '12px', fontWeight: 700, color: '#1a1a1a', lineHeight: 1.2 }}>{activeStep.instTitle}</div>
-          <div style={{ fontSize: '10px', color: '#666' }}>{activeStep.instSub}</div>
-        </div>
-      </div>
-
-      {/* Vagas & Preço */}
-      <div style={{ background: '#ffffff', borderRadius: '16px', padding: '10px 14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div style={{ fontSize: '10px', color: '#666' }}>
-          Vagas disponíveis no {currentSector.title}<br />
-          <strong style={{ fontSize: '16px', color: '#1565c0', fontWeight: 700 }}>{currentSector.vagas}</strong> / 60 vagas
-        </div>
-        <div style={{ textAlign: 'right' }}>
-          <div style={{ fontSize: '15px', fontWeight: 700, color: '#1a1a1a' }}>R$ 8,50</div>
-          <div style={{ fontSize: '9px', color: '#777' }}>por hora</div>
-        </div>
-      </div>
-
-      {/* Lista Próximos Passos */}
-      <div style={{ fontSize: '10px', fontWeight: 700, color: '#666', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'flex', justifyContent: 'space-between' }}>
-        PRÓXIMOS PASSOS
-        <span style={{ color: '#1565c0', cursor: 'pointer', textTransform: 'none' }}>Ver Todos</span>
-      </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        {[
-          { id: 1, text: 'Vire à direita na alameda oeste', dist: 'Em 90m', icon: '➔' },
-          { id: 2, text: 'Contorne o bloco das Lojas Americanas pela lateral oeste', dist: 'Em 30m', icon: '↑' },
-          { id: 3, text: 'Vire à direita no apron norte, corredor A', dist: 'Em 60m', icon: '➔' },
-          { id: 4, text: 'Sua vaga está à esquerda (Vaga A-145)', dist: 'Chegada', icon: '📍', isGreen: true }
-        ].map((item) => {
-          const isActive = activeStep.activeStepId === item.id;
+      {/* Lista de Passos */}
+      <div className="flex flex-col gap-1.5">
+        {NAVIGATION_STEPS.map((item, idx) => {
+          const isActive = stepIndex === idx;
           return (
-            <div key={item.id} style={{
-              background: isActive ? '#f1f8e9' : '#ffffff',
-              border: isActive ? '1.5px solid #2e7d32' : 'none',
-              borderRadius: '14px', padding: '10px 12px', display: 'flex', alignItems: 'center', gap: '10px',
-              opacity: isActive ? 1 : 0.7, transition: 'all 0.3s ease'
-            }}>
-              <div style={{
-                width: '28px', height: '28px',
-                backgroundColor: item.isGreen ? '#2e7d32' : '#0d47a1',
-                borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', flexShrink: 0, fontSize: '12px'
-              }}>
-                {item.icon}
+            <div
+              key={item.id}
+              className={`rounded-xl p-2 flex items-center gap-2.5 border transition-all ${
+                item.isGreen
+                  ? "border-green-500 bg-green-50"
+                  : isActive
+                  ? "border-blue-600 bg-blue-50"
+                  : "border-slate-200 bg-white"
+              }`}
+            >
+              <div
+                className={`w-7 h-7 rounded-full flex items-center justify-center text-white shrink-0 text-xs font-bold ${
+                  item.isGreen ? "bg-green-500" : "bg-blue-600"
+                }`}
+              >
+                {item.id}
               </div>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: '9px', fontWeight: 700, color: item.isGreen ? '#2e7d32' : '#1565c0' }}>{item.dist}</div>
-                <div style={{ fontSize: '11px', fontWeight: 700, color: '#1a1a1a' }}>{item.text}</div>
+              <div className="flex-1 min-w-0">
+                <div className={`text-[9px] font-bold ${item.isGreen ? "text-green-600" : "text-blue-600"}`}>
+                  {item.dist}
+                </div>
+                <div className="text-[11px] font-bold text-slate-800 leading-tight truncate">
+                  {item.text}
+                </div>
+                <div className="text-[9px] text-slate-400">{item.sub}</div>
               </div>
-              <span style={{ color: '#999', fontSize: '12px' }}>›</span>
             </div>
           );
         })}
       </div>
 
-      {isLastStep && (
-        <div style={{ backgroundColor: '#e8f5e9', color: '#2e7d32', textAlign: 'center', padding: '10px', borderRadius: '12px', fontSize: '11px', fontWeight: 700 }}>
-          🎉 Você chegou na vaga A-145!
-        </div>
-      )}
-
-      {/* Botões Inferiores */}
-      <div style={{ display: 'flex', gap: '10px', marginTop: '4px' }}>
-        <button onClick={onBack} style={{
-          flex: 1, backgroundColor: '#ffffff', color: '#333333', border: '1px solid #d1d5db', padding: '11px', borderRadius: '12px', fontSize: '12px', fontWeight: 700, cursor: 'pointer'
-        }}>
+      {/* Botões do Rodapé */}
+      <div className="flex gap-2.5 mt-2">
+        <button
+          onClick={handleBack}
+          className="flex-1 border border-slate-300 rounded-full text-xs font-bold py-2.5 hover:bg-slate-50"
+        >
           Voltar ao Mapa
         </button>
-        <button onClick={handleNextStep} style={{
-          flex: 1, backgroundColor: isLastStep ? '#2e7d32' : '#1565c0', color: '#ffffff', border: 'none', padding: '11px', borderRadius: '12px', fontSize: '12px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px'
-        }}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <polygon points="3 11 22 2 13 21 11 13 3 11" />
-          </svg>
-          {isLastStep ? 'Finalizar Navegação' : 'Próximo Passo'}
+        <button
+          onClick={handleNextStep}
+          className={`flex-1 text-white rounded-full text-xs font-bold py-2.5 ${
+            isLastStep ? "bg-green-600 hover:bg-green-700" : "bg-blue-600 hover:bg-blue-700"
+          }`}
+        >
+          {isLastStep ? "Finalizar Navegação" : "Próximo Passo"}
         </button>
       </div>
+
     </div>
   );
 }
+
+// 4. Montar a Aplicação na Div #root
+const rootElement = document.getElementById("root");
+const root = ReactDOM.createRoot(rootElement);
+root.render(<NavegacaoApp />);
