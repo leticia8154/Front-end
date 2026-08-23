@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './navegacao.css';
 
 export default function Navegacao({ sectorData, onBack, onFinish }) {
   const currentSector = sectorData || { title: 'Setor A - Norte', sub: 'Próx. Lojas Americanas', vagas: '51' };
@@ -60,39 +59,59 @@ export default function Navegacao({ sectorData, onBack, onFinish }) {
   };
 
   return (
-    <div className="card-container">
-      <header className="header">
-        <button className="btn-back" onClick={onBack}>
+    <div style={{
+      backgroundColor: '#f7f3ed',
+      width: '100%',
+      maxWidth: '420px',
+      borderRadius: '28px',
+      overflow: 'hidden',
+      boxShadow: '0 10px 25px rgba(0, 0, 0, 0.3)',
+      display: 'flex',
+      flexDirection: 'column',
+      padding: '20px 16px',
+      gap: '14px',
+      fontFamily: "'Inter', sans-serif",
+      margin: '0 auto'
+    }}>
+      {/* Header */}
+      <header style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <button onClick={onBack} style={{
+          width: '36px', height: '36px', backgroundColor: '#ffffff', borderRadius: '50%',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#1565c0',
+          boxShadow: '0 2px 6px rgba(0,0,0,0.08)', cursor: 'pointer', border: 'none'
+        }}>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <polyline points="15 18 9 12 15 6" />
           </svg>
         </button>
-        <div className="header-title-group">
-          <h1 className="header-title">Shopping Center Cidade Jardim</h1>
-          <p className="header-subtitle">Rota até a vaga A-145 · {currentSector.title}</p>
+        <div style={{ flex: 1 }}>
+          <h1 style={{ fontSize: '15px', fontWeight: 700, color: '#1a1a1a', margin: 0, lineHeight: 1.2 }}>Shopping Center Cidade Jardim</h1>
+          <p style={{ fontSize: '11px', color: '#666666', margin: 0 }}>Rota até a vaga A-145 · {currentSector.title}</p>
         </div>
       </header>
 
-      <div className="map-container">
-        <div className="map-tag-3d">
-          <span className="dot-green"></span> Vista 3D - Cidade Jardim
-        </div>
-        <div className="map-controls">
-          <button className="map-btn">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-            </svg>
-          </button>
-          <button className="map-btn">+</button>
-          <button className="map-btn">-</button>
-          <button className="map-btn">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <polygon points="3 11 22 2 13 21 11 13 3 11" />
-            </svg>
-          </button>
+      {/* Mapa 3D SVG */}
+      <div style={{
+        position: 'relative', backgroundColor: '#e2e8f0', borderRadius: '20px', height: '230px',
+        overflow: 'hidden', border: '1px solid #d1d5db', boxShadow: 'inset 0 2px 6px rgba(0,0,0,0.05)'
+      }}>
+        <div style={{
+          position: 'absolute', top: '10px', left: '10px', background: 'rgba(255,255,255,0.9)',
+          padding: '4px 10px', borderRadius: '12px', fontSize: '10px', fontWeight: 600, color: '#333',
+          display: 'flex', alignItems: 'center', gap: '6px', zIndex: 10, boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+        }}>
+          <span style={{ width: '6px', height: '6px', backgroundColor: '#2e7d32', borderRadius: '50%' }} /> Vista 3D - Cidade Jardim
         </div>
 
-        <svg className="map-svg" viewBox="0 0 400 220" preserveAspectRatio="xMidYMid meet">
+        <div style={{ position: 'absolute', top: '10px', right: '10px', display: 'flex', flexDirection: 'column', gap: '6px', zIndex: 10 }}>
+          <button style={{ width: '30px', height: '30px', background: '#ffffff', borderRadius: '50%', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#1565c0', fontWeight: 700, boxShadow: '0 2px 6px rgba(0,0,0,0.12)', cursor: 'pointer', fontSize: '14px' }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" /></svg>
+          </button>
+          <button style={{ width: '30px', height: '30px', background: '#ffffff', borderRadius: '50%', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#1565c0', fontWeight: 700, boxShadow: '0 2px 6px rgba(0,0,0,0.12)', cursor: 'pointer', fontSize: '14px' }}>+</button>
+          <button style={{ width: '30px', height: '30px', background: '#ffffff', borderRadius: '50%', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#1565c0', fontWeight: 700, boxShadow: '0 2px 6px rgba(0,0,0,0.12)', cursor: 'pointer', fontSize: '14px' }}>-</button>
+        </div>
+
+        <svg style={{ width: '100%', height: '100%', display: 'block' }} viewBox="0 0 400 220" preserveAspectRatio="xMidYMid meet">
           <g transform="translate(0, 10)">
             <polygon points="60,180 200,60 340,180 200,210" fill="#e2e8f0" stroke="#cbd5e1" strokeWidth="2" />
             <polygon points="120,135 200,80 280,135 200,165" fill="#dcfce7" stroke="#86efac" strokeWidth="1.5" />
@@ -116,102 +135,112 @@ export default function Navegacao({ sectorData, onBack, onFinish }) {
           </g>
         </svg>
 
-        <div className="map-footer-bar">
-          <span className="user-tag">Você está aqui</span>
-          <span className="scale-tag">— 500m</span>
+        <div style={{ position: 'absolute', bottom: '10px', left: '10px', right: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', zIndex: 10 }}>
+          <span style={{ background: '#1565c0', color: '#fff', padding: '4px 10px', borderRadius: '12px', fontSize: '10px', fontWeight: 700 }}>Você está aqui</span>
+          <span style={{ background: 'rgba(255,255,255,0.9)', color: '#555', padding: '2px 8px', borderRadius: '8px', fontSize: '9px', fontWeight: 600 }}>— 500m</span>
         </div>
       </div>
 
-      <div className="info-card">
-        <div className="info-left">
-          <h2 className="title">{currentSector.title}</h2>
-          <p className="sub">SCN · Asa Norte, Brasília - DF</p>
-          <div className="info-tags">
+      {/* Info Card Setor */}
+      <div style={{ background: '#ffffff', border: '1.5px solid #1565c0', borderRadius: '16px', padding: '12px 14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div>
+          <div style={{ fontSize: '15px', fontWeight: 700, color: '#1a1a1a' }}>{currentSector.title}</div>
+          <div style={{ fontSize: '10px', color: '#666', marginBottom: '6px' }}>SCN · Asa Norte, Brasília - DF</div>
+          <div style={{ display: 'flex', gap: '8px', fontSize: '10px', color: '#1565c0', fontWeight: 600 }}>
             <span>📐 5 passos</span>
             <span>Vaga A-145</span>
             <span>{currentSector.sub}</span>
           </div>
         </div>
-        <div className="info-right">
-          <div className="dist">{activeStep.dist}</div>
-          <div className="dist-lbl">até a vaga</div>
+        <div style={{ textAlign: 'right' }}>
+          <div style={{ fontSize: '22px', fontWeight: 700, color: '#1565c0', lineHeight: 1 }}>{activeStep.dist}</div>
+          <div style={{ fontSize: '9px', color: '#666' }}>até a vaga</div>
         </div>
       </div>
 
-      <div className="instruction-card">
-        <div className={`inst-icon ${isLastStep ? 'success' : ''}`}>
+      {/* Instrução do Passo Atual */}
+      <div style={{ background: '#ffffff', borderRadius: '16px', padding: '12px 14px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div style={{
+          width: '36px', height: '36px',
+          backgroundColor: isLastStep ? '#e8f5e9' : '#e3f2fd',
+          color: isLastStep ? '#2e7d32' : '#1565c0',
+          borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontWeight: 700
+        }}>
           {isLastStep ? '✓' : '↑'}
         </div>
         <div>
-          <div className="inst-dist">{activeStep.instDist}</div>
-          <div className="inst-text">{activeStep.instTitle}</div>
-          <div className="inst-sub">{activeStep.instSub}</div>
+          <div style={{ fontSize: '10px', fontWeight: 700, color: '#1565c0' }}>{activeStep.instDist}</div>
+          <div style={{ fontSize: '12px', fontWeight: 700, color: '#1a1a1a', lineHeight: 1.2 }}>{activeStep.instTitle}</div>
+          <div style={{ fontSize: '10px', color: '#666' }}>{activeStep.instSub}</div>
         </div>
       </div>
 
-      <div className="pricing-card">
-        <div className="pricing-left">
+      {/* Vagas & Preço */}
+      <div style={{ background: '#ffffff', borderRadius: '16px', padding: '10px 14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ fontSize: '10px', color: '#666' }}>
           Vagas disponíveis no {currentSector.title}<br />
-          <strong>{currentSector.vagas}</strong> / 60 vagas
+          <strong style={{ fontSize: '16px', color: '#1565c0', fontWeight: 700 }}>{currentSector.vagas}</strong> / 60 vagas
         </div>
-        <div className="pricing-right">
-          <div className="price">R$ 8,50</div>
-          <div className="price-sub">por hora</div>
+        <div style={{ textAlign: 'right' }}>
+          <div style={{ fontSize: '15px', fontWeight: 700, color: '#1a1a1a' }}>R$ 8,50</div>
+          <div style={{ fontSize: '9px', color: '#777' }}>por hora</div>
         </div>
       </div>
 
-      <div className="steps-label">
+      {/* Lista Próximos Passos */}
+      <div style={{ fontSize: '10px', fontWeight: 700, color: '#666', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'flex', justifyContent: 'space-between' }}>
         PRÓXIMOS PASSOS
-        <span>Ver Todos</span>
+        <span style={{ color: '#1565c0', cursor: 'pointer', textTransform: 'none' }}>Ver Todos</span>
       </div>
 
-      <div className="steps-list">
-        <div className={`step-item ${activeStep.activeStepId === 1 ? 'active-next' : ''}`}>
-          <div className="step-icon">➔</div>
-          <div className="step-content">
-            <div className="step-dist">Em 90m</div>
-            <div className="step-title">Vire à direita na alameda oeste</div>
-          </div>
-          <span className="step-arrow">›</span>
-        </div>
-
-        <div className={`step-item ${activeStep.activeStepId === 2 ? 'active-next' : ''}`}>
-          <div className="step-icon">↑</div>
-          <div className="step-content">
-            <div className="step-dist">Em 30m</div>
-            <div className="step-title">Contorne o bloco das Lojas Americanas pela lateral oeste</div>
-          </div>
-          <span className="step-arrow">›</span>
-        </div>
-
-        <div className={`step-item ${activeStep.activeStepId === 3 ? 'active-next' : ''}`}>
-          <div className="step-icon">➔</div>
-          <div className="step-content">
-            <div className="step-dist">Em 60m</div>
-            <div className="step-title">Vire à direita no apron norte, corredor A</div>
-          </div>
-          <span className="step-arrow">›</span>
-        </div>
-
-        <div className={`step-item ${activeStep.activeStepId === 4 ? 'active-next' : ''}`}>
-          <div className="step-icon green">📍</div>
-          <div className="step-content">
-            <div className="step-dist" style={{ color: '#2e7d32' }}>Chegada</div>
-            <div className="step-title">Sua vaga está à esquerda (Vaga A-145)</div>
-          </div>
-          <span className="step-arrow">›</span>
-        </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        {[
+          { id: 1, text: 'Vire à direita na alameda oeste', dist: 'Em 90m', icon: '➔' },
+          { id: 2, text: 'Contorne o bloco das Lojas Americanas pela lateral oeste', dist: 'Em 30m', icon: '↑' },
+          { id: 3, text: 'Vire à direita no apron norte, corredor A', dist: 'Em 60m', icon: '➔' },
+          { id: 4, text: 'Sua vaga está à esquerda (Vaga A-145)', dist: 'Chegada', icon: '📍', isGreen: true }
+        ].map((item) => {
+          const isActive = activeStep.activeStepId === item.id;
+          return (
+            <div key={item.id} style={{
+              background: isActive ? '#f1f8e9' : '#ffffff',
+              border: isActive ? '1.5px solid #2e7d32' : 'none',
+              borderRadius: '14px', padding: '10px 12px', display: 'flex', alignItems: 'center', gap: '10px',
+              opacity: isActive ? 1 : 0.7, transition: 'all 0.3s ease'
+            }}>
+              <div style={{
+                width: '28px', height: '28px',
+                backgroundColor: item.isGreen ? '#2e7d32' : '#0d47a1',
+                borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', flexShrink: 0, fontSize: '12px'
+              }}>
+                {item.icon}
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: '9px', fontWeight: 700, color: item.isGreen ? '#2e7d32' : '#1565c0' }}>{item.dist}</div>
+                <div style={{ fontSize: '11px', fontWeight: 700, color: '#1a1a1a' }}>{item.text}</div>
+              </div>
+              <span style={{ color: '#999', fontSize: '12px' }}>›</span>
+            </div>
+          );
+        })}
       </div>
 
       {isLastStep && (
-        <div className="banner-arrival" style={{ display: 'block' }}>
+        <div style={{ backgroundColor: '#e8f5e9', color: '#2e7d32', textAlign: 'center', padding: '10px', borderRadius: '12px', fontSize: '11px', fontWeight: 700 }}>
           🎉 Você chegou na vaga A-145!
         </div>
       )}
 
-      <div className="actions-row">
-        <button className="btn-secondary" onClick={onBack}>Voltar ao Mapa</button>
-        <button className={`btn-primary-action ${isLastStep ? 'finish' : ''}`} onClick={handleNextStep}>
+      {/* Botões Inferiores */}
+      <div style={{ display: 'flex', gap: '10px', marginTop: '4px' }}>
+        <button onClick={onBack} style={{
+          flex: 1, backgroundColor: '#ffffff', color: '#333333', border: '1px solid #d1d5db', padding: '11px', borderRadius: '12px', fontSize: '12px', fontWeight: 700, cursor: 'pointer'
+        }}>
+          Voltar ao Mapa
+        </button>
+        <button onClick={handleNextStep} style={{
+          flex: 1, backgroundColor: isLastStep ? '#2e7d32' : '#1565c0', color: '#ffffff', border: 'none', padding: '11px', borderRadius: '12px', fontSize: '12px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px'
+        }}>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <polygon points="3 11 22 2 13 21 11 13 3 11" />
           </svg>
