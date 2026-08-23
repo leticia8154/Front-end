@@ -1,45 +1,28 @@
-/* Customizações e Efeitos para a Tela de Monitoramento */
+/* Container do App com o tom azul suave do protótipo */
+.app-card {
+  background-color: #eaf2ff;
+}
 
-/* Animação e transição suave da barra de progresso do tempo */
+/* Transição suave da barra de progresso */
 .progress-bar-fill {
   transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Efeito de brilho sutil nos cards de métricas */
+/* Efeito nos cards de métrica */
 .metric-card-tempo {
-  background: linear-gradient(135deg, rgba(239, 246, 255, 0.9) 0%, rgba(219, 234, 254, 0.5) 100%);
+  background: linear-gradient(135deg, rgba(239, 246, 255, 0.9) 0%, rgba(219, 234, 254, 0.6) 100%);
   border: 1px solid rgba(191, 219, 254, 0.8);
 }
 
 .metric-card-valor {
-  background: linear-gradient(135deg, rgba(236, 253, 245, 0.9) 0%, rgba(209, 250, 229, 0.5) 100%);
+  background: linear-gradient(135deg, rgba(236, 253, 245, 0.9) 0%, rgba(209, 250, 229, 0.6) 100%);
   border: 1px solid rgba(167, 243, 208, 0.8);
 }
 
-/* Efeito de destaque no botão "Encontre meu Carro" ao passar o mouse */
-.btn-find-car {
-  transition: all 0.2s ease-in-out;
-}
-
-.btn-find-car:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
-}
-
-.btn-find-car:active {
-  transform: translateY(0);
-}
-
-/* Pulso discreto no indicador de tempo ativo */
+/* Animação do ícone */
 @keyframes pulse-dot {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.5;
-    transform: scale(1.15);
-  }
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.15); }
 }
 
 .animate-pulse-dot {

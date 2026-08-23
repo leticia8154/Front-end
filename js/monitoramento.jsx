@@ -1,10 +1,9 @@
 const { useState, useEffect } = React;
 
 function MonitoramentoApp() {
-  const [minutes, setMinutes] = useState(13);
-  const [amount, setAmount] = useState(1.84);
+  const [minutes, setMinutes] = useState(14);
+  const [amount, setAmount] = useState(1.98);
 
-  // Simulação de tempo decorrido
   useEffect(() => {
     const timer = setInterval(() => {
       setMinutes((prev) => prev + 1);
@@ -14,7 +13,7 @@ function MonitoramentoApp() {
   }, []);
 
   return (
-    <div className="w-full max-w-md sm:max-w-lg bg-[#e8f1fd] rounded-[32px] border border-slate-200/80 shadow-2xl p-4 sm:p-6 flex flex-col gap-4 text-slate-800 font-sans mx-auto">
+    <div className="w-full max-w-md sm:max-w-lg app-card rounded-[32px] border border-white/20 shadow-2xl p-4 sm:p-6 flex flex-col gap-4 text-slate-800 font-sans mx-auto">
       
       {/* Header */}
       <header className="flex items-center gap-3">
@@ -37,15 +36,15 @@ function MonitoramentoApp() {
         onClick={() => (window.location.href = "navegacao.html")}
         className="w-full bg-white hover:bg-slate-50 border border-blue-500 text-blue-600 rounded-2xl py-3 text-xs font-bold shadow-xs transition-all flex items-center justify-center gap-2"
       >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
         Encontre meu Carro
       </button>
 
-      {/* Card da Vaga e Tempo */}
-      <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm flex flex-col gap-4">
+      {/* Card da Vaga e Métricas */}
+      <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-xs flex flex-col gap-4">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -53,16 +52,16 @@ function MonitoramentoApp() {
             </svg>
           </div>
           <div>
-            <div className="text-[10px] text-slate-400 font-bold uppercase">Vaga Atual</div>
+            <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">VAGA ATUAL</div>
             <div className="text-xl font-black text-slate-900">A145</div>
           </div>
         </div>
 
-        {/* Métricas de Tempo e Valor */}
+        {/* Métricas */}
         <div className="grid grid-cols-2 gap-3">
-          <div className="bg-blue-50/60 rounded-2xl p-3">
+          <div className="metric-card-tempo rounded-2xl p-3">
             <div className="flex items-center gap-1.5 text-blue-600 mb-1">
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5 animate-pulse-dot" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <span className="text-[10px] font-bold">Tempo</span>
@@ -70,7 +69,7 @@ function MonitoramentoApp() {
             <div className="text-base font-extrabold text-slate-900">0h {minutes}m</div>
           </div>
 
-          <div className="bg-emerald-50/60 rounded-2xl p-3">
+          <div className="metric-card-valor rounded-2xl p-3">
             <div className="flex items-center gap-1.5 text-emerald-600 mb-1">
               <span className="text-xs font-black">$</span>
               <span className="text-[10px] font-bold">Valor</span>
@@ -87,7 +86,7 @@ function MonitoramentoApp() {
           </div>
           <div className="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
             <div
-              className="bg-slate-900 h-full rounded-full transition-all duration-500"
+              className="progress-bar-fill bg-slate-900 h-full rounded-full"
               style={{ width: `${(minutes / 60) * 100}%` }}
             />
           </div>
@@ -95,7 +94,7 @@ function MonitoramentoApp() {
       </div>
 
       {/* Detalhes da Estadia */}
-      <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm flex flex-col gap-3">
+      <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-xs flex flex-col gap-3">
         <h3 className="text-xs font-bold text-slate-900">Detalhes da Estadia</h3>
 
         <div className="flex justify-between items-center text-xs py-1 border-b border-slate-100">
@@ -122,7 +121,7 @@ function MonitoramentoApp() {
       {/* Botão de Pagamento */}
       <div className="flex flex-col gap-2 mt-1">
         <button
-          onClick={() => alert("Pagamento Efetuado com Sucesso!")}
+          onClick={() => alert("Pagamento realizado com sucesso!")}
           className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-2xl py-3.5 text-xs font-bold shadow-md transition-all flex items-center justify-center gap-2"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -130,8 +129,8 @@ function MonitoramentoApp() {
           </svg>
           Realizar Pagamento
         </button>
-        <p className="text-[10px] text-center text-slate-400 font-medium">
-          ⏱ Você terá 20 minutos após o pagamento para sair
+        <p className="text-[10px] text-center text-slate-400 font-medium flex items-center justify-center gap-1">
+          <span>⏱</span> Você terá 20 minutos após o pagamento para sair
         </p>
       </div>
 
