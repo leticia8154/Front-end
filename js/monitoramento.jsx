@@ -1,13 +1,4 @@
-const STEPS = [
-  { progress: 0, x: 80, y: 71, title: 'Você está no interior da loja Riachuelo', dist: 'Distância total: 85m', btn: 'Iniciar Navegação' },
-  { progress: 25, x: 80, y: 43, title: 'Saia pela direita e siga reto pelo corredor lateral', dist: 'Distância: 30m', btn: 'Próximo Passo →' },
-  { progress: 50, x: 45, y: 43, title: 'Vire à esquerda no corredor acima do Átrio', dist: 'Distância: 22m', btn: 'Próximo Passo →' },
-  { progress: 75, x: 45, y: 28, title: 'Siga reto em direção ao estacionamento', dist: 'Distância: 18m', btn: 'Próximo Passo →' },
-  { progress: 100, x: 45, y: 12, title: 'Chegou à Vaga A-145!', dist: 'Seu carro está estacionado aqui', btn: 'Finalizar 🏁' }
-];
-
-// Componente 1: Tela de Monitoramento
-function MonitoramentoScreen({ onNavigateToRoute }) {
+function MonitoramentoApp() {
   return (
     <div className="bg-[#f8fafc] w-full max-w-[420px] rounded-[32px] p-[18px] shadow-2xl flex flex-col relative text-[#1e293b]">
       {/* Header */}
@@ -23,17 +14,17 @@ function MonitoramentoScreen({ onNavigateToRoute }) {
         </div>
       </div>
 
-      {/* Botão com Link para o Mapa */}
-      <button 
-        onClick={onNavigateToRoute}
-        className="w-full bg-white border border-[#2563eb] text-[#2563eb] font-bold text-sm py-2.5 px-4 rounded-full flex items-center justify-center gap-2 mb-4 hover:bg-blue-50 transition-colors shadow-sm"
+      {/* Link direto para encontrameucarro.html */}
+      <a 
+        href="encontrameucarro.html"
+        className="w-full bg-white border border-[#2563eb] text-[#2563eb] font-bold text-sm py-2.5 px-4 rounded-full flex items-center justify-center gap-2 mb-4 hover:bg-blue-50 transition-colors shadow-sm text-center"
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/>
           <circle cx="12" cy="10" r="3"/>
         </svg>
         Encontre meu Carro
-      </button>
+      </a>
 
       {/* Card Vaga Atual */}
       <div className="bg-white rounded-2xl p-4 border border-[#e2e8f0] mb-3">
@@ -116,151 +107,5 @@ function MonitoramentoScreen({ onNavigateToRoute }) {
   );
 }
 
-// Componente 2: Tela de Navegação do Mapa
-function NavigationScreen({ onBackToMonitoramento }) {
-  const [currentIdx, setCurrentIdx] = React.useState(0);
-  const step = STEPS[currentIdx];
-
-  const handleNext = () => {
-    if (currentIdx < STEPS.length - 1) {
-      setCurrentIdx(currentIdx + 1);
-    } else {
-      setCurrentIdx(0);
-      onBackToMonitoramento();
-    }
-  };
-
-  const handleBack = () => {
-    if (currentIdx > 0) {
-      setCurrentIdx(currentIdx - 1);
-    } else {
-      onBackToMonitoramento();
-    }
-  };
-
-  return (
-    <div className="app-card">
-      <header className="header-nav">
-        <button className="btn-back" onClick={handleBack}>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <path d="M15 18l-6-6 6-6" />
-          </svg>
-        </button>
-        <div className="header-titles">
-          <h1>Encontre meu Carro</h1>
-          <p>Planta Baixa · Térreo</p>
-        </div>
-      </header>
-
-      <div className="top-info-grid">
-        <div className="info-card vaga">
-          <span className="label">Vaga</span>
-          <span className="val">A-145</span>
-        </div>
-        <div className="info-card andar">
-          <span className="label">Pavimento</span>
-          <span className="val">Térreo</span>
-        </div>
-        <div className="info-card setor">
-          <span className="label">Setor</span>
-          <span className="val">Setor A</span>
-        </div>
-      </div>
-
-      <div className="map-card-wrapper">
-        <div className="map-canvas">
-          <div className="map-badge badge-left">Planta Baixa · Térreo</div>
-          <div className="map-badge badge-right">Modo...</div>
-
-          <div className="parking-zone top-parking">
-            <div className="dashed-lines"></div>
-          </div>
-
-          <div className="target-vaga-marker">
-            <span className="vaga-text-label">Vaga A-145</span>
-            <div className="green-circle-target"></div>
-          </div>
-
-          <div className="building-card">
-            <div className="building-row">
-              <div className="store-box store-amer">Lojas Americanas</div>
-              <div className="store-box store-carga">Carga & Serviços</div>
-              <div className="store-box store-ca1">C&A</div>
-            </div>
-
-            <div className="building-row mid-row">
-              <div className="atrium-oval">Praça Central / Átrio</div>
-            </div>
-
-            <div className="building-row">
-              <div className="store-box store-ca2">C&A</div>
-              <div className="store-box store-riach">Riachuelo</div>
-            </div>
-          </div>
-
-          <div className="entrada-sul-label">ENTRADA SUL</div>
-
-          <div className="parking-zone bottom-parking">
-            <div className="dashed-lines"></div>
-          </div>
-
-          <svg className="route-svg" viewBox="0 0 1000 1000" preserveAspectRatio="none">
-            <path 
-              d="M 800 710 L 800 430 L 450 430 L 450 120" 
-              fill="none" 
-              stroke="#ffffff" 
-              strokeWidth="14" 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-            />
-          </svg>
-
-          <div 
-            className="user-pin-marker" 
-            style={{ left: `${step.x}%`, top: `${step.y}%` }}
-          ></div>
-        </div>
-
-        <div className="progress-bar-container">
-          <div className="progress-bar-fill" style={{ width: `${step.progress}%` }}></div>
-        </div>
-      </div>
-
-      <div className="instruction-card">
-        <div className="current-step-box">
-          <div className="icon-step-arrow">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-            </svg>
-          </div>
-          <div className="step-details">
-            <h3>{step.title}</h3>
-            <span className="distance-tag">{step.dist}</span>
-          </div>
-        </div>
-      </div>
-
-      <button className="btn-primary-action" onClick={handleNext}>
-        {step.btn}
-      </button>
-    </div>
-  );
-}
-
-// Componente Principal
-function App() {
-  const [screen, setScreen] = React.useState('monitoramento');
-
-  return (
-    <>
-      {screen === 'monitoramento' ? (
-        <MonitoramentoScreen onNavigateToRoute={() => setScreen('rota')} />
-      ) : (
-        <NavigationScreen onBackToMonitoramento={() => setScreen('monitoramento')} />
-      )}
-    </>
-  );
-}
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+root.render(<MonitoramentoApp />);
