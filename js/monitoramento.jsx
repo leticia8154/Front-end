@@ -4,6 +4,7 @@ function MonitoramentoApp() {
   const [minutes, setMinutes] = useState(14);
   const [amount, setAmount] = useState(1.98);
 
+  // Simulação de tempo decorrido
   useEffect(() => {
     const timer = setInterval(() => {
       setMinutes((prev) => prev + 1);
@@ -33,7 +34,7 @@ function MonitoramentoApp() {
 
       {/* Botão Encontre meu Carro */}
       <button
-        onClick={() => (window.location.href = "navegacao.html")}
+        onClick={() => (window.location.href = "encontremeucarro.html")}
         className="w-full bg-white hover:bg-slate-50 border border-blue-500 text-blue-600 rounded-2xl py-3 text-xs font-bold shadow-xs transition-all flex items-center justify-center gap-2"
       >
         <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
