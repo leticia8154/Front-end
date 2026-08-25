@@ -1,48 +1,71 @@
 const { useState } = React;
 
-// --- DADOS DA NAVEGAÇÃO DE RETORNO À VAGA A145 ---
+// --- DADOS DE NAVEGAÇÃO INTERNA FIEL À PLANTA ( image_15.png ) ---
 const STEPS = [
   {
     id: 1,
+    icon: "🚶‍♂️",
     title: "Saia pela Entrada Sul",
-    dist: "Distância: 20m",
-    instruction: "Siga em direção à área externa do shopping",
-    mapPos: { x: 50, y: 82 }
+    dist: "Distância: 30m",
+    detail: "Ao passar pela Entrada Sul, dobre à esquerda na via externa",
+    mapPos: { x: 50, y: 78 } // Ponto azul na Entrada Sul ( image_8.png )
   },
   {
     id: 2,
-    title: "Caminhe até o Setor A",
-    dist: "Distância: 150m",
-    instruction: "Contorne o prédio pela Alameda Oeste",
-    mapPos: { x: 10, y: 50 }
+    icon: "➔",
+    title: "Siga direto contornando a fachada",
+    dist: "Distância: 180m",
+    detail: "Contorne a fachada das Lojas Americanas pela Alameda Oeste",
+    mapPos: { x: 22, y: 55 } // Trajeto contornando ( image_8.png )
   },
   {
     id: 3,
-    title: "Sua vaga é a A145",
-    dist: "Distância: 10m",
-    instruction: "O carro está logo à sua frente",
-    mapPos: { x: 38, y: 12 }
+    icon: "➔",
+    title: "Vire à direita ao norte",
+    dist: "Distância: 50m",
+    detail: "Vire à direita ao norte para acessar o Bolsão do Setor A",
+    mapPos: { x: 32, y: 22 } // Bolsão do Setor A ( image_8.png )
+  },
+  {
+    id: 4,
+    icon: "✅",
+    title: "Você chegou!",
+    dist: "Seu carro está à sua frente",
+    detail: "Sua vaga A145 está localizada à sua direita no Setor A",
+    mapPos: { x: 42, y: 15 } // Vaga A145 ( image_8.png )
   }
 ];
 
 function EncontreMeuCarroApp() {
   const [currentStep, setCurrentStep] = useState(0);
-  const [view, setView] = useState("2d");
   const totalSteps = STEPS.length;
-  const isLast = currentStep === totalSteps - 1;
+  const activeData = STEPS[currentStep];
 
-  const nextStep = () => {
-    if (currentStep < totalSteps - 1) setCurrentStep(currentStep + 1);
-    else window.location.href = "monitoramento.html";
+  const handleNext = () => {
+    if (currentStep < totalSteps - 1) {
+      setCurrentStep(currentStep + 1);
+    } else {
+      window.location.href = "monitoramento.html";
+    }
   };
 
+  const handlePrev = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+    } else {
+      window.location.href = "monitoramento.html";
+    }
+  };
+
+  const progressPercent = ((currentStep + 1) / totalSteps) * 100;
+
   return (
-    <div className="w-full max-w-md sm:max-w-lg app-card rounded-[32px] border border-white/20 shadow-2xl p-4 sm:p-6 flex flex-col gap-4 text-slate-800 font-sans mx-auto">
+    <div className="w-full max-w-md sm:max-w-lg app-card rounded-[32px] border border-white/20 shadow-2xl p-4 sm:p-6 flex flex-col gap-4 text-slate-800 font-sans mx-auto justify-between min-h-[640px]">
       
       {/* Header */}
       <header className="flex items-center gap-3">
         <button 
-          onClick={() => window.location.href = "monitoramento.html"}
+          onClick={handlePrev}
           className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-slate-700 shadow-sm border border-slate-200"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -50,103 +73,124 @@ function EncontreMeuCarroApp() {
           </svg>
         </button>
         <div>
-          <h1 className="text-base font-bold text-slate-900">Encontre meu Carro</h1>
-          <p className="text-xs text-slate-500">Navegação até seu veículo</p>
+          <h1 className="text-base font-bold text-slate-900 leading-tight">Encontre meu Carro</h1>
+          <p className="text-[11px] text-slate-500 font-medium">Navegação até seu veículo</p>
         </div>
       </header>
 
-      {/* Info Cards Row */}
-      <div className="grid grid-cols-3 gap-2">
-        <div className="bg-white p-2 rounded-xl text-center border border-slate-100">
-          <p className="text-[10px] text-slate-400 font-bold">Vaga</p>
-          <p className="text-sm font-black text-blue-600">A145</p>
+      {/* Grid de Informações Padronizado (Apenas Setor A) */}
+      <div className="grid grid-cols-2 gap-2">
+        <div className="bg-white p-2.5 rounded-2xl text-center border border-slate-100 shadow-xs">
+          <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">VAGA</p>
+          <p className="text-base font-black text-blue-600 mt-0.5">A145</p>
         </div>
-        <div className="bg-white p-2 rounded-xl text-center border border-slate-100">
-          <p className="text-[10px] text-slate-400 font-bold">Andar</p>
-          <p className="text-sm font-black text-slate-800">Térreo</p>
-        </div>
-        <div className="bg-white p-2 rounded-xl text-center border border-slate-100">
-          <p className="text-[10px] text-slate-400 font-bold">Setor</p>
-          <p className="text-sm font-black text-slate-800">Norte</p>
+        <div className="bg-white p-2.5 rounded-2xl text-center border border-slate-100 shadow-xs">
+          <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">SETOR</p>
+          <p className="text-base font-black text-slate-900 mt-0.5">Setor A</p>
         </div>
       </div>
 
-      {/* Mapa / Área Visual */}
-      <div className="relative bg-white rounded-3xl p-4 border border-slate-100 shadow-sm overflow-hidden min-h-[220px]">
-        {/* Simulação do Mapa 2D/3D Simplificado */}
-        <div className={`map-container h-40 w-full bg-slate-100 rounded-2xl relative ${view === '3d' ? '[transform:rotateX(45deg)]' : ''}`}>
-             <svg viewBox="0 0 100 100" className="w-full h-full">
-                <rect x="20" y="30" width="60" height="40" fill="#cbd5e1" rx="2" /> {/* Prédio */}
-                <circle cx={STEPS[currentStep].mapPos.x} cy={STEPS[currentStep].mapPos.y} r="4" fill="#3b82f6" /> {/* Usuário */}
-                <circle cx="38" cy="12" r="3" fill="#22c55e" /> {/* Carro A145 */}
-             </svg>
+      {/* Card do Mapa SVG Interativo e Fiel à Planta */}
+      <div className="bg-white rounded-3xl p-4 border border-slate-100 shadow-xs flex flex-col gap-4">
+        <div className="flex justify-between items-center px-1">
+          <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">ROTA ATÉ O VEÍCULO</span>
         </div>
 
-        {/* Barra de Progresso do Protótipo */}
-        <div className="mt-6 px-4">
-          <div className="progress-container">
-            <div className="progress-puck" style={{ left: `${(currentStep / (totalSteps - 1)) * 100}%` }}>
-               <svg className="w-3 h-3 text-white m-auto mt-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M21 16.5C21 16.88 20.79 17.21 20.47 17.38L12.57 21.82C12.41 21.94 12.21 22 12 22C11.79 22 11.59 21.94 11.43 21.82L3.53 17.38C3.21 17.21 3 16.88 3 16.5V7.5C3 7.12 3.21 6.79 3.53 6.62L11.43 2.18C11.59 2.06 11.79 2 12 2C12.21 2 12.41 2.06 12.57 2.18L20.47 6.62C20.79 6.79 21 7.12 21 7.5V16.5Z"/></svg>
-            </div>
+        {/* Display do Mapa SVG */}
+        <div className="relative w-full h-40 bg-slate-50 rounded-2xl overflow-hidden border border-slate-200/50">
+          <svg viewBox="0 0 100 100" className="w-full h-full">
+            {/* 1. Mapeamento dos Blocos Principais (Planta image_15.png ) */}
+            {/* Bolsões de Estacionamento Externo */}
+            <rect x="2" y="2" width="96" height="96" fill="#cbd5e1" rx="4" />
+            
+              {/* Lojas Principais (Anchors image_15.png ) */}
+            <rect x="30" y="30" width="12" height="12" fill="#e2e8f0" rx="1.5" stroke="#94a3b8" /> {/* Lojas Americanas ( image_15.png ) */}
+            <rect x="58" y="30" width="12" height="12" fill="#e2e8f0" rx="1.5" stroke="#94a3b8" /> {/* C&A ( image_15.png ) */}
+            <rect x="30" y="58" width="12" height="12" fill="#e2e8f0" rx="1.5" stroke="#94a3b8" /> {/* C&A ( image_15.png ) */}
+            <rect x="58" y="58" width="12" height="12" fill="#e2e8f0" rx="1.5" stroke="#94a3b8" /> {/* Riachuelo ( image_15.png ) */}
+            
+            <circle cx="50" cy="50" r="8" fill="#e2e8f0" stroke="#94a3b8" /> {/* Praça Central/Átrio ( image_15.png ) */}
+            
+            {/* 2. Trajeto SVG (image_8.png ) */}
+            <path d="M 50 78 L 22 78 L 22 55 L 32 22 L 42 15" fill="none" stroke="#2563eb" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="4 4" />
+
+            {/* 3. Marcador da Vaga A145 ( image_8.png ) */}
+            <circle cx="42" cy="15" r="4" fill="#10b981" stroke="white" strokeWidth="1.5" />
+            <text x="42" y="10" fontSize="6" textAnchor="middle" fill="#10b981" fontWeight="black">VAGA A145</text>
+
+            {/* 4. Marcador da Posição Atual ( image_8.png ) */}
+            <circle cx={activeData.mapPos.x} cy={activeData.mapPos.y} r="6" fill="#2563eb" className="animate-ping opacity-75" />
+            <circle cx={activeData.mapPos.x} cy={activeData.mapPos.y} r="5" fill="#2563eb" stroke="white" strokeWidth="2" />
+          </svg>
+        </div>
+
+        {/* Barra de Progresso Gradiente Fiel ao Protótipo */}
+        <div className="px-2 pt-1 pb-2">
+          <div className="relative w-full h-3 bg-slate-100 rounded-full overflow-hidden flex items-center">
+            <div 
+              className="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-full transition-all duration-500"
+              style={{ width: `${progressPercent}%` }}
+            />
           </div>
-          <p className="text-center text-[10px] font-bold text-slate-400 mt-2">Passo {currentStep + 1} de {totalSteps}</p>
+          <div className="flex justify-between items-center mt-2 px-1">
+            <span className="text-[10px] font-bold text-slate-400">Passo {currentStep + 1} de {totalSteps}</span>
+            <span className="text-[11px] font-extrabold text-blue-600">Encontre A145</span>
+          </div>
         </div>
-
-        <button 
-          onClick={() => setView(view === '2d' ? '3d' : '2d')}
-          className="absolute top-6 right-6 bg-white/90 px-3 py-1 rounded-full text-[10px] font-bold shadow-sm border border-slate-200"
-        >
-          {view === '2d' ? '3D' : '2D'}
-        </button>
       </div>
 
-      {/* Cards de Comando (Fiel ao Protótipo) */}
-      <div className="flex flex-col gap-3">
-        {currentStep < totalSteps - 1 ? (
-          <div className="bg-white rounded-2xl p-4 flex items-center gap-4 border border-blue-100 shadow-sm">
-            <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
-              →
+      {/* Bloco de Instruções do Passo Atual */}
+      <div className="flex flex-col gap-2">
+        {!activeData.isArrival ? (
+          <div className="bg-white rounded-2xl p-4 border border-slate-100 shadow-xs flex items-center gap-3">
+            <div className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-black text-xl shrink-0">
+              {activeData.icon}
             </div>
-            <div>
-              <p className="text-sm font-black text-slate-900">{STEPS[currentStep].title}</p>
-              <p className="text-[10px] text-slate-400 font-bold">📍 {STEPS[currentStep].dist}</p>
+            <div className="flex-1 min-w-0">
+              <h3 className="text-xs font-bold text-slate-900 truncate">{activeData.title}</h3>
+              <p className="text-[10px] text-blue-600 font-bold mt-0.5">📍 {activeData.dist}</p>
             </div>
           </div>
         ) : (
-          <div className="bg-white rounded-2xl p-6 text-center border border-emerald-100 shadow-sm flex flex-col items-center gap-2">
-            <div className="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center">
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+          <div className="bg-white rounded-2xl p-5 border border-emerald-100 shadow-xs text-center flex flex-col items-center gap-2">
+            <div className="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center font-black text-2xl">
+              {activeData.icon}
             </div>
-            <h2 className="text-xl font-black text-emerald-600">Você chegou!</h2>
-            <p className="text-xs text-slate-400 font-bold">Seu carro está à sua frente</p>
+            <div>
+              <h2 className="text-base font-black text-emerald-600">{activeData.title}</h2>
+              <p className="text-[11px] text-slate-500 font-medium mt-0.5">{activeData.dist}</p>
+            </div>
           </div>
         )}
 
-        {/* Lista de Próximos Passos (se houver) */}
+        {/* Próximos Passos (se não for o último) */}
         {currentStep < totalSteps - 1 && (
-          <div className="px-2">
-             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Próximos Passos</p>
-             <div className="flex items-center gap-3 opacity-40">
-                <div className="w-6 h-6 bg-slate-300 rounded-full flex items-center justify-center text-[10px] text-white">2</div>
-                <p className="text-xs font-bold text-slate-600">{STEPS[currentStep + 1].title}</p>
-             </div>
+          <div className="bg-white/60 rounded-2xl p-3 border border-slate-200/60 flex flex-col gap-2 opacity-50">
+            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">PRÓXIMO PASSO</span>
+            <div className="flex items-center gap-2 text-slate-500">
+                <div className="w-5 h-5 rounded-full bg-slate-200 flex items-center justify-center text-[10px] font-bold text-slate-600">
+                  {currentStep + 2}
+                </div>
+                <p className="text-xs font-semibold text-slate-700 truncate">{STEPS[currentStep + 1].title}</p>
+            </div>
           </div>
         )}
       </div>
 
-      {/* Botão de Ação */}
+      {/* Botão de Ação Inferior */}
       <button 
-        onClick={nextStep}
-        className={`w-full py-4 rounded-2xl text-xs font-bold shadow-md transition-all ${
-          isLast ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-blue-600 hover:bg-blue-700'
-        } text-white mt-auto`}
+        onClick={handleNext}
+        className={`w-full py-4 rounded-2xl text-xs font-bold shadow-md transition-all text-white ${
+          activeData.isArrival ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-blue-600 hover:bg-blue-700'
+        }`}
       >
-        {isLast ? 'Finalizar Rota' : 'Próximo Passo'}
+        {activeData.isArrival ? 'Finalizar Rota' : 'Próximo Passo ➔'}
       </button>
 
     </div>
   );
 }
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const rootElement = document.getElementById("root");
+const root = ReactDOM.createRoot(rootElement);
 root.render(<EncontreMeuCarroApp />);
