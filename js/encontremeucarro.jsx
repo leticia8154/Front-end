@@ -5,17 +5,17 @@ const STEPS = [
     id: 1,
     icon: "🛍️",
     title: "Saia da Riachuelo",
-    dist: "Distancia: 10m",
-    detail: "Saia da loja Riachuelo em direcao ao corredor principal do shopping",
-    mapPos: { x: 68, y: 64 }
+    dist: "Distancia: 15m",
+    detail: "Saia da loja Riachuelo pelo acesso principal para o corredor do atrio central",
+    mapPos: { x: 70, y: 60 }
   },
   {
     id: 2,
     icon: "🚶",
-    title: "Siga pelo corredor interno",
-    dist: "Distancia: 45m",
-    detail: "Caminhe reto em direcao ao Norte, passando ao lado das lojas CEA e Americanas",
-    mapPos: { x: 50, y: 45 }
+    title: "Siga pelo corredor central",
+    dist: "Distancia: 40m",
+    detail: "Caminhe em direcao ao Norte passando em frente as lojas C&A",
+    mapPos: { x: 50, y: 40 }
   },
   {
     id: 3,
@@ -29,10 +29,10 @@ const STEPS = [
     id: 4,
     icon: "✅",
     title: "Voce chegou!",
-    dist: "Seu carro esta a sua esquerda",
-    detail: "A vaga A145 fica no Bolsuo Norte do Setor A",
+    dist: "Seu carro esta a sua direita",
+    detail: "A vaga A145 fica no Setor A (Bolsao Oeste)",
     isArrival: true,
-    mapPos: { x: 42, y: 16 }
+    mapPos: { x: 25, y: 16 }
   }
 ];
 
@@ -62,6 +62,7 @@ function EncontreMeuCarroApp() {
   return (
     <div className="w-full max-w-md sm:max-w-lg app-card rounded-[32px] border border-white/20 shadow-2xl p-4 sm:p-6 flex flex-col gap-4 text-slate-800 font-sans mx-auto min-h-[660px] justify-between">
       
+      {/* Header */}
       <header className="flex items-center gap-3">
         <button 
           onClick={handlePrev}
@@ -73,10 +74,11 @@ function EncontreMeuCarroApp() {
         </button>
         <div className="flex-1 min-w-0">
           <h1 className="text-base font-bold text-slate-900 truncate">Encontre meu Carro</h1>
-          <p className="text-xs text-slate-500 truncate">Origem: Loja Riachuelo para Vaga A145</p>
+          <p className="text-xs text-slate-500 truncate">Origem: Riachuelo para Vaga A145 (Setor A)</p>
         </div>
       </header>
 
+      {/* Cards Indicadores */}
       <div className="grid grid-cols-2 gap-3">
         <div className="bg-white p-3 rounded-2xl text-center border border-slate-100 shadow-xs flex flex-col items-center justify-center">
           <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">VAGA</p>
@@ -84,56 +86,77 @@ function EncontreMeuCarroApp() {
         </div>
         <div className="bg-white p-3 rounded-2xl text-center border border-slate-100 shadow-xs flex flex-col items-center justify-center">
           <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">SETOR</p>
-          <p className="text-lg font-black text-slate-900 mt-0.5">Setor A</p>
+          <p className="text-lg font-black text-slate-900 mt-0.5">Setor A (Oeste)</p>
         </div>
       </div>
 
+      {/* Planta SVG Fiel */}
       <div className="bg-white rounded-3xl p-4 border border-slate-100 shadow-xs flex flex-col gap-3">
         <div className="flex justify-between items-center px-1">
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">PLANTA BAIXA SUPERIOR</span>
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">PLANTA BAIXA REAL</span>
           <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">Terreo</span>
         </div>
 
-        <div className="relative w-full h-52 bg-[#e2e8f0] rounded-2xl overflow-hidden border border-slate-300">
+        <div className="relative w-full h-56 bg-[#e2e8f0] rounded-2xl overflow-hidden border border-slate-300">
           <svg viewBox="0 0 100 100" className="w-full h-full">
+            {/* Estacionamento Externo */}
             <rect x="0" y="0" width="100" height="100" fill="#cbd5e1"></rect>
-            
-            <line x1="10" y1="12" x2="90" y2="12" stroke="#94a3b8" strokeWidth="0.5" strokeDasharray="1 1"></line>
-            <line x1="10" y1="18" x2="90" y2="18" stroke="#94a3b8" strokeWidth="0.5" strokeDasharray="1 1"></line>
 
-            <rect x="20" y="24" width="60" height="54" fill="#ffffff" stroke="#475569" strokeWidth="1.5" rx="2"></rect>
+            {/* Marcacoes de Vagas do Setor A (Lado Esquerdo/Norte) */}
+            <line x1="5" y1="12" x2="40" y2="12" stroke="#94a3b8" strokeWidth="0.5" strokeDasharray="1 1"></line>
+            <line x1="5" y1="18" x2="40" y2="18" stroke="#94a3b8" strokeWidth="0.5" strokeDasharray="1 1"></line>
+            <text x="20" y="8" fontSize="2.5" textAnchor="middle" fill="#475569" fontWeight="bold">SETOR A</text>
+
+            {/* Estrutura do Shopping */}
+            <rect x="15" y="24" width="70" height="54" fill="#ffffff" stroke="#334155" strokeWidth="1.2" rx="1.5"></rect>
+
+            {/* Atrio / Corredor Central */}
             <rect x="44" y="24" width="12" height="54" fill="#f8fafc"></rect>
+            <text x="50" y="50" fontSize="2" textAnchor="middle" fill="#94a3b8" fontWeight="bold">ATRIO CENTRAL</text>
 
-            <rect x="22" y="26" width="20" height="22" fill="#fee2e2" stroke="#fca5a5" strokeWidth="0.8" rx="1"></rect>
-            <text x="32" y="37" fontSize="2.5" textAnchor="middle" fill="#991b1b" fontWeight="bold">Americanas</text>
+            {/* Lojas Lado Esquerdo (C&A / Pequenas Lojas) */}
+            <rect x="17" y="26" width="25" height="24" fill="#e0e7ff" stroke="#a5b4fc" strokeWidth="0.6" rx="1"></rect>
+            <text x="29" y="38" fontSize="3" textAnchor="middle" fill="#3730a3" fontWeight="bold">C&A</text>
 
-            <rect x="58" y="26" width="20" height="22" fill="#e0e7ff" stroke="#a5b4fc" strokeWidth="0.8" rx="1"></rect>
-            <text x="68" y="37" fontSize="3" textAnchor="middle" fill="#3730a3" fontWeight="bold">CEA</text>
+            <rect x="17" y="52" width="25" height="24" fill="#f1f5f9" stroke="#cbd5e1" strokeWidth="0.6" rx="1"></rect>
+            <text x="29" y="64" fontSize="2.2" textAnchor="middle" fill="#64748b" fontWeight="bold">LOJAS 01-04</text>
 
-            <rect x="22" y="52" width="20" height="24" fill="#e0e7ff" stroke="#a5b4fc" strokeWidth="0.8" rx="1"></rect>
-            <text x="32" y="64" fontSize="3" textAnchor="middle" fill="#3730a3" fontWeight="bold">CEA</text>
+            {/* Lojas Lado Direito (Riachuelo / Americanas) */}
+            <rect x="58" y="26" width="25" height="24" fill="#fee2e2" stroke="#fca5a5" strokeWidth="0.6" rx="1"></rect>
+            <text x="70" y="38" fontSize="2.5" textAnchor="middle" fill="#991b1b" fontWeight="bold">AMERICANAS</text>
 
-            <rect x="58" y="52" width="20" height="24" fill="#fef3c7" stroke="#fde047" strokeWidth="0.8" rx="1"></rect>
-            <text x="68" y="64" fontSize="3" textAnchor="middle" fill="#854d0e" fontWeight="bold">Riachuelo</text>
+            <rect x="58" y="52" width="25" height="24" fill="#fef3c7" stroke="#fde047" strokeWidth="0.6" rx="1"></rect>
+            <text x="70" y="64" fontSize="3" textAnchor="middle" fill="#854d0e" fontWeight="bold">RIACHUELO</text>
 
-            <circle cx="50" cy="51" r="5" fill="#dcfce7" stroke="#4ade80" strokeWidth="0.6"></circle>
-
-            <rect x="45" y="23" width="10" height="2" fill="#1e40af" rx="0.5"></rect>
+            {/* Saidas e Entradas */}
+            <rect x="45" y="23" width="10" height="2" fill="#1e40af" rx="0.3"></rect>
             <text x="50" y="21" fontSize="2.2" textAnchor="middle" fill="#1e40af" fontWeight="black">SAIDA NORTE</text>
 
-            <rect x="45" y="77" width="10" height="2" fill="#64748b" rx="0.5"></rect>
+            <rect x="45" y="77" width="10" height="2" fill="#64748b" rx="0.3"></rect>
             <text x="50" y="81" fontSize="2" textAnchor="middle" fill="#475569" fontWeight="bold">ENTRADA SUL</text>
 
-            <path d="M 68 64 L 50 64 L 50 22 L 42 22 L 42 16" fill="none" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="2.5 1.5"></path>
+            {/* Linha da Rota da Riachuelo ate a Vaga A145 */}
+            <path 
+              d="M 70 60 L 50 60 L 50 22 L 25 22 L 25 16" 
+              fill="none" 
+              stroke="#2563eb" 
+              strokeWidth="1.8" 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeDasharray="2 1"
+            ></path>
 
-            <circle cx="42" cy="16" r="4" fill="#10b981" stroke="#ffffff" strokeWidth="1"></circle>
-            <text x="42" y="11" fontSize="3.5" textAnchor="middle" fill="#047857" fontWeight="black">A145</text>
+            {/* Marcador da Vaga A145 */}
+            <circle cx="25" cy="16" r="3.5" fill="#10b981" stroke="#ffffff" strokeWidth="0.8"></circle>
+            <text x="25" y="11" fontSize="3.2" textAnchor="middle" fill="#047857" fontWeight="black">A145</text>
 
-            <circle cx={activeData.mapPos.x} cy={activeData.mapPos.y} r="4" fill="#2563eb" stroke="#ffffff" strokeWidth="1"></circle>
-            <circle cx={activeData.mapPos.x} cy={activeData.mapPos.y} r="7" fill="#2563eb" className="animate-ping opacity-45"></circle>
+            {/* Indicador de Passo Atual */}
+            <circle cx={activeData.mapPos.x} cy={activeData.mapPos.y} r="3.5" fill="#2563eb" stroke="#ffffff" strokeWidth="0.8"></circle>
+            <circle cx={activeData.mapPos.x} cy={activeData.mapPos.y} r="6.5" fill="#2563eb" className="animate-ping opacity-45"></circle>
           </svg>
         </div>
 
+        {/* Barra de Progresso */}
         <div className="px-1 pt-1">
           <div className="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden border border-slate-200/50">
             <div 
@@ -148,6 +171,7 @@ function EncontreMeuCarroApp() {
         </div>
       </div>
 
+      {/* Card de Detalhes do Passo */}
       <div className="flex flex-col gap-2">
         {!activeData.isArrival ? (
           <div className="bg-white rounded-2xl p-4 border border-slate-100 shadow-xs flex items-center gap-3">
@@ -179,6 +203,7 @@ function EncontreMeuCarroApp() {
         )}
       </div>
 
+      {/* Botao de Acao */}
       <button 
         onClick={handleNext}
         className={`w-full mt-auto py-3.5 rounded-2xl text-xs font-bold shadow-md transition-all text-white flex items-center justify-center gap-2 ${
