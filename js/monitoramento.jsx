@@ -1,4 +1,23 @@
-function MonitoramentoApp() {
+// 1. Componente Principal que gerencia o fluxo de telas
+function App() {
+  // Estado para controlar a tela atual: 'monitoramento' | 'encontreCarro'
+  const [telaAtual, setTelaAtual] = React.useState('monitoramento');
+
+  return (
+    <div className="min-h-screen bg-slate-200 flex items-center justify-center p-4">
+      {telaAtual === 'monitoramento' && (
+        <MonitoramentoApp onAbrirEncontreCarro={() => setTelaAtual('encontreCarro')} />
+      )}
+
+      {telaAtual === 'encontreCarro' && (
+        <EncontreMeuCarroApp onVoltar={() => setTelaAtual('monitoramento')} />
+      )}
+    </div>
+  );
+}
+
+// 2. Tela de Monitoramento (recebe a propriedade `onAbrirEncontreCarro`)
+function MonitoramentoApp({ onAbrirEncontreCarro }) {
   return (
     <div className="bg-[#f8fafc] w-full max-w-[420px] rounded-[32px] p-[18px] shadow-2xl flex flex-col relative text-[#1e293b]">
       {/* Header */}
@@ -14,17 +33,18 @@ function MonitoramentoApp() {
         </div>
       </div>
 
-      {/* Link corrigido para encontremeucarro.html */}
-      <a 
-        href="encontremeucarro.html"
-        className="w-full bg-white border border-[#2563eb] text-[#2563eb] font-bold text-sm py-2.5 px-4 rounded-full flex items-center justify-center gap-2 mb-4 hover:bg-blue-50 transition-colors shadow-sm text-center"
+      {/* Botão Encontre Meu Carro (Agora chama a função ao clicar) */}
+      <button 
+        onClick={onAbrirEncontreCarro}
+        type="button"
+        className="w-full bg-white border border-[#2563eb] text-[#2563eb] font-bold text-sm py-2.5 px-4 rounded-full flex items-center justify-center gap-2 mb-4 hover:bg-blue-50 transition-colors shadow-sm text-center cursor-pointer"
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/>
           <circle cx="12" cy="10" r="3"/>
         </svg>
         Encontre meu Carro
-      </a>
+      </button>
 
       {/* Card Vaga Atual */}
       <div className="bg-white rounded-2xl p-4 border border-[#e2e8f0] mb-3">
@@ -107,5 +127,6 @@ function MonitoramentoApp() {
   );
 }
 
+// 3. Renderizando o App raiz
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<MonitoramentoApp />);
+root.render(<App />);

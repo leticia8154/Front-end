@@ -1,141 +1,250 @@
 import React, { useState } from 'react';
-import './styles.css';
+import './encontremeucarro.css';
 
 const STEPS = [
-  { progress: 0, x: 80, y: 71, title: 'Você está no interior da loja Riachuelo', dist: 'Distância total: 85m', btn: 'Iniciar Navegação' },
-  { progress: 25, x: 80, y: 43, title: 'Saia pela direita e siga reto pelo corredor lateral', dist: 'Distância: 30m', btn: 'Próximo Passo →' },
-  { progress: 50, x: 45, y: 43, title: 'Vire à esquerda no corredor acima do Átrio', dist: 'Distância: 22m', btn: 'Próximo Passo →' },
-  { progress: 75, x: 45, y: 28, title: 'Siga reto em direção ao estacionamento', dist: 'Distância: 18m', btn: 'Próximo Passo →' },
-  { progress: 100, x: 45, y: 12, title: 'Chegou à Vaga A-145!', dist: 'Seu carro está estacionado aqui', btn: 'Finalizar 🏁' }
+  {
+    id: 1,
+    title: "Você está no interior da loja Riachuelo",
+    distance: "Distância total: 85m",
+    btnText: "Iniciar Navegação",
+    progress: 5,
+    userPos: { x: 290, y: 310 }
+  },
+  {
+    id: 2,
+    title: "Saia pela direita e siga reto pelo corredor lateral",
+    distance: "Distância: 30m",
+    btnText: "Próximo Passo →",
+    progress: 30,
+    userPos: { x: 290, y: 195 }
+  },
+  {
+    id: 3,
+    title: "Vire à esquerda no corredor acima do Átrio",
+    distance: "Distância: 22m",
+    btnText: "Próximo Passo →",
+    progress: 55,
+    userPos: { x: 200, y: 195 }
+  },
+  {
+    id: 4,
+    title: "Siga reto em direção ao estacionamento",
+    distance: "Distância: 18m",
+    btnText: "Próximo Passo →",
+    progress: 80,
+    userPos: { x: 200, y: 130 }
+  },
+  {
+    id: 5,
+    title: "Chegou à Vaga A-145!",
+    distance: "Seu carro está estacionado aqui",
+    btnText: "Finalizar 🏁",
+    progress: 100,
+    userPos: { x: 200, y: 48 }
+  }
 ];
 
-export default function ParkingNavigation() {
-  const [currentIdx, setCurrentIdx] = useState(0);
-
-  const currentStep = STEPS[currentIdx];
+export default function EncontreMeuCarro() {
+  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const currentStep = STEPS[currentStepIndex];
 
   const handleNextStep = () => {
-    if (currentIdx < STEPS.length - 1) {
-      setCurrentIdx((prev) => prev + 1);
+    if (currentStepIndex < STEPS.length - 1) {
+      setCurrentStepIndex(prev => prev + 1);
     } else {
-      setCurrentIdx(0);
+      setCurrentStepIndex(0);
     }
   };
 
   const handlePrevStep = () => {
-    if (currentIdx > 0) {
-      setCurrentIdx((prev) => prev - 1);
+    if (currentStepIndex > 0) {
+      setCurrentStepIndex(prev => prev - 1);
+    } else {
+      setCurrentStepIndex(STEPS.length - 1);
     }
   };
 
   return (
-    <div className="app-card">
-      <header className="header-nav">
-        <button className="btn-back" onClick={handlePrevStep} aria-label="Voltar passo">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <path d="M15 18l-6-6 6-6" />
-          </svg>
+    <div className="app-container">
+      {/* Top Bar Header */}
+      <header className="header">
+        <button className="back-btn" onClick={handlePrevStep} aria-label="Voltar">
+          &#10094;
         </button>
         <div className="header-titles">
-          <h1>Encontre meu Carro</h1>
-          <p>Planta Baixa · Térreo</p>
+          <h1 className="header-title">Encontre meu Carro</h1>
+          <span className="header-subtitle">Planta Baixa · Térreo</span>
         </div>
       </header>
 
-      <div className="top-info-grid">
+      {/* Info Cards Row */}
+      <section className="info-cards">
         <div className="info-card vaga">
-          <span className="label">Vaga</span>
-          <span className="val">A-145</span>
+          <span className="info-card-label">VAGA</span>
+          <span className="info-card-val">A-145</span>
         </div>
-        <div className="info-card andar">
-          <span className="label">Pavimento</span>
-          <span className="val">Térreo</span>
+        <div className="info-card pavimento">
+          <span className="info-card-label">PAVIMENTO</span>
+          <span className="info-card-val">Térreo</span>
         </div>
         <div className="info-card setor">
-          <span className="label">Setor</span>
-          <span className="val">Setor A</span>
+          <span className="info-card-label">SETOR</span>
+          <span className="info-card-val">Setor A</span>
         </div>
+      </section>
+
+      {/* Interactive Map Section */}
+      <section className="map-container">
+        {/* Floating Top Badges */}
+        <div className="map-badges">
+          <div className="badge badge-white">Planta Baixa · Térreo</div>
+          <div className="badge badge-green">Vaga A-145</div>
+          <div className="badge badge-white">Modo...</div>
+        </div>
+
+        {/* Map SVG */}
+        <svg className="map-svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <radialGradient id="blueGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="#1d4ed8" stopOpacity="0.2" />
+            </radialGradient>
+          </defs>
+
+          {/* Map Background Grid Lines */}
+          <g stroke="#475569" strokeWidth="2" opacity="0.6">
+            <line x1="20" y1="10" x2="20" y2="60" />
+            <line x1="40" y1="10" x2="40" y2="60" />
+            <line x1="60" y1="10" x2="60" y2="60" />
+            <line x1="80" y1="10" x2="80" y2="60" />
+            <line x1="100" y1="10" x2="100" y2="60" />
+            <line x1="120" y1="10" x2="120" y2="60" />
+            <line x1="140" y1="10" x2="140" y2="60" />
+            <line x1="160" y1="10" x2="160" y2="60" />
+            <line x1="180" y1="10" x2="180" y2="60" />
+            <line x1="220" y1="10" x2="220" y2="60" />
+            <line x1="240" y1="10" x2="240" y2="60" />
+            <line x1="260" y1="10" x2="260" y2="60" />
+            <line x1="280" y1="10" x2="280" y2="60" />
+            <line x1="300" y1="10" x2="300" y2="60" />
+            <line x1="320" y1="10" x2="320" y2="60" />
+            <line x1="340" y1="10" x2="340" y2="60" />
+            <line x1="360" y1="10" x2="360" y2="60" />
+            <line x1="380" y1="10" x2="380" y2="60" />
+
+            <line x1="20" y1="340" x2="20" y2="390" />
+            <line x1="40" y1="340" x2="40" y2="390" />
+            <line x1="60" y1="340" x2="60" y2="390" />
+            <line x1="80" y1="340" x2="80" y2="390" />
+            <line x1="100" y1="340" x2="100" y2="390" />
+            <line x1="120" y1="340" x2="120" y2="390" />
+            <line x1="140" y1="340" x2="140" y2="390" />
+            <line x1="160" y1="340" x2="160" y2="390" />
+            <line x1="180" y1="340" x2="180" y2="390" />
+            <line x1="200" y1="340" x2="200" y2="390" />
+            <line x1="220" y1="340" x2="220" y2="390" />
+            <line x1="240" y1="340" x2="240" y2="390" />
+            <line x1="260" y1="340" x2="260" y2="390" />
+            <line x1="280" y1="340" x2="280" y2="390" />
+            <line x1="300" y1="340" x2="300" y2="390" />
+            <line x1="320" y1="340" x2="320" y2="390" />
+            <line x1="340" y1="340" x2="340" y2="390" />
+            <line x1="360" y1="340" x2="360" y2="390" />
+            <line x1="380" y1="340" x2="380" y2="390" />
+          </g>
+
+          {/* Central Building Layout */}
+          <rect x="130" y="80" width="200" height="230" rx="16" fill="#cbd5e1" />
+
+          {/* Top Stores */}
+          <g>
+            <rect x="140" y="90" width="80" height="50" rx="6" fill="#94a3b8" />
+            <text x="180" y="118" fill="#0f172a" fontSize="8" fontWeight="bold" textAnchor="middle">
+              Lojas Americanas
+            </text>
+
+            <rect x="225" y="90" width="50" height="35" rx="6" fill="#94a3b8" />
+            <text x="250" y="107" fill="#0f172a" fontSize="7" fontWeight="bold" textAnchor="middle">
+              Carga &amp;
+            </text>
+            <text x="250" y="117" fill="#0f172a" fontSize="7" fontWeight="bold" textAnchor="middle">
+              Serviços
+            </text>
+
+            <rect x="280" y="90" width="40" height="40" rx="6" fill="#94a3b8" />
+            <text x="300" y="114" fill="#0f172a" fontSize="8" fontWeight="bold" textAnchor="middle">
+              C&amp;A
+            </text>
+          </g>
+
+          {/* Middle Praça Central / Átrio Green Pill */}
+          <g>
+            <rect x="150" y="175" width="160" height="35" rx="17.5" fill="#bbf7d0" stroke="#22c55e" strokeWidth="2" />
+            <text x="230" y="196" fill="#0f172a" fontSize="10" fontWeight="bold" textAnchor="middle">
+              Praça Central / Átrio
+            </text>
+          </g>
+
+          {/* Bottom Stores */}
+          <g>
+            <rect x="140" y="245" width="70" height="45" rx="6" fill="#94a3b8" />
+            <text x="175" y="272" fill="#0f172a" fontSize="8" fontWeight="bold" textAnchor="middle">
+              C&amp;A
+            </text>
+
+            <rect x="235" y="245" width="85" height="45" rx="6" fill="#94a3b8" />
+            <text x="277" y="272" fill="#0f172a" fontSize="8" fontWeight="bold" textAnchor="middle">
+              Riachuelo
+            </text>
+          </g>
+
+          {/* Entrada Sul */}
+          <text x="230" y="325" fill="#38bdf8" fontSize="10" fontWeight="800" textAnchor="middle" letterSpacing="1">
+            ENTRADA SUL
+          </text>
+
+          {/* Path Polyline */}
+          <polyline
+            points="290,310 290,195 200,195 200,48"
+            fill="none"
+            stroke="#ffffff"
+            strokeWidth="5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+
+          {/* Target Destination Circle (Green Ring) */}
+          <circle cx="200" cy="48" r="11" fill="#22c55e" />
+          <circle cx="200" cy="48" r="6" fill="#2e3b4e" />
+
+          {/* Current User Location Marker */}
+          <circle cx={currentStep.userPos.x} cy={currentStep.userPos.y} r="18" fill="url(#blueGlow)" />
+          <circle cx={currentStep.userPos.x} cy={currentStep.userPos.y} r="8" fill="#2563eb" stroke="#ffffff" strokeWidth="2.5" />
+        </svg>
+      </section>
+
+      {/* Progress Bar */}
+      <div className="progress-container">
+        <div className="progress-bar" style={{ width: `${currentStep.progress}%` }}></div>
       </div>
 
-      <div className="map-card-wrapper">
-        <div className="map-canvas">
-          <div className="map-badge badge-left">Planta Baixa · Térreo</div>
-          <div className="map-badge badge-right">Modo...</div>
-
-          <div className="parking-zone top-parking">
-            <div className="dashed-lines"></div>
-          </div>
-
-          <div className="target-vaga-marker">
-            <span className="vaga-text-label">Vaga A-145</span>
-            <div className="green-circle-target"></div>
-          </div>
-
-          <div className="building-card">
-            <div className="building-row">
-              <div className="store-box store-amer">Lojas Americanas</div>
-              <div className="store-box store-carga">Carga & Serviços</div>
-              <div className="store-box store-ca1">C&A</div>
-            </div>
-
-            <div className="building-row mid-row">
-              <div className="atrium-oval">Praça Central / Átrio</div>
-            </div>
-
-            <div className="building-row">
-              <div className="store-box store-ca2">C&A</div>
-              <div className="store-box store-riach">Riachuelo</div>
-            </div>
-          </div>
-
-          <div className="entrada-sul-label">ENTRADA SUL</div>
-
-          <div className="parking-zone bottom-parking">
-            <div className="dashed-lines"></div>
-          </div>
-
-          <svg className="route-svg" viewBox="0 0 1000 1000" preserveAspectRatio="none">
-            <path
-              d="M 800 710 L 800 430 L 450 430 L 450 120"
-              fill="none"
-              stroke="#ffffff"
-              strokeWidth="14"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+      {/* Instruction Card */}
+      <section className="instruction-card">
+        <div className="icon-circle">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
           </svg>
-
-          <div
-            className="user-pin-marker"
-            style={{ left: `${currentStep.x}%`, top: `${currentStep.y}%` }}
-          ></div>
         </div>
-
-        <div className="progress-bar-container">
-          <div
-            className="progress-bar-fill"
-            style={{ width: `${currentStep.progress}%` }}
-          ></div>
+        <div className="instruction-info">
+          <span className="instruction-title">{currentStep.title}</span>
+          <span className="instruction-sub">{currentStep.distance}</span>
         </div>
-      </div>
+      </section>
 
-      <div className="instruction-card">
-        <div className="current-step-box">
-          <div className="icon-step-arrow">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
-            </svg>
-          </div>
-          <div className="step-details">
-            <h3>{currentStep.title}</h3>
-            <span className="distance-tag">{currentStep.dist}</span>
-          </div>
-        </div>
-      </div>
-
-      <button className="btn-primary-action" onClick={handleNextStep}>
-        {currentStep.btn}
+      {/* Action Navigation Button */}
+      <button className="action-btn" onClick={handleNextStep}>
+        {currentStep.btnText}
       </button>
     </div>
   );
