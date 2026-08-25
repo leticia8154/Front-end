@@ -1,132 +1,143 @@
-// 1. Componente Principal que gerencia o fluxo de telas
-function App() {
-  // Estado para controlar a tela atual: 'monitoramento' | 'encontreCarro'
-  const [telaAtual, setTelaAtual] = React.useState('monitoramento');
+const { useState, useEffect } = React;
+
+function MonitoramentoApp() {
+  const [minutes, setMinutes] = useState(14);
+  const [amount, setAmount] = useState(1.98);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setMinutes((prev) => prev + 1);
+      setAmount((prev) => parseFloat((prev + 0.14).toFixed(2)));
+    }, 10000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-slate-200 flex items-center justify-center p-4">
-      {telaAtual === 'monitoramento' && (
-        <MonitoramentoApp onAbrirEncontreCarro={() => setTelaAtual('encontreCarro')} />
-      )}
-
-      {telaAtual === 'encontreCarro' && (
-        <EncontreMeuCarroApp onVoltar={() => setTelaAtual('monitoramento')} />
-      )}
-    </div>
-  );
-}
-
-// 2. Tela de Monitoramento (recebe a propriedade `onAbrirEncontreCarro`)
-function MonitoramentoApp({ onAbrirEncontreCarro }) {
-  return (
-    <div className="bg-[#f8fafc] w-full max-w-[420px] rounded-[32px] p-[18px] shadow-2xl flex flex-col relative text-[#1e293b]">
+    <div className="w-full max-w-md sm:max-w-lg app-card rounded-[32px] border border-white/20 shadow-2xl p-4 sm:p-6 flex flex-col gap-4 text-slate-800 font-sans mx-auto">
+      
       {/* Header */}
-      <div className="flex items-center gap-3 mb-3">
-        <button className="w-[38px] h-[38px] rounded-full border border-[#cbd5e1] bg-white flex items-center justify-center text-[#334155] shadow-sm">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <path d="M15 18l-6-6 6-6" />
+      <header className="flex items-center gap-3">
+        <button
+          onClick={() => (window.location.href = "checkin.html")}
+          className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-slate-700 shadow-sm border border-slate-200/60 hover:bg-slate-50 transition-colors"
+        >
+          <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
           </svg>
         </button>
-        <div>
-          <h1 className="text-[1.1rem] font-extrabold text-[#0f172a]">Monitoramento</h1>
-          <p className="text-[0.75rem] text-[#64748b]">Acompanhe seu estacionamento</p>
+        <div className="flex-1 min-w-0">
+          <h1 className="text-base font-bold text-slate-900 truncate">Monitoramento</h1>
+          <p className="text-xs text-slate-500 truncate">Acompanhe seu estacionamento</p>
         </div>
-      </div>
+      </header>
 
-      {/* Botão Encontre Meu Carro (Agora chama a função ao clicar) */}
-      <button 
-        onClick={onAbrirEncontreCarro}
-        type="button"
-        className="w-full bg-white border border-[#2563eb] text-[#2563eb] font-bold text-sm py-2.5 px-4 rounded-full flex items-center justify-center gap-2 mb-4 hover:bg-blue-50 transition-colors shadow-sm text-center cursor-pointer"
+      {/* Botão Encontre meu Carro */}
+      <button
+        onClick={() => (window.location.href = "navegacao.html")}
+        className="w-full bg-white hover:bg-slate-50 border border-blue-500 text-blue-600 rounded-2xl py-3 text-xs font-bold shadow-xs transition-all flex items-center justify-center gap-2"
       >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/>
-          <circle cx="12" cy="10" r="3"/>
+        <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
         Encontre meu Carro
       </button>
 
-      {/* Card Vaga Atual */}
-      <div className="bg-white rounded-2xl p-4 border border-[#e2e8f0] mb-3">
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-10 h-10 rounded-full bg-[#dbeafe] flex items-center justify-center text-[#2563eb]">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/>
-              <circle cx="12" cy="10" r="3"/>
+      {/* Card da Vaga e Métricas */}
+      <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-xs flex flex-col gap-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
             </svg>
           </div>
           <div>
-            <span className="text-[0.65rem] font-bold text-[#64748b] tracking-wider uppercase block">VAGA ATUAL</span>
-            <span className="text-xl font-extrabold text-[#0f172a]">A145</span>
+            <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">VAGA ATUAL</div>
+            <div className="text-xl font-black text-slate-900">A145</div>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 mb-3">
-          <div className="bg-[#eff6ff] border border-[#bfdbfe] rounded-xl p-3">
-            <div className="flex items-center gap-1.5 text-[#2563eb] text-xs font-semibold mb-1">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        {/* Métricas */}
+        <div className="grid grid-cols-2 gap-3">
+          <div className="metric-card-tempo rounded-2xl p-3">
+            <div className="flex items-center gap-1.5 text-blue-600 mb-1">
+              <svg className="w-3.5 h-3.5 animate-pulse-dot" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              Tempo
+              <span className="text-[10px] font-bold">Tempo</span>
             </div>
-            <div className="text-lg font-extrabold text-[#0f172a]">0h 50m</div>
+            <div className="text-base font-extrabold text-slate-900">0h {minutes}m</div>
           </div>
 
-          <div className="bg-[#f0fdf4] border border-[#bbf7d0] rounded-xl p-3">
-            <div className="flex items-center gap-1.5 text-[#16a34a] text-xs font-semibold mb-1">
-              <span className="font-bold">$</span> Valor
+          <div className="metric-card-valor rounded-2xl p-3">
+            <div className="flex items-center gap-1.5 text-emerald-600 mb-1">
+              <span className="text-xs font-black">$</span>
+              <span className="text-[10px] font-bold">Valor</span>
             </div>
-            <div className="text-lg font-extrabold text-[#16a34a]">R$ 7,02</div>
+            <div className="text-base font-extrabold text-emerald-600">R$ {amount.toFixed(2).replace(".", ",")}</div>
           </div>
         </div>
 
+        {/* Barra de Progresso */}
         <div>
-          <div className="flex justify-between text-[0.7rem] text-[#64748b] font-medium mb-1">
+          <div className="flex justify-between text-[10px] font-bold text-slate-400 mb-1">
             <span>Progresso até próxima hora</span>
-            <span>10 min restantes</span>
+            <span>{60 - minutes} min restantes</span>
           </div>
-          <div className="w-full bg-[#e2e8f0] h-2 rounded-full overflow-hidden">
-            <div className="bg-[#0f172a] h-full w-[83%] rounded-full"></div>
+          <div className="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
+            <div
+              className="progress-bar-fill bg-slate-900 h-full rounded-full"
+              style={{ width: `${(minutes / 60) * 100}%` }}
+            />
           </div>
         </div>
       </div>
 
       {/* Detalhes da Estadia */}
-      <div className="bg-white rounded-2xl p-4 border border-[#e2e8f0] mb-4 text-xs space-y-2.5">
-        <h3 className="font-bold text-sm text-[#0f172a] mb-1">Detalhes da Estadia</h3>
-        <div className="flex justify-between text-[#64748b]">
-          <span>Check-In</span>
-          <span className="font-bold text-[#0f172a]">21:44</span>
+      <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-xs flex flex-col gap-3">
+        <h3 className="text-xs font-bold text-slate-900">Detalhes da Estadia</h3>
+
+        <div className="flex justify-between items-center text-xs py-1 border-b border-slate-100">
+          <span className="text-slate-400">Check-In</span>
+          <span className="font-bold text-slate-800">21:44</span>
         </div>
-        <div className="flex justify-between text-[#64748b]">
-          <span>Hora Atual</span>
-          <span className="font-bold text-[#0f172a]">21:58</span>
+
+        <div className="flex justify-between items-center text-xs py-1 border-b border-slate-100">
+          <span className="text-slate-400">Hora Atual</span>
+          <span className="font-bold text-slate-800">21:58</span>
         </div>
-        <div className="flex justify-between text-[#64748b]">
-          <span>Taxa por hora</span>
-          <span className="font-bold text-[#0f172a]">R$ 8,50</span>
+
+        <div className="flex justify-between items-center text-xs py-1 border-b border-slate-100">
+          <span className="text-slate-400">Taxa por hora</span>
+          <span className="font-bold text-slate-800">R$ 8,50</span>
         </div>
-        <div className="flex justify-between text-sm pt-2 border-t border-[#f1f5f9]">
-          <span className="font-bold text-[#0f172a]">Total a pagar</span>
-          <span className="font-extrabold text-[#16a34a] text-base">R$ 7,02</span>
+
+        <div className="flex justify-between items-center text-xs pt-1">
+          <span className="font-bold text-slate-900">Total a pagar</span>
+          <span className="text-base font-black text-emerald-600">R$ {amount.toFixed(2).replace(".", ",")}</span>
         </div>
       </div>
 
-      {/* Botão Pagamento */}
-      <button className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold text-sm py-3 rounded-xl flex items-center justify-center gap-2 shadow-md transition-colors mb-2">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
-        </svg>
-        Realizar Pagamento
-      </button>
-
-      <div className="text-center text-[0.68rem] text-[#64748b] flex items-center justify-center gap-1">
-        <span>⏱️</span> Você terá 20 minutos após o pagamento para sair
+      {/* Botão de Pagamento */}
+      <div className="flex flex-col gap-2 mt-1">
+        <button
+          onClick={() => alert("Pagamento realizado com sucesso!")}
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-2xl py-3.5 text-xs font-bold shadow-md transition-all flex items-center justify-center gap-2"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          Realizar Pagamento
+        </button>
+        <p className="text-[10px] text-center text-slate-400 font-medium flex items-center justify-center gap-1">
+          <span>⏱</span> Você terá 20 minutos após o pagamento para sair
+        </p>
       </div>
+
     </div>
   );
 }
 
-// 3. Renderizando o App raiz
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+const rootElement = document.getElementById("root");
+const root = ReactDOM.createRoot(rootElement);
+root.render(<MonitoramentoApp />);
