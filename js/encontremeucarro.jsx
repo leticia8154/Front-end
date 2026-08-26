@@ -6,33 +6,33 @@ const STEPS = [
     icon: "🛍️",
     title: "Saia da Riachuelo",
     dist: "Distancia: 15m",
-    detail: "Saia da loja Riachuelo pelo acesso principal para o corredor do atrio central",
-    mapPos: { x: 70, y: 60 }
+    detail: "Saia da porta principal da Riachuelo em direcao ao Atrio Central",
+    mapPos: { x: 38, y: 68 }
   },
   {
     id: 2,
     icon: "🚶",
-    title: "Siga pelo corredor central",
-    dist: "Distancia: 40m",
-    detail: "Caminhe em direcao ao Norte passando em frente as lojas C&A",
-    mapPos: { x: 50, y: 40 }
+    title: "Siga pelo Atrio Central",
+    dist: "Distancia: 35m",
+    detail: "Caminhe em direcao ao Norte pelo corredor principal em direcao a Saida Norte",
+    mapPos: { x: 51.5, y: 45 }
   },
   {
     id: 3,
     icon: "🚪",
     title: "Atravesse a Saida Norte",
     dist: "Distancia: 20m",
-    detail: "Saia pelas portas automaticas da Saida Norte em direcao ao estacionamento",
-    mapPos: { x: 50, y: 22 }
+    detail: "Saia pelas portas da Saida Norte em direcao ao estacionamento",
+    mapPos: { x: 51.5, y: 24 }
   },
   {
     id: 4,
     icon: "✅",
     title: "Voce chegou!",
     dist: "Seu carro esta a sua direita",
-    detail: "A vaga A145 fica no Setor A (Bolsao Oeste)",
+    detail: "A vaga A145 fica no Setor A (Bolsao Nordeste)",
     isArrival: true,
-    mapPos: { x: 25, y: 16 }
+    mapPos: { x: 72, y: 14 }
   }
 ];
 
@@ -86,11 +86,11 @@ function EncontreMeuCarroApp() {
         </div>
         <div className="bg-white p-3 rounded-2xl text-center border border-slate-100 shadow-xs flex flex-col items-center justify-center">
           <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">SETOR</p>
-          <p className="text-lg font-black text-slate-900 mt-0.5">Setor A (Oeste)</p>
+          <p className="text-lg font-black text-slate-900 mt-0.5">Setor A</p>
         </div>
       </div>
 
-      {/* Planta SVG Fiel */}
+      {/* Planta Fiel ao Desenho Original */}
       <div className="bg-white rounded-3xl p-4 border border-slate-100 shadow-xs flex flex-col gap-3">
         <div className="flex justify-between items-center px-1">
           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">PLANTA BAIXA REAL</span>
@@ -99,45 +99,50 @@ function EncontreMeuCarroApp() {
 
         <div className="relative w-full h-56 bg-[#e2e8f0] rounded-2xl overflow-hidden border border-slate-300">
           <svg viewBox="0 0 100 100" className="w-full h-full">
-            {/* Estacionamento Externo */}
+            {/* Fundo Estacionamento */}
             <rect x="0" y="0" width="100" height="100" fill="#cbd5e1"></rect>
 
-            {/* Marcacoes de Vagas do Setor A (Lado Esquerdo/Norte) */}
-            <line x1="5" y1="12" x2="40" y2="12" stroke="#94a3b8" strokeWidth="0.5" strokeDasharray="1 1"></line>
-            <line x1="5" y1="18" x2="40" y2="18" stroke="#94a3b8" strokeWidth="0.5" strokeDasharray="1 1"></line>
-            <text x="20" y="8" fontSize="2.5" textAnchor="middle" fill="#475569" fontWeight="bold">SETOR A</text>
+            {/* Vagas do Setor A (Lado Superior Direito - Nordeste) */}
+            <line x1="60" y1="10" x2="90" y2="10" stroke="#94a3b8" strokeWidth="0.5" strokeDasharray="1 1"></line>
+            <line x1="60" y1="16" x2="90" y2="16" stroke="#94a3b8" strokeWidth="0.5" strokeDasharray="1 1"></line>
+            <text x="75" y="7" fontSize="2.5" textAnchor="middle" fill="#334155" fontWeight="bold">SETOR A</text>
 
-            {/* Estrutura do Shopping */}
-            <rect x="15" y="24" width="70" height="54" fill="#ffffff" stroke="#334155" strokeWidth="1.2" rx="1.5"></rect>
+            {/* Estrutura do Predio do Shopping */}
+            <rect x="13" y="24" width="74" height="60" fill="#ffffff" stroke="#334155" strokeWidth="1.2" rx="1"></rect>
 
             {/* Atrio / Corredor Central */}
-            <rect x="44" y="24" width="12" height="54" fill="#f8fafc"></rect>
-            <text x="50" y="50" fontSize="2" textAnchor="middle" fill="#94a3b8" fontWeight="bold">ATRIO CENTRAL</text>
+            <rect x="47" y="24" width="9" height="60" fill="#f8fafc"></rect>
+            <text x="51.5" y="54" fontSize="1.8" textAnchor="middle" fill="#94a3b8" fontWeight="bold">ATRIO CENTRAL</text>
 
-            {/* Lojas Lado Esquerdo (C&A / Pequenas Lojas) */}
-            <rect x="17" y="26" width="25" height="24" fill="#e0e7ff" stroke="#a5b4fc" strokeWidth="0.6" rx="1"></rect>
-            <text x="29" y="38" fontSize="3" textAnchor="middle" fill="#3730a3" fontWeight="bold">C&A</text>
+            {/* Bloco Esquerdo Superior: C&A e Lojas Americanas */}
+            <rect x="15" y="26" width="15" height="26" fill="#e0e7ff" stroke="#a5b4fc" strokeWidth="0.5" rx="0.5"></rect>
+            <text x="22.5" y="40" fontSize="2.2" textAnchor="middle" fill="#3730a3" fontWeight="bold">CEA</text>
 
-            <rect x="17" y="52" width="25" height="24" fill="#f1f5f9" stroke="#cbd5e1" strokeWidth="0.6" rx="1"></rect>
-            <text x="29" y="64" fontSize="2.2" textAnchor="middle" fill="#64748b" fontWeight="bold">LOJAS 01-04</text>
+            <rect x="31" y="26" width="15" height="26" fill="#fee2e2" stroke="#fca5a5" strokeWidth="0.5" rx="0.5"></rect>
+            <text x="38.5" y="38" fontSize="1.7" textAnchor="middle" fill="#991b1b" fontWeight="bold">AMERICANAS</text>
 
-            {/* Lojas Lado Direito (Riachuelo / Americanas) */}
-            <rect x="58" y="26" width="25" height="24" fill="#fee2e2" stroke="#fca5a5" strokeWidth="0.6" rx="1"></rect>
-            <text x="70" y="38" fontSize="2.5" textAnchor="middle" fill="#991b1b" fontWeight="bold">AMERICANAS</text>
+            {/* Bloco Esquerdo Inferior: Riachuelo */}
+            <rect x="15" y="54" width="31" height="28" fill="#fef3c7" stroke="#fde047" strokeWidth="0.6" rx="0.5"></rect>
+            <text x="30.5" y="69" fontSize="3" textAnchor="middle" fill="#854d0e" fontWeight="bold">RIACHUELO</text>
 
-            <rect x="58" y="52" width="25" height="24" fill="#fef3c7" stroke="#fde047" strokeWidth="0.6" rx="1"></rect>
-            <text x="70" y="64" fontSize="3" textAnchor="middle" fill="#854d0e" fontWeight="bold">RIACHUELO</text>
+            {/* Bloco Direito: Lojas Menores (L-01, L-03, etc) */}
+            <rect x="57" y="26" width="28" height="26" fill="#f1f5f9" stroke="#cbd5e1" strokeWidth="0.5" rx="0.5"></rect>
+            <rect x="57" y="54" width="28" height="28" fill="#f1f5f9" stroke="#cbd5e1" strokeWidth="0.5" rx="0.5"></rect>
+            <text x="71" y="40" fontSize="2" textAnchor="middle" fill="#64748b" fontWeight="bold">LOJAS 01-04</text>
 
-            {/* Saidas e Entradas */}
-            <rect x="45" y="23" width="10" height="2" fill="#1e40af" rx="0.3"></rect>
-            <text x="50" y="21" fontSize="2.2" textAnchor="middle" fill="#1e40af" fontWeight="black">SAIDA NORTE</text>
+            {/* Portas / Acessos Principais */}
+            <rect x="47" y="23" width="9" height="1.8" fill="#1e40af" rx="0.3"></rect>
+            <text x="51.5" y="21" fontSize="2" textAnchor="middle" fill="#1e40af" fontWeight="black">SAIDA NORTE</text>
 
-            <rect x="45" y="77" width="10" height="2" fill="#64748b" rx="0.3"></rect>
-            <text x="50" y="81" fontSize="2" textAnchor="middle" fill="#475569" fontWeight="bold">ENTRADA SUL</text>
+            <rect x="47" y="84" width="9" height="1.8" fill="#64748b" rx="0.3"></rect>
+            <text x="51.5" y="88" fontSize="2" textAnchor="middle" fill="#475569" fontWeight="bold">SAIDA SUL</text>
 
-            {/* Linha da Rota da Riachuelo ate a Vaga A145 */}
+            {/* Porta de Saida da Riachuelo para o Atrio */}
+            <rect x="45.8" y="66" width="1.2" height="4" fill="#854d0e" rx="0.2"></rect>
+
+            {/* Rota (Riachuelo -> Atrio -> Saida Norte -> Setor A Vaga A145) */}
             <path 
-              d="M 70 60 L 50 60 L 50 22 L 25 22 L 25 16" 
+              d="M 38 68 L 51.5 68 L 51.5 24 L 72 24 L 72 14" 
               fill="none" 
               stroke="#2563eb" 
               strokeWidth="1.8" 
@@ -147,16 +152,16 @@ function EncontreMeuCarroApp() {
             ></path>
 
             {/* Marcador da Vaga A145 */}
-            <circle cx="25" cy="16" r="3.5" fill="#10b981" stroke="#ffffff" strokeWidth="0.8"></circle>
-            <text x="25" y="11" fontSize="3.2" textAnchor="middle" fill="#047857" fontWeight="black">A145</text>
+            <circle cx="72" cy="14" r="3.5" fill="#10b981" stroke="#ffffff" strokeWidth="0.8"></circle>
+            <text x="72" y="9" fontSize="3" textAnchor="middle" fill="#047857" fontWeight="black">A145</text>
 
-            {/* Indicador de Passo Atual */}
+            {/* Marcador de Posicao Atual */}
             <circle cx={activeData.mapPos.x} cy={activeData.mapPos.y} r="3.5" fill="#2563eb" stroke="#ffffff" strokeWidth="0.8"></circle>
             <circle cx={activeData.mapPos.x} cy={activeData.mapPos.y} r="6.5" fill="#2563eb" className="animate-ping opacity-45"></circle>
           </svg>
         </div>
 
-        {/* Barra de Progresso */}
+        {/* Progresso */}
         <div className="px-1 pt-1">
           <div className="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden border border-slate-200/50">
             <div 
@@ -203,7 +208,7 @@ function EncontreMeuCarroApp() {
         )}
       </div>
 
-      {/* Botao de Acao */}
+      {/* Botao de Navegacao */}
       <button 
         onClick={handleNext}
         className={`w-full mt-auto py-3.5 rounded-2xl text-xs font-bold shadow-md transition-all text-white flex items-center justify-center gap-2 ${
