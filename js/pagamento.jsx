@@ -198,8 +198,8 @@ function PagamentoApp() {
 
             <div className="vaga-info-box">
               <span className="vaga-label">Sua Vaga</span>
-              <h2 className="vaga-code">A70</h2>
-              <span className="vaga-location">Setor A • 1º Andar</span>
+              <h2 className="vaga-code">A-145</h2>
+              <span className="vaga-location">Setor A • Norte</span>
             </div>
 
             <div className="timer-box">
