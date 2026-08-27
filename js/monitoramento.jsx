@@ -54,7 +54,7 @@ function MonitoramentoApp() {
           </div>
           <div>
             <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">VAGA ATUAL</div>
-            <div className="text-xl font-black text-slate-900">A145</div>
+            <div className="text-xl font-black text-slate-900">A-145</div>
           </div>
         </div>
 
